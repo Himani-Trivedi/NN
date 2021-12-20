@@ -13,7 +13,13 @@
 
     <link href="style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="jquery-3.5.1.min.js"></script>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- jquery Ui -->
+     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">  
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
+      <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> 
 
     <style type="text/css">
         body{
@@ -26,7 +32,6 @@
 
     </style>
 </head>
-
 
 <body>
 
@@ -67,7 +72,7 @@
                         href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                 </div>
                
-                <div class="navbar-collapse collapse" style="background-color:rgba(63,187,192,255) ;" id="navbarSupportedContent" data-navbarbg="skin5">
+                <div class="navbar-collapse collapse" style="background-color:rgba(63,187,192,255) ; z-index: 0;" id="navbarSupportedContent" data-navbarbg="skin5">
                     
                  
                     <ul class="navbar-nav me-auto mt-md-0 ">
@@ -152,18 +157,28 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body"><br>
                                 <form class="form-horizontal form-material mx-2">
                                     <div class="form-group">
-                                        <label>Weekly Schedule</label>
+                                        <label>Weekly Schedule</label><br>
+                                        <span style="font-size:14px;color: red;">You can only update for next 10 days only</span>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>From</label>
+                                        <input type="text" class="form-control" id="from" style="">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>To</label>
+                                        <input type="text" class="form-control" id="to">
+                                    </div>
 
                                     <div class="form-group">
                                              <button type="button" class="btn btn-success mx-4 me-md-3 text-white" style="background-color:rgba(63,187,192,255); border:0px" onclick="funEna()">Update </button>                                           
                                     </div>
 
-<!-- Modal -->
+    <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -182,64 +197,64 @@
           </div>
         </div>  
 
-                                <fieldset disabled id="time"> 
-                                <div class="form-group">
-                                   <table class="table">
-                                          <thead style="background-color:rgba(63,187,192,255); color:white">
-                                            <tr>
-                                              <th scope="col">Timing</th>
-                                              <th scope="col">Mon</th>
-                                              <th scope="col">Tue</th>
-                                              <th scope="col">Wed</th>
-                                              <th scope="col">Thu</th>
-                                              <th scope="col">Fri</th>
-                                              <th scope="col">Sat</th>
-                                              <th scope="col">Sun</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                              <th scope="row">07:00 To 08:00</th>
-                                                <td>
-                                                  <input type="checkbox" name="mon[]" value="7">
-                                                </td>
-                                                <td>
-                                                  <input type="checkbox" name="tue[]" value="7">
-                                                </td>
-                                                <td>
-                                                  <input type="checkbox" name="wed[]" value="7">
-                                                </td>
-                                                <td>
-                                                  <input type="checkbox" name="thu[]" value="7">
-                                                </td>
-                                                <td>
-                                                  <input type="checkbox" name="fri[]" value="7">
-                                                </td>
-                                                <td>
-                                                  <input type="checkbox" name="sat[]" value="7">
-                                                </td>
-                                                <td>
-                                                  <input type="checkbox" name="sun[]" value="7">
-                                                </td>
-                                            </tr>
+                    <fieldset disabled id="time"> 
+                        <div class="form-group">
+                           <table class="table" id="tabel">
+                                  <thead style="background-color:rgba(63,187,192,255); color:white">
+                                    <tr id="tabelth" >
+                                      <th scope="col">Timing</th>
+                                      <th scope="col">Mon</th>
+                                      <th scope="col">Tue</th>
+                                      <th scope="col">Wed</th>
+                                      <th scope="col">Thu</th>
+                                      <th scope="col">Fri</th>
+                                      <th scope="col">Sat</th>
+                                      <th scope="col">Sun</th>                          
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">07:00 To 08:00</th>
+                                        <td>
+                                          <input type="checkbox" name="mon[]" value="7">
+                                        </td>
+                                        <td>
+                                          <input type="checkbox" name="tue[]" value="7">
+                                        </td>
+                                        <td>
+                                          <input type="checkbox" name="wed[]" value="7">
+                                        </td>
+                                        <td>
+                                          <input type="checkbox" name="thu[]" value="7">
+                                        </td>
+                                        <td>
+                                          <input type="checkbox" name="fri[]" value="7">
+                                        </td>
+                                        <td>
+                                          <input type="checkbox" name="sat[]" value="7">
+                                        </td>
+                                        <td>
+                                          <input type="checkbox" name="sun[]" value="7">
+                                        </td>
+                                    </tr>
 
-                                            <?php
-                                                  echo  rows(8);
-                                                  echo  rows(9);
-                                                  echo  rows(10);
-                                                  echo  rows(11);
-                                                  echo  rows(12);
-                                                  echo  rows(13);
-                                                  echo  rows(14);
-                                                  echo  rows(15);
-                                                  echo  rows(16);
-                                                  echo  rows(17);
-                                                  echo  rows(18);
-                                                  echo  rows(19);
-                                                  echo  rows(20);
-                                                  echo  rows(21);
-                                                  
-                                            ?>  
+                                        <?php
+                                              echo  rows(8);
+                                              echo  rows(9);
+                                              echo  rows(10);
+                                              echo  rows(11);
+                                              echo  rows(12);
+                                              echo  rows(13);
+                                              echo  rows(14);
+                                              echo  rows(15);
+                                              echo  rows(16);
+                                              echo  rows(17);
+                                              echo  rows(18);
+                                              echo  rows(19);
+                                              echo  rows(20);
+                                              echo  rows(21);
+                                              
+                                        ?>  
 
                                         <tr>
                                             <th scope="row" colspan="7">
@@ -259,12 +274,54 @@
             </div>   
         </tbody>
     </table>
+
 </div>
 </body>
 <script type="text/javascript">
+
+    let from,to;
+
     function funEna(){
         document.getElementById('time').disabled=false;
+        from=document.getElementById('from').value;
+        to=document.getElementById('to').value;
+
+        var f=new Date(from.slice(6,10),from.slice(3,5),from.slice(0,2));
+        var t=new Date(to.slice(6,10),to.slice(3,5),to.slice(0,2));
+
+        calcDate(f,t);
     }
+
+     function calcDate(f,t){
+         // To calculate the time difference of two dates
+            var Difference_In_Time = t.getTime() - f.getTime() ;
+              
+            // To calculate the no. of days between two dates
+            var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+              
+            console.log(Difference_In_Days);    
+    }
+
+
+    $(function(){
+        $('#from').datepicker({
+            dateFormat:"dd-mm-yy",
+            minDate:1,
+            maxDate:10,
+            onClose: function( selectedDate ) {
+            $( "#to" ).datepicker( "option", "minDate", selectedDate );
+            }
+        });
+
+        $('#to').datepicker({
+            dateFormat:"dd-mm-yy",
+            maxDate:10,
+             onClose: function( selectedDate ) {
+            $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+            }
+        });
+
+    });
 </script>
 <?php
 

@@ -1,17 +1,20 @@
 <?php
       include 'connect.php';
 
-if (isset($_SESSION['user']['terms'])) {
+if ((isset($_SESSION['user']['terms'])) && isset($_SESSION['user']['email'])) {
 ?>
 
   <!DOCTYPE html>
   <html>
   <head>
     <title>Nurse Registration </title>
+    <link href="../logo.jpeg" rel="icon">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style type="text/css">
         form{
@@ -34,7 +37,6 @@ if (isset($_SESSION['user']['terms'])) {
   </style>
   </head>
   <body>
-
     <div class="testbox">  
       <form method="post" id="cert_id" enctype="multipart/form-data">
         <div class="banner">
@@ -51,21 +53,25 @@ if (isset($_SESSION['user']['terms'])) {
               <label for="lname"> Last Name<span>*</span></label>
               <input id="lname" type="text" name="lname" required />
             </div>
-            <div class="item">
-              <label for="address">Email Address<span>*</span></label>
-              <input id="address" type="mail" name="mail" required />
-            </div>
+
             <div class="item">
               <label for="pass">Password<span>*</span></label>
-              <input id="pass" type="password" name="password" required / style="color: black;">
+               <label id="error" style="color:red;">Password Must Be Same</label>
+              <input id="pass" type="password" name="password" required style="color: black;">
             </div>
+
+             <div class="item">
+              <label for="pass">Confirm Password<span>*</span></label>
+              <input id="confirm_pass" type="password" name="confirm_pass" required style="color: black;">
+            </div>
+
             <div class="item">
               <label for="phone">Phone Number<span>*</span></label>
               <input id="phone" type="tel" name="phone" required />
             </div>
             <div class="item">
               <label for="phone">Profile Photo<span>*</span></label>
-              <input id="photo" type="file" name="photo" required  accept="image/*" />
+              <input id="photo" type="file" name="photo" required  accept="image/*" style="color: black;" />
             </div>
             <div class="item">
               <label for="gender">Male<span>*</span><label>
@@ -85,37 +91,32 @@ if (isset($_SESSION['user']['terms'])) {
   </body>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  </html>
-<?php
-  }
+  <script type="text/javascript">
+    $(function(){
+      $('#error').hide();
+
+    <?php
+}
   else{
     header('location:conditions.php');
   }
 
   if(isset($_POST['sub_pass1'])){
 
-      $_SESSION['user']['nurse_re_1']=$_POST;
+      if($_POST['password'] == $_POST['confirm_pass']){
+            $_SESSION['user']['nurse_re_1']=$_POST;
 
-      header('location:certificates.php');
-
-      // $sql="SELECT email FROM `re_nurse` where email='$mail'";
-    
-      // if(!$con){
-      //   die('DB error');
-      // }
-      // $result=mysqli_query($con,$sql);
-
-      // if(!$result){
-      //   die('Query prob');
-      // }
-    
-      // if(mysqli_num_rows($result) == 0){
-      //   $_SESSION['pass1']=$_POST;
-      //   header('location:certificates.php');
-      // }else{
-      //   header('location:error.php?u_ex=1');
-      // }
-
-
-    }
+           header('location:certificates.php');
+      }else{
+        echo "
+            $('#pass').focus();
+            $('#error').show();
+        ";
+      }
+  }
 ?>
+ });
+  </script>
+  </html>
+
+

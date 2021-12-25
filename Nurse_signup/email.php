@@ -33,6 +33,9 @@
             padding: 3px;
             margin-top: 10px;
         }
+        input{
+            color: black;
+        }
   </style>
 </head>
 <body>

@@ -23,6 +23,9 @@ include 'connect.php';
           font-family: "Roboto", sans-serif;
 
         }
+         input{
+            color: black;
+        }
 
         form{
           box-shadow: 5px 5px 8px rgba(63,187,192,0.7);
@@ -60,8 +63,7 @@ include 'connect.php';
       </fieldset>
 
       <div class="btn-block">
-        <button type="button" onclick="history.back()" class="btn" style="background-color:#3fbbc0; color:white;">Previous</button>
-        <button type="submit" class="btn" style="background-color:#3fbbc0; color:white;" name="sub_cert">Next</button>
+        <button type="submit" class="btn" style="background-color:#3fbbc0; color:white;" name="sub_cert">Experience</button>
       </div>
     </form>
   </div>

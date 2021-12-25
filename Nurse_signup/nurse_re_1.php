@@ -34,6 +34,10 @@ if ((isset($_SESSION['user']['terms'])) && isset($_SESSION['user']['email'])) {
             font-family: "Roboto", sans-serif;
         }
 
+         input{
+            color: black;
+        }
+
   </style>
   </head>
   <body>

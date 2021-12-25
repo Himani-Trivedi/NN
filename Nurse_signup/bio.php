@@ -27,6 +27,9 @@
             font-family: "Roboto", sans-serif;
             padding-bottom: 10%;
         }
+         input{
+            color: black;
+        }
 
         .box{
             box-shadow: -500px -500px 8px rgba(63,187,192,0.7);
@@ -57,7 +60,6 @@
                 <h3>Bio</h3>
             </div>
             <br />
-                <div class="colums">
                     <div class="item">
                         <label for="donation">Biography<span>*</span></label>
                         <br>
@@ -66,7 +68,6 @@
                         <span>This will be displayed into your profile.</span>
                         <button type="submit" name="sub_bio" class="btn" style="background-color:#3fbbc0; color:white;">Done</button>
                     </div>                      
-                </div>
           </form>
       </div>
 </body>

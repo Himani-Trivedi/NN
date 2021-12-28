@@ -68,6 +68,7 @@
                     <ul class="navbar-nav">
                      
                         <li class="nav-item dropdown">
+                            <a href="" style="color:black; padding-right:0px"><i class="fa fa-bell fa-2x"></i></a>
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
                                 <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal">1500 Rs.
                             </a>
@@ -247,11 +248,16 @@
                                         </div>
                                     </div> -->
                                     <div class="form-group">
-                                        <div class="col-sm-12 d-flex">
+                                        <div class="col-sm-12 d-flex ">
                                             <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Update
                                                 Profile</button>
+
+                                            <button class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;">Change Password
+                                            </button>
                                         </div>
                                     </div>
+
+                                    
                                 </form>
                             </div>
                         </div>

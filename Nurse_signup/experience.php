@@ -7,7 +7,8 @@
     }
 
 ?>
-
+    
+                                
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,17 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">  
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
+      <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> 
+
+      <script src= "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"> </script> 
+  
+    <script src= "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"> </script> 
+  
+    <link href= "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" /> 
 
 
     <style type="text/css">
@@ -73,7 +85,7 @@
                 </div>
 
                   <div class="colums">
-                        <div class="item">
+                        <!-- <div class="item">
                             <label for="certificate">From<span>*</span><label>
                             <input type="date" class="form-control" name="from[]" id="fromdate" required onfocusout="fromFun(this.value,'years')">
                         </div>
@@ -82,7 +94,19 @@
                             <label for="certificate">To<span>*</span><label>
                             <input type="date" class="form-control" name="To[]" id="todate" required onfocusout="toFun(this.value,'years')">
                         </div>
-                        <label ><span id="years"></span><label>
+                        <label ><span id="years"></span><label> -->
+
+
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="text" class="form-control" id="from" style="color:black;">
+                        </div>
+
+                        <div class="form-group">
+                            <label>To</label>
+                            <input type="text" class="form-control" id="to"  style="color:black;">
+                        </div>
+                        <label ><span id="years"> </span><label>
 
                  </div>
 
@@ -103,8 +127,8 @@
 
             <div class="btn-block">
                  <button type="button" name="add" id="add" class="btn" style="background-color:#3fbbc0; color:white;">Other Certificates</button> 
-                <button type="submit" class="btn" style="background-color:#3fbbc0; color:white;" name="goto_bio" formaction="bio.php">Bio</button>
-                <button type="submit" name="sub_exp" class="btn" style="background-color:#3fbbc0; color:white;">Done</button>
+                <button type="submit" id="bio_btn" class="btn" style="background-color:#3fbbc0; color:white;" disabled name="goto_bio" formaction="bio.php">Bio</button>
+                <button type="submit" name="sub_exp" class="btn" style="background-color:#3fbbc0; color:white;" id="done_btn" disabled>Done</button>
             </div>
         </form>
     </div>
@@ -166,17 +190,18 @@
       $(document).on('click', '.btn_remove', function(){  
            var button_id = $(this).attr("id");   
            $('#col'+button_id).remove();  
-      });  
+      }); 
+
+
  });
 
-    var from,to;
-    var years=[];
+    var from,to,fromdate,todate;
+    var years,total;
 
     function fromFun(e,i){
        from = new Date(e);
        if (typeof from !== 'undefined' && typeof to != 'undefined') {
-            calcDate(i);
-                
+            calcDate(i);         
         }
     }
 
@@ -187,26 +212,74 @@
         }
     }
 
-    function calcDate(i){
+    function calcDate(){
          // To calculate the time difference of two dates
             var Difference_In_Time = to.getTime() - from.getTime() ;
               
             // To calculate the no. of days between two dates
             var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
               
-            years.push(Difference_In_Days/365);
+            years=Difference_In_Days/365;
+            var y=Math.trunc(years);
 
-            if(years[years.length -1 ] > 2){
-                y=Math.trunc(years);
-                document.getElementById(i).innerText=y + " years Experience";
+            if(y >= 2){
+                document.getElementById("years").innerHTML=y + " Years Experience";
+                $('#bio_btn').removeAttr('disabled');
+                $('#done_btn').removeAttr('disabled');
+                console.log(total + "\n" + years);
             }else{
-                document.getElementById(i).innerText=" Not enough Experience";              
+                document.getElementById("years").innerHTML=y +" Years Not Enough"; 
+                $('#bio_btn').prop('disabled',true);
+                $('#done_btn').prop('disabled',true);             
             }
-
-            //console.log(years);
     }
 
+    $(function(){
+        $('#from').datepicker({
+            dateFormat:"dd-mm-yy",
+            changeYear:true,
+            changeMonth:true,
+            maxDate:0,
+            onClose: function( selectedDate ) {
+                $( "#to" ).datepicker( "option", "minDate", selectedDate );
+                fromdate=($(this).datepicker('getDate'));
+                console.log(fromdate);
+            },
+            onSelect: function(dateText, inst) { 
+                var date = $(this).datepicker('getDate'),
+                day  = date.getDate(),  
+                month = date.getMonth(),              
+                year =  date.getFullYear();
+                from=new Date(year,month,day);
+                if (typeof from !== 'undefined' && typeof to != 'undefined') {
+                    calcDate(); 
+                    console.log(from);
+                }
+            }
+        });
 
+        $('#to').datepicker({
+            dateFormat:"dd-mm-yy", 
+            changeYear:true,
+            changeMonth:true,
+            maxDate:0,
+            onClose: function( selectedDate ) {
+                $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+               
+            },
+            onSelect: function(dateText, inst) { 
+                var date = $(this).datepicker('getDate'),
+                day  = date.getDate(),  
+                month = date.getMonth(),              
+                year =  date.getFullYear();
+                to=new Date(year,month,day);
+                if (typeof from !== 'undefined' && typeof to != 'undefined') {
+                    calcDate(); 
+                    console.log(to);
+                }
+            }
+        });  
+    });
 </script>
 
 </html>

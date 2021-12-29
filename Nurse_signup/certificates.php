@@ -2,8 +2,8 @@
 <html>
 <?php
 include 'connect.php';
-  if(!((isset($_SESSION['user']['terms'])) && (isset($_SESSION['user']['nurse_re_1'])))){
-    header('location:conditions.php');
+  if(!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['nurse_re_1']))){
+      header('location:conditions.php');
   }
 ?>
 

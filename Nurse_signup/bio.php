@@ -43,7 +43,7 @@
 
         include 'connect.php';
 
-        if(!((isset($_SESSION['user']['terms'])) && (isset($_SESSION['user']['nurse_re_1'])) && (isset($_SESSION['user']['rn_Cert'])))){
+        if(!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['nurse_re_1'])) && !(isset($_SESSION['user']['rn_Cert']))){
              header('location:conditions.php');
         }
 

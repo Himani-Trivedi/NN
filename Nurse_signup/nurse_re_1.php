@@ -1,7 +1,9 @@
 <?php
       include 'connect.php';
 
-if ((isset($_SESSION['user']['terms'])) && isset($_SESSION['user']['email'])) {
+if (!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['email']))) {
+    header('location:conditions.php');
+}
 ?>
 
   <!DOCTYPE html>
@@ -100,25 +102,30 @@ if ((isset($_SESSION['user']['terms'])) && isset($_SESSION['user']['email'])) {
       $('#error').hide();
 
     <?php
-}
-  else{
-    header('location:conditions.php');
-  }
 
-  if(isset($_POST['sub_pass1'])){
+          if(isset($_POST['sub_pass1'])){
 
-      if($_POST['password'] == $_POST['confirm_pass']){
-            $_SESSION['user']['nurse_re_1']=$_POST;
+                    $_SESSION['user']['nurse_re_1']=$_POST;
 
-           header('location:certificates.php');
-      }else{
-        echo "
-            $('#pass').focus();
-            $('#error').show();
-        ";
-      }
-  }
-?>
+                    if ($_FILES['photo']['error'] == 0) {
+
+                      $fileName = $_FILES['photo']['name'];
+                      $n=rand(1000,9999);
+                      $dest = 'upload/' . $n.$fileName;
+          
+                      $_SESSION['user']['nurse_re_1']['profile_pic']=$_FILES['photo'];
+                      $_SESSION['user']['nurse_re_1']['profile_pic']['dest']=$dest;
+
+                      //  move_uploaded_file($_FILES['photo']['tmp_name'], $dest);
+                      header('location:certificates.php');
+              }else{
+                echo "
+                    $('#pass').focus();
+                    $('#error').show();
+                ";
+              }
+          }
+    ?>
  });
   </script>
   </html>

@@ -95,7 +95,6 @@
                             <label>To<span style="color:red;">*</span></label>
                             <input type="text" class="form-control" id="to"  style="color:black;" name="to[]">
                         </div>
-                        <input type="hidden" name="yrs" id="yrs">
                  </div>
 
                 <div class="colums">
@@ -116,24 +115,25 @@
 
             <div class="btn-block">
                  <button type="button" name="add" id="add" class="btn" style="background-color:#3fbbc0; color:white;">Other Certificates</button> 
-                <button type="submit" name="goto_bio" id="bio_btn" class="btn" style="background-color:#3fbbc0; color:white;" disabled  formaction="bio.php">Bio</button>
+                <button type="submit" name="goto_bio" id="bio_btn" class="btn" style="background-color:#3fbbc0; color:white;" disabled>Bio</button>
             </div>
         </form>
     </div>
-
     <?php
+        if(isset($_POST['goto_bio'])){
+               $_SESSION['user']['nurse_exp']=$_POST;
+               $_SESSION['user']['nurse_exp']['letter']=$_FILES['exp_let'];
 
-        if(isset($_POST['goto_bio']) ){
-               $_SESSION['user']['exp']=$_POST;
-               $_SESSION['user']['exp']['letter']=$_FILES['exp_let'];
-                header('location:bio.php');   
+    ?>
+<script>
+    window.location.href="bio.php";
+</script>
+    <?php
         }
-
     ?>
 </body>
 
 <script>
-    
     $(document).ready(function(){  
       var i=0;  
       $('#add').click(function(){  
@@ -294,17 +294,15 @@
             }
             total/=365;
             total=Math.trunc(total);
-            console.log(y);
-            console.log(total);
+            // console.log(y);
+            // console.log(total);
 
             if(total >= 2){
                 document.getElementById("years").innerHTML=total + " Years Experience";
-                document.getElementById("yrs").value=total + " years ";
                 $('#bio_btn').removeAttr('disabled');
                 $('#done_btn').removeAttr('disabled');
             }else{
                 document.getElementById("years").innerHTML=total +" Years Not Enough"; 
-                document.getElementById("yrs").value=total + " Years ";
                 $('#bio_btn').prop('disabled',true);
                 $('#done_btn').prop('disabled',true);             
             }

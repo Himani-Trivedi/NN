@@ -47,11 +47,10 @@
              header('location:conditions.php');
         }
 
-        if(isset($_POST['bio'])){
+        if(isset($_POST['sub_bio'])){
             $_SESSION['user']['bio']=$_POST['bio'];
             header('location:data.php');
         }
-
 
     ?>
 	<div class="testbox">
@@ -67,7 +66,13 @@
                         <span>Only 300 Characters Allowed.</span><br>
                         <span>This will be displayed into your profile.</span>
                         <button type="submit" name="sub_bio" class="btn" style="background-color:#3fbbc0; color:white;">Done</button>
-                    </div>                      
+                    </div>    
+                    
+                    <?php
+                             echo "Data:";
+                             print_r($_SESSION['user']['nurse_exp']);
+                    
+                    ?>
           </form>
       </div>
 </body>

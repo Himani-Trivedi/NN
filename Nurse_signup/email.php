@@ -110,12 +110,15 @@
             
               if(!$con){
                 die('Server Error Please Try Again');
+                echo "console.log('connection')";
               }
 
               $result=mysqli_query($con,$sql);
 
               if(!$result){
                 die('Query Error Try Again');
+                echo "console.log('result error')";
+
               }
             
               if(mysqli_num_rows($result) != 0){
@@ -138,7 +141,6 @@
           echo "document.getElementById('error').innerText='This is required'; $('#error').show();console.log('Fail Last');";     
         }
       }
-
 
       // Verification
       if(isset($_POST['email_verify'])){

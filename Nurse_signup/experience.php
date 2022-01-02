@@ -1,14 +1,9 @@
 <?php
-
     include 'connect.php';
-
     if(!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['nurse_re_1'])) && !(isset($_SESSION['user']['rn_Cert']))){
         header('location:conditions.php');
     }
-
-?>
-    
-                                
+?>                                  
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,6 +103,12 @@
                         <label for="certificate">Experience Letter<span>*</span><label>
                         <input type="file" class="fileToUpload form-control" name="exp_let[]" id="" accept="application/pdf" required>
                     </div>
+
+                    <div class="item">
+                        <input type="text" class="form-control" name="yrs[]" value="0" id="yr_s0" style="display: none;">
+                    </div>
+
+                    <input type="text" class="form-control" name="total_yrs" value="0" id="total_yrs" style="display: none;">
                 </div>
                 <label><sapn id="years"><label>
 
@@ -119,18 +120,36 @@
             </div>
         </form>
     </div>
+    <script>
     <?php
         if(isset($_POST['goto_bio'])){
-               $_SESSION['user']['nurse_exp']=$_POST;
-               $_SESSION['user']['nurse_exp']['letter']=$_FILES['exp_let'];
+            $dests=array();
+            $_SESSION['user']['nurse_exp']=$_POST;
 
-    ?>
-<script>
-    window.location.href="bio.php";
-</script>
-    <?php
+            for($c=0;$c<count($_POST['hos_name']);$c++){
+
+                $fileName2 = $_FILES['exp_let']['name'][$c];
+                $filearr2 = explode('.', $fileName2);
+
+                if (strtolower(end($filearr2)) != "pdf") {
+                    die("
+                            <script>
+                                alert('Wrong Certificate type Must be pdf');
+                            </script>
+                        ");
+                }else{
+                    $n=rand(100,999);
+                    $dest2 = 'upload/' .$n.$fileName2;
+                    array_push($dests, $dest2);                 
+                    move_uploaded_file($_FILES['exp_let']['tmp_name'][$c], $dest2);  
+                }
+            }
+            $_SESSION['user']['nurse_exp']['letter']['dest']=$dests;
+            echo "window.location.href='bio.php'";
         }
-    ?>
+?>
+</script>
+
 </body>
 
 <script>
@@ -173,6 +192,11 @@
                         <label for="certificate">Experience Letter<span>*</span><label>
                         <input type="file" class="fileToUpload form-control" name="exp_let[]" id="" accept="application/pdf" required>
                     </div>
+
+                    <div class="item">
+                        <input type="text" class="form-control" name="yrs[]" value="0" id="yr_s`+i+`" style="display: none;">
+                    </div>
+
                     <div class="item"><a type="button" name="remove" id="`+i+`" class="btn btn_remove" style="background-color:#3fbbc0; color:white;">X</a></div>
                 </div>                    
                 </div>
@@ -180,7 +204,7 @@
 
 
             $('#from'+ i).datepicker({
-                dateFormat:"dd-mm-yy",
+                dateFormat:"yy-mm-dd",
                 changeYear:true,
                 changeMonth:true,
                 maxDate:0,
@@ -195,13 +219,13 @@
                 from[i]=new Date(year,month,day);
                 if (typeof  from[i] !== 'undefined' && typeof to[i] != 'undefined') {
                     calcDate(i); 
-                    console.log(from);
+                    // console.log(from);
                 }
             }
             });
 
             $('#to' +i).datepicker({
-                dateFormat:"dd-mm-yy", 
+                dateFormat:"yy-mm-dd", 
                 changeYear:true,
                 changeMonth:true,
                 maxDate:0,
@@ -215,7 +239,7 @@
                     to[i]=new Date(year,month,day);
                     if (typeof from[i] !== 'undefined' && typeof to[i] != 'undefined') {
                         calcDate(i); 
-                        console.log(to);
+                        // console.log(to);
                     }
                 }
             }); 
@@ -230,7 +254,7 @@
       }); 
 
       $('#from').datepicker({
-            dateFormat:"dd-mm-yy",
+            dateFormat:"yy-mm-dd",
             changeYear:true,
             changeMonth:true,
             maxDate:0,
@@ -252,7 +276,7 @@
 
 
     $('#to').datepicker({
-        dateFormat:"dd-mm-yy", 
+        dateFormat:"yy-mm-dd",
         changeYear:true,
         changeMonth:true,
         maxDate:0,
@@ -291,6 +315,7 @@
         var total=0;
         for(var i=0;i<y.length;i++){
                 total+=y[i];
+                document.getElementById("yr_s"+i).value=Math.trunc((y[i])/365);
             }
             total/=365;
             total=Math.trunc(total);
@@ -299,10 +324,13 @@
 
             if(total >= 2){
                 document.getElementById("years").innerHTML=total + " Years Experience";
+                document.getElementById("total_yrs").value=total;
+
                 $('#bio_btn').removeAttr('disabled');
                 $('#done_btn').removeAttr('disabled');
             }else{
                 document.getElementById("years").innerHTML=total +" Years Not Enough"; 
+                document.getElementById("total_yrs").value=total;
                 $('#bio_btn').prop('disabled',true);
                 $('#done_btn').prop('disabled',true);             
             }

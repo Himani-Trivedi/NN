@@ -116,7 +116,7 @@ if (!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['email']))
                       $_SESSION['user']['nurse_re_1']['profile_pic']=$_FILES['photo'];
                       $_SESSION['user']['nurse_re_1']['profile_pic']['dest']=$dest;
 
-                      //  move_uploaded_file($_FILES['photo']['tmp_name'], $dest);
+                      move_uploaded_file($_SESSION['user']['nurse_re_1']['profile_pic']['tmp_name'], $_SESSION['user']['nurse_re_1']['profile_pic']['dest']);
                       header('location:certificates.php');
               }else{
                 echo "

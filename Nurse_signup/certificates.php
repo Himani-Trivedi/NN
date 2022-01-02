@@ -110,6 +110,8 @@ $(document).ready(function(){
 
             $_SESSION['user']['rn_Cert']=$_FILES['rn'];
             $_SESSION['user']['rn_Cert']['dest']=$dest;
+		        move_uploaded_file($_SESSION['user']['rn_Cert']['tmp_name'], $_SESSION['user']['rn_Cert']['dest']);
+
      
       }
 
@@ -136,12 +138,8 @@ $(document).ready(function(){
                       $_SESSION['user']['cert']['cer_file']=$_FILES['filename'];
                       array_push($dests, $dest2);                 
 
-                     //  move_uploaded_file($_FILES['filename']['tmp_name'][$c], $dest);
-                     // $sql2 = "INSERT INTO `re_nurse_cert`(`Email`, `c_name`, `c_certi`) VALUES ('$mail','$cert_name','$dest2')";
-                     // $result2=mysqli_query($con,$sql2);
-                     //  if (!$result2) {
-                     //      die('Query prob in other certs');
-                     //  }
+                      move_uploaded_file($_FILES['filename']['tmp_name'][$c], $dest2);
+                     
                   }
                   $_SESSION['user']['cert']['cer_file']['dest']=$dests;
                   header('location:experience.php');

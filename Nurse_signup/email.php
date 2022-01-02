@@ -106,7 +106,7 @@
              $to_email = $_POST['mail'];
              $md_email=md5($to_email);
 
-             $sql="SELECT email FROM `re_nurse` where email='$md_email'";
+             $sql="SELECT email FROM `requested_nurse` where email='$md_email'";
             
               if(!$con){
                 die('Server Error Please Try Again');

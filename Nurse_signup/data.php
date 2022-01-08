@@ -20,11 +20,11 @@
 			die("Not connected to db");
 		}
 
-		$mail=$_SESSION['user']['email'];
+		$mail2=$_SESSION['user']['email'];
 		$fname=$_SESSION['user']['nurse_re_1']['fname'];
 		$lname=$_SESSION['user']['nurse_re_1']['lname'];
 
-		$mail=md5($mail);
+		$mail=md5($mail2);
 		$name= "$fname $lname ";
 
 		$pass=$_SESSION['user']['nurse_re_1']['password'];
@@ -46,9 +46,8 @@
 		// echo $name."<br>";
 		// echo $pass."<br>";
 
-		$sql="INSERT INTO `requested_nurse`(`email`, `name`, `password`, `ph_no`, `gender`,`total_exp`, `profile_pic`, `rn_cert`, `bio`, `Approval_status`, `Added_time`) 
-		VALUES ('$mail','$name','$pass','$ph','$g', '$total','$photo','$rn','$bio',0,CURRENT_TIMESTAMP())";
-
+		$sql="INSERT INTO `requested_nurse`(`email`,`email2`, `name`, `password`, `ph_no`, `gender`,`total_exp`, `profile_pic`, `rn_cert`, `bio`, `Approval_status`, `Added_time`) 
+		VALUES ('$mail','$mail2','$name','$pass','$ph','$g', '$total','$photo','$rn','$bio',0,CURRENT_TIMESTAMP())";
 		$result=mysqli_query($con,$sql);
 
 		if(!$result){
@@ -80,7 +79,6 @@
 				$cert_dest=$data['cert']['cer_file']['dest'][$j];		
 
 				$sql_cert="INSERT INTO `certificates`( `email`, `certificate`, `course_name`) VALUES ('$mail','$cert_name','$cert_dest')";
-
 				$result2=mysqli_query($con,$sql_cert);
 
 				if (!$result2) {
@@ -92,6 +90,7 @@
 					}
 					die(mysqli_error($con));
 				}
+
 				// echo "Name :";
 				// print_r($cert_name);
 				// echo "<br>";
@@ -206,7 +205,7 @@
           </p>
         </div>
         <div class="btn-block">   
-          <button type="button" class="btn" style="background-color:#3fbbc0; color:white;" onclick="window.location.href='../system_nurses/profile.php'">Profile</button>
+          <button type="button" class="btn" style="background-color:#3fbbc0; color:white;" onclick="window.location.href='../system_nurses/profile.php?nurse=<?php echo $mail;?>'">Profile</button>
           <button type="button" class="btn" style="background-color:#3fbbc0; color:white;" onclick="window.location.href='../demo.php'">Home</button>
         </div>
       </fieldset>

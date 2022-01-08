@@ -62,7 +62,7 @@ if (!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['email']))
 
             <div class="item">
               <label for="pass">Password<span>*</span></label>
-               <label id="error" style="color:red;">Password Must Be Same</label>
+               <label id="error" style="color:red;display:none;">Password Must Be Same</label>
               <input id="pass" type="password" name="password" required style="color: black;">
             </div>
 
@@ -105,20 +105,26 @@ if (!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['email']))
 
           if(isset($_POST['sub_pass1'])){
 
-                    $_SESSION['user']['nurse_re_1']=$_POST;
+            if($_POST['password'] == $_POST['confirm_pass']){
+              $_SESSION['user']['nurse_re_1']=$_POST;
 
-                    if ($_FILES['photo']['error'] == 0) {
+              if ($_FILES['photo']['error'] == 0) {
 
-                      $fileName = $_FILES['photo']['name'];
-                      $n=rand(1000,9999);
-                      $dest = 'upload/' . $n.$fileName;
-          
-                      $_SESSION['user']['nurse_re_1']['profile_pic']=$_FILES['photo'];
-                      $_SESSION['user']['nurse_re_1']['profile_pic']['dest']=$dest;
+                $fileName = $_FILES['photo']['name'];
+                $n=rand(1000,9999);
+                $dest = 'upload/' . $n.$fileName;
+    
+                $_SESSION['user']['nurse_re_1']['profile_pic']=$_FILES['photo'];
+                $_SESSION['user']['nurse_re_1']['profile_pic']['dest']=$dest;
 
-                      move_uploaded_file($_SESSION['user']['nurse_re_1']['profile_pic']['tmp_name'], $_SESSION['user']['nurse_re_1']['profile_pic']['dest']);
-                      header('location:certificates.php');
-              }else{
+                move_uploaded_file($_SESSION['user']['nurse_re_1']['profile_pic']['tmp_name'], $_SESSION['user']['nurse_re_1']['profile_pic']['dest']);
+                header('location:certificates.php');
+            }else{
+              ?>
+               document.getElementById('error').style.display="inline";            
+              <?php
+            } 
+          }else{
                 echo "
                     $('#pass').focus();
                     $('#error').show();

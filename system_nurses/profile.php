@@ -1,6 +1,41 @@
+<?php
+        include '../connect.php';
+
+
+        if(isset($_REQUEST['nurse'])){
+
+            if(!$con){
+                die("Not connected to db");
+            }
+
+
+            $mail=$_REQUEST['nurse'];
+            $sql="SELECT * FROM `requested_nurse` WHERE email='$mail';";
+            $result=mysqli_query($con,$sql);
+
+            if(!$result){
+                die(mysqli_error($con));
+            }
+
+            if(mysqli_num_rows($result) == 1){
+                while($row=mysqli_fetch_assoc($result)){
+                    $name=$row['name'];
+                    $email=$row['email2'];
+                    $ph=$row['ph_no'];
+                    $bio=$row['bio'];
+                    $gender=$row['gender'];
+                    $rn=$row['rn_cert'];
+                    $yrs_exp=$row['total_exp'];
+                    $profile=$row['profile_pic'];
+                    $status=$row['Approval_status'];
+                }
+            }else{
+                die(mysqli_error($con));
+            }
+        }
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +54,6 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-
     <style type="text/css">
         body{
             font-family: "Roboto", sans-serif;
@@ -27,12 +61,8 @@
             color: #626262;
             font-weight: 500;
         }
-
-
     </style>
 </head>
-
-
 <body>
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
@@ -164,13 +194,13 @@
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-body profile-card">
-                                <center class="mt-4"> <img src="../profile.PNG"
+                                <center class="mt-4"> <img src="../Nurse_signup/<?php echo $profile;?>"
                                         class="rounded-circle" width="150" />
-                                    <h4 class="card-title mt-2">Himani Trivedi</h4>
-                                    <h6 class="card-subtitle">Female Nurse</h6>
+                                    <h4 class="card-title mt-2"><?php echo $name;?></h4>
+                                    <h6 class="card-subtitle"><?php echo $yrs_exp;?> years Experience</h6>
                                     <div class="row justify-content-center">
                                         <div class="col-4">
-                                            <a href="Aim4.pdf" target="_blank" class="link">
+                                            <a href="../Nurse_signup/<?php echo $rn;?>" target="_blank" class="link">
                                                <i class="fa fa-certificate"></i>
                                                 <span class="font-normal">RN Certificate</span>
                                             </a></div>
@@ -194,15 +224,15 @@
                                         <label class="col-md-12 mb-0">Full Name</label>
                                         <div class="col-md-12">
                                             <input type="text" 
-                                                class="form-control ps-0 form-control-line" disabled>
+                                                class="form-control ps-0 form-control-line" disabled value="<?php echo $name;?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
                                             <input type="email"
-                                                class="form-control ps-0 form-control-line" name="example-email"
-                                                id="example-email">
+                                                class="form-control ps-0 form-control-line" name="example-email" value="<?php echo $email;?>"
+                                                id="example-email" disabled>
                                         </div>
                                     </div>
                                    <!--  <div class="form-group">
@@ -216,22 +246,22 @@
                                         <label class="col-md-12 mb-0">Phone No</label>
                                         <div class="col-md-12">
                                             <input type="text" 
-                                                class="form-control ps-0 form-control-line">
+                                                class="form-control ps-0 form-control-line" disabled value="<?php echo $ph;?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Bio</label>
                                         <div class="col-md-12">
-                                            <textarea rows="5" class="form-control ps-0 form-control-line" style="resize:none;"></textarea>
+                                            <textarea rows="5" class="form-control ps-0 form-control-line" style="resize:none;" disabled><?php echo $bio;?></textarea>
                                         </div>
                                     </div>
 
                                      <div class="form-group">
                                         <div class="col-md-12">
                                             <label>Male</label>
-                                            <input type="radio"  class="form-input" name="gender">
+                                            <input type="radio"  class="form-input" name="gender" disabled id="male_radio"> 
                                             <label>Female</label>                                          
-                                            <input type="radio" class="form-input" name="gender">
+                                            <input type="radio" class="form-input" name="gender" disabled id="female_radio">
 
                                         </div>
                                     </div>
@@ -256,8 +286,7 @@
                                             </button>
                                         </div>
                                     </div>
-
-                                    
+                                  
                                 </form>
                             </div>
                         </div>
@@ -293,5 +322,22 @@
           </div>
         </div>
 </body>
+<script>
 
+        <?php
+            if(isset($_REQUEST['nurse']) && isset($gender)){
+                if($gender == 'f'){
+        ?>
+                    document.getElementById('female_radio').checked=true;
+        <?php
+                }else{
+        ?>
+                    document.getElementById('male_radio').checked=true;
+
+        <?php
+                }
+            }
+        
+        ?>
+</script>
 </html>

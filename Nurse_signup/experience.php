@@ -28,7 +28,7 @@
         rel="stylesheet" type="text/css" /> 
 
 
-    <style type="text/css">
+<style type="text/css">
          li,label{
           color: #2f2f2f;
           font-family: "Roboto", sans-serif;

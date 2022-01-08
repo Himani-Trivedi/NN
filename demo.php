@@ -4,7 +4,8 @@
 ?>
 
 
-<?php
+<?php   
+
  $ipaddress = $_SERVER['REMOTE_ADDR'];
  echo "Your IP Address is " . $ipaddress . "<br>";
 
@@ -12,4 +13,12 @@
  print_r($_SERVER['HTTP_USER_AGENT']);
 
  print_r(get_browser());
+
+ echo "<br>";
+ echo "<br>";
+ echo "<br>";
+
+ echo "Already Logged in";
+ echo "Not System Nurse";
+
 ?>

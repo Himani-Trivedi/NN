@@ -63,7 +63,7 @@
                         <label for="donation">Biography<span>*</span></label>
                         <br>
                         <textarea id="donation" rows="3" style="resize: none;color: black;" maxlength="300" required name="bio"></textarea>
-                        <span>Only 300 Characters Allowed.</span><br>
+                        <span>Only 300 Characters Allowed. Do not use any special characters like[',",.,etc..]</span><br>
                         <span>This will be displayed into your profile.</span>
                         <button type="submit" name="sub_bio" class="btn" style="background-color:#3fbbc0; color:white;">Done</button>
                     </div>    

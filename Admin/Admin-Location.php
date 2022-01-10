@@ -206,9 +206,6 @@
         </div>
     </div>
 
-    <footer class="footer text-center">
-        © 2021 Neighboring Nurse<a href="https://www.wrappixel.com/"> NN.com</a>
-    </footer>
     </div>
     </div>
 

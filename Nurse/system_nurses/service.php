@@ -1,3 +1,6 @@
+<?php 
+    include '../connect.php';
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -6,7 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
    
-    <title>Monster Lite Template by WrapPixel</title>
+    <title>Nurse Service</title>
+    <link href="../logo.jpeg" rel="icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="style.min.css" rel="stylesheet">
@@ -114,8 +118,8 @@
 
 
                         <li class="text-center p-20 upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/monsteradmin/"
-                                class="btn text-white mt-4" target="_blank" style="background-color:rgba(63,187,192,255) ">Log Out</a>
+                            <a href="../login/logout.php"
+                                class="btn text-white mt-4"  style="background-color:rgba(63,187,192,255) ">Log Out</a>
                         </li>
                     </ul>
 
@@ -126,7 +130,7 @@
         </aside>
         
         <div class="page-wrapper">
-            <div class="container-fluid">          
+            <div class="container-fluid" id="box1">          
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -170,12 +174,22 @@
                     </div>
                 </div>
             </div>
+
+            <div class="page-wrapper">
+                <div class="container-fluid" id="box2" >          
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                        <p style="font-size: 25px;">Please Wait for the Admin approval to Select Location, Services, Timming & to get into Search </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
         </div>
-           
-            <footer class="footer text-center">
-                © 2021 Neighboring Nurse <a href="../Medicio/index.html">NN.com</a>
-            </footer>
-           
+      
         </div>
     </div>
   
@@ -299,5 +313,20 @@
           </div>
         </div>
 </body>
-
+<script>
+ <?php
+        
+            if($_SESSION['status'] == 0){
+?>
+        document.getElementById('box1').style.display="none";
+        document.getElementById('box2').style.display="inline-block";
+<?php
+            }else{
+?>
+        document.getElementById('box1').style.display="inline-block";
+        document.getElementById('box2').style.display="none";   
+<?php
+            }
+    ?>
+</script>
 </html>

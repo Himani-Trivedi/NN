@@ -1,3 +1,7 @@
+<?php 
+    include '../connect.php';
+?>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
@@ -6,7 +10,8 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
    
-    <title>Time table</title>
+    <title>Nurse Timming</title>
+    <link href="../logo.jpeg" rel="icon">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -140,9 +145,9 @@
                                     aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> 
 
 
-                        <li class="text-center p-20 upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/monsteradmin/"
-                                class="btn text-white mt-4" target="_blank" style="background-color:rgba(63,187,192,255) ">Log Out</a>
+                          <li class="text-center p-20 upgrade-btn">
+                            <a href="../login/logout.php"
+                                class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
                         </li>
                     </ul>
 
@@ -152,8 +157,8 @@
             <!-- End Sidebar scroll-->
         </aside>
         
-        <div class="page-wrapper">
-            <div class="container-fluid">          
+        <div class="page-wrapper" >
+            <div class="container-fluid" id="box1">          
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -178,12 +183,13 @@
                                              <button type="button" class="btn btn-success mx-4 me-md-3 text-white" style="background-color:rgba(63,187,192,255); border:0px" onclick="funEna()">Update </button>                                           
                                     </div>
 
-    <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
+
+      <!-- Done Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Remove location</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Update Timmig</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body" style="font-size:17px;">
@@ -193,9 +199,9 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes</button>
                 <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;">No</button>
               </div>
-            </div>
           </div>
-        </div>  
+      </div>
+  </div> 
 
                     <fieldset disabled id="time"> 
                         <div class="form-group">
@@ -255,29 +261,37 @@
                                               echo  rows(21);
                                               
                                         ?>  
-
                                         <tr>
-                                            <th scope="row" colspan="7">
-                                                
-                                            <div class="form-group">
-                                             <button type="button" class="btn btn-success mx-4 me-md-3 text-white" style="background-color:rgba(63,187,192,255); border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Done </button>                                           
-                                            </div> 
+                                            <th scope="row" colspan="7">                                      
+                                              <div class="form-group">
+                                              <button type="button" class="btn btn-success mx-4 me-md-3 text-white" style="background-color:rgba(63,187,192,255); border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Done </button>                                           
+                                              </div> 
                                             </th>
-                                        </tr>  
-                                    </fieldset>      
+                                        </tr> 
+                                        </tbody>
+                                    </table>  
+                                  </fieldset>      
                                 </form>
-                                </div> 
-                            </div>
+                                </div>
+                                </div>
+                        </div>
+                        </div>
+            </div>
+
+        <div class="container-fluid" id="box2">          
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                                <p style="font-size: 25px;">Please Wait for the Admin approval to Select Location, Services, Timming & to get into Search </p>
                         </div>
                     </div>
-                </div>
-            </div>   
-        </tbody>
-    </table>
-
-</div>
+                  </div>
+              </div>  
+        </div>
+    </div>
 </body>
-<script type="text/javascript">
+<script>
 
     let from,to;
 
@@ -322,6 +336,24 @@
         });
 
     });
+
+<?php
+        
+        if($_SESSION['status'] == 0){
+?>
+    document.getElementById('box1').style.display="none";
+    document.getElementById('box2').style.display="inline-block";
+    console.log("O");
+<?php
+        }else{
+?>
+    document.getElementById('box1').style.display="inline-block";
+    document.getElementById('box2').style.display="none";   
+    console.log("1");
+<?php
+        }
+?>
+
 </script>
 <?php
 

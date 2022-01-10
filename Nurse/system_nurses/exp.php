@@ -1,3 +1,6 @@
+<?php 
+    include '../connect.php';
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -5,8 +8,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
-   
-    <title>Monster Lite Template by WrapPixel</title>
+    <title>Nurse Experience</title>
+    <link href="../logo.jpeg" rel="icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="style.min.css" rel="stylesheet">
@@ -115,8 +118,8 @@
  
 
                         <li class="text-center p-20 upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/monsteradmin/"
-                                class="btn text-white mt-4" target="_blank" style="background-color:rgba(63,187,192,255) ">Log Out</a>
+                            <a href="../login/logout.php"
+                                class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
                         </li>
                     </ul>
 
@@ -128,34 +131,54 @@
         
         <div class="page-wrapper">
            <div class="container-fluid">
-
                  <div class="row">
+
+                <?php
+                 if(isset($_SESSION['requested_nurse'])){
+
+                        $i=1;
+
+                        if(!$con){
+                            die("Not connected to db");
+                        }
+
+                        $mail=$_SESSION['requested_nurse'];
+                        $sql_req="SELECT * FROM `experience` WHERE email='$mail';";
+                        $result=mysqli_query($con,$sql_req);
+
+                        if(!$result){
+                            die(mysqli_error($con));
+                        }
+                            while($row=mysqli_fetch_assoc($result)){
+        ?>
                     <!-- Column -->
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
                                 <form class="form-horizontal form-material mx-2">
-                                <label class="card-title">Experience 1</label>
+                                <label class="card-title">Experience <?php echo $i;?></label>
                                 <div class="form-group">
-                                    <input type="text" placeholder="Hospital name" 
+                                    <input type="text" placeholder="Hospital name" value="<?php echo $row['hospital_name'];?>"
                                                 class="form-control ps-0 form-control-line" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" placeholder="Job Title" 
+                                    <input type="text" placeholder="Job Title" value="<?php echo $row['designation'];?>"
                                                 class="form-control ps-0 form-control-line" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" placeholder="from date" 
+                                    <input type="text" placeholder="from date" value="From: <?php echo $row['from_date'];?>"
                                                 class="form-control ps-0 form-control-line" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" placeholder="to date" 
+                                    <input type="text" placeholder="to date" value="To: <?php echo $row['to_date'];?>"
                                                 class="form-control ps-0 form-control-line" disabled>
                                 </div>
                                 <div class="form-group">
-                                 <textarea id="donation" rows="3" style="resize: none; color:black;" name="add[]" class="form-control ps-0 form-control-line" id="" disabled placeholder="Hospital address"></textarea>
+                                 <textarea id="donation" rows="3" style="resize: none;" name="add[]" class="form-control ps-0 form-control-line" id="" disabled placeholder="Hospital address">
+                                        <?php echo $row['hos_address'];?>
+                                </textarea>
                                 </div>
-                                <a href="Aim4.pdf" target="_blank" class="link">
+                                <a href="../Nurse_signup/<?php echo $row['Exp_letter'];?>" target="_blank" class="link">
                                        <i class="fa fa-certificate"></i>
                                         <span class="font-normal">Experience Letter</span>
                                     </a>
@@ -164,49 +187,17 @@
                             </div>
                         </div>
                     </div>
-                  
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <form class="form-horizontal form-material mx-2">
-                                <label class="card-title">Experience 2</label>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Hospital name" 
-                                                class="form-control ps-0 form-control-line" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Job Title" 
-                                                class="form-control ps-0 form-control-line" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" placeholder="from date" 
-                                                class="form-control ps-0 form-control-line" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" placeholder="to date" 
-                                                class="form-control ps-0 form-control-line" disabled>
-                                </div>
-                                <div class="form-group">
-                                 <textarea id="donation" rows="3" style="resize: none; color:black;" name="add[]" class="form-control ps-0 form-control-line" id="" disabled placeholder="Hospital address"></textarea>
-                                </div>
-                                <a href="Aim4.pdf" target="_blank" class="link">
-                                       <i class="fa fa-certificate"></i>
-                                        <span class="font-normal">Experience Letter</span>
-                                    </a>
-                                
-                               </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
+                    <?php
+                                $i++;
+                                }
+                        }
+                    
+                    ?>
+                   
                 </div>
       
             </div>
         </div>
-           
-            <footer class="footer text-center">
-                © 2021 Neighboring Nurse <a href="../Medicio/index.html">NN.com</a>
-            </footer>
            
         </div>
     </div>

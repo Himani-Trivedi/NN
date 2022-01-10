@@ -1,13 +1,42 @@
 <?php
         include '../connect.php';
 
-
-        if(isset($_REQUEST['nurse'])){
+        if(isset($_SESSION['requested_nurse'])){
 
             if(!$con){
                 die("Not connected to db");
             }
 
+            $mail=$_SESSION['requested_nurse'];
+            $sql_req="SELECT * FROM `requested_nurse` WHERE email='$mail';";
+            $result=mysqli_query($con,$sql_req);
+
+            if(!$result){
+                die(mysqli_error($con));
+            }
+
+            if(mysqli_num_rows($result) == 1){
+                while($row=mysqli_fetch_assoc($result)){
+                    $name=$row['name'];
+                    $email=$row['email2'];
+                    $ph=$row['ph_no'];
+                    $bio=$row['bio'];
+                    $gender=$row['gender'];
+                    $rn=$row['rn_cert'];
+                    $yrs_exp=$row['total_exp'];
+                    $profile=$row['profile_pic'];
+                    $status=$row['Approval_status'];
+                    $_SESSION['status']=$status;
+                }
+            }else{
+                die(mysqli_error($con));
+            }
+
+        }else if(isset($_REQUEST['nurse'])){
+
+            if(!$con){
+                die("Not connected to db");
+            }
 
             $mail=$_REQUEST['nurse'];
             $sql="SELECT * FROM `requested_nurse` WHERE email='$mail';";
@@ -28,6 +57,7 @@
                     $yrs_exp=$row['total_exp'];
                     $profile=$row['profile_pic'];
                     $status=$row['Approval_status'];
+                    $_SESSION['status']=$status;
                 }
             }else{
                 die(mysqli_error($con));
@@ -148,8 +178,8 @@
                                     aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> 
 
                         <li class="text-center p-20 upgrade-btn">
-                            <a href="../Medicio/index.html"
-                                class="btn text-white mt-4" target="_blank" style="background-color:rgba(63,187,192,255) ">Log Out</a>
+                            <a href="../login/logout.php"
+                                class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
                         </li>
                     </ul>
 
@@ -219,19 +249,19 @@
                     <div class="col-lg-8 col-xlg-9 col-md-7">
                         <div class="card">
                             <div class="card-body">
-                                <form class="form-horizontal form-material mx-2">
+                                <form class="form-horizontal form-material mx-2" method="POST">
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Full Name</label>
                                         <div class="col-md-12">
-                                            <input type="text" 
+                                            <input type="text" id="n_name" name="n_name"
                                                 class="form-control ps-0 form-control-line" disabled value="<?php echo $name;?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
-                                            <input type="email"
-                                                class="form-control ps-0 form-control-line" name="example-email" value="<?php echo $email;?>"
+                                            <input type="email" id="n_mail"
+                                                class="form-control ps-0 form-control-line" name="n_mail" value="<?php echo $email;?>"
                                                 id="example-email" disabled>
                                         </div>
                                     </div>
@@ -245,23 +275,23 @@
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Phone No</label>
                                         <div class="col-md-12">
-                                            <input type="text" 
+                                            <input type="text" id="n_ph" name="n_ph"
                                                 class="form-control ps-0 form-control-line" disabled value="<?php echo $ph;?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Bio</label>
                                         <div class="col-md-12">
-                                            <textarea rows="5" class="form-control ps-0 form-control-line" style="resize:none;" disabled><?php echo $bio;?></textarea>
+                                            <textarea rows="5" name="n_bio" id="n_bio" class="form-control ps-0 form-control-line" style="resize:none;" disabled><?php echo $bio;?></textarea>
                                         </div>
                                     </div>
 
                                      <div class="form-group">
                                         <div class="col-md-12">
                                             <label>Male</label>
-                                            <input type="radio"  class="form-input" name="gender" disabled id="male_radio"> 
+                                            <input type="radio"  class="form-input" name="gender" disabled id="male_radio" value="m"> 
                                             <label>Female</label>                                          
-                                            <input type="radio" class="form-input" name="gender" disabled id="female_radio">
+                                            <input type="radio" class="form-input" name="gender" disabled id="female_radio" value="f">
 
                                         </div>
                                     </div>
@@ -279,12 +309,16 @@
                                     </div> -->
                                     <div class="form-group">
                                         <div class="col-sm-12 d-flex ">
-                                            <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Update
+                                            <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="enable_data(this);">Update
                                                 Profile</button>
 
-                                            <button class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;">Change Password
+                                            <button type="button" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;">Change Password
+                                            </button>
+
+                                            <button formaction="update_nurse_profile.php" type="submit" id="n_update" name="n_update" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px; display:none;">Update
                                             </button>
                                         </div>
+                                      
                                     </div>
                                   
                                 </form>
@@ -296,10 +330,7 @@
                 <!-- Row -->
                
             </div>
-           
-            <footer class="footer text-center">
-                © 2021 Neighboring Nurse <a href="../Medicio/index.html">NN.com</a>
-            </footer>    
+          
         </div>
     </div>
 
@@ -325,7 +356,7 @@
 <script>
 
         <?php
-            if(isset($_REQUEST['nurse']) && isset($gender)){
+            if(isset($gender)){
                 if($gender == 'f'){
         ?>
                     document.getElementById('female_radio').checked=true;
@@ -339,5 +370,18 @@
             }
         
         ?>
+
+
+        function enable_data(e){
+            e.style.display="none";
+            document.getElementById('n_update').style.display="inline-block";
+            document.getElementById('n_name').disabled=false;
+            document.getElementById('n_mail').disabled=false;
+            document.getElementById('n_bio').disabled=false;
+            document.getElementById('n_ph').disabled=false;
+            document.getElementById('female_radio').disabled=false;
+            document.getElementById('male_radio').disabled=false;
+        }
+
 </script>
 </html>

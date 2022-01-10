@@ -2,7 +2,6 @@
     include 'connect.php';
 
     session_unset();
-    echo "<a href='login.php'>Log In!!</a>";
 
 ?>
 

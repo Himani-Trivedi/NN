@@ -64,6 +64,7 @@
             <div class="banner">
                 <h3>Experience Details</h3>
             </div>
+            <p style="color:red; text-align:center;">At least 2 years of experience required </p>
             <br />
             <fieldset id="dynamic_exp">
 

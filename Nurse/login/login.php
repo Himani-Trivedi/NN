@@ -27,28 +27,38 @@ if (isset($_GET["code"])) {
 
         $data = $google_service->userinfo->get();
 
-
-        if (!empty($data['given_name'])) {
-            $_SESSION['user_first_name'] = $data['given_name'];
-        }
-
-        if (!empty($data['family_name'])) {
-            $_SESSION['user_last_name'] = $data['family_name'];
-        }
-
         if (!empty($data['email'])) {
-            $_SESSION['user_email_address'] = $data['email'];
-        }
+            $u=$data['email'];
+            $u=md5($u);
 
-        if (!empty($data['gender'])) {
-            $_SESSION['user_gender'] = $data['gender'];
-        }
+            include '../connect.php';
 
-        if (!empty($data['picture'])) {
-            $_SESSION['user_image'] = $data['picture'];
-        }
+            if(!$con){
+                die("Not connected to db");
+            }
+    
+            if ($con) {
+                $sql = "select * from `requested_nurse` where email='$u'";
+        
+                $r = mysqli_query($con, $sql);
+                try {
+                    if ($r) {
+                        $a = mysqli_fetch_assoc($r);
+                        if ($a) { 
+                            $_SESSION['requested_nurse']=$u;
+                            header('location:../system_nurses/profile.php');
+                        } else {
+                            echo "<script>alert('No Such Nusre')</script>";
+                        }
+                    }else{
+                        die(mysqli_error($con));
+                    }
+                } catch (Exception $e) {
+                    echo "There is Technical Problem ";
+                }
+            }
 
-        header('location:home.php');
+        }
     }
 }
 
@@ -214,41 +224,45 @@ if (!isset($_SESSION['access_token'])) {
 <?php
 
 
-if (isset($_SESSION['u'])) {
-    header('location:../demo.php');
+if (isset($_POST['sub'])) {
+    check_nurse($_POST);
 }
 
-if (isset($_POST['sub'])) {
-    $user = $_POST['uname'] . trim(" ");
-    $p = $_POST['pass'];
-    $p = md5($p);
-    $u = md5($user);
+    function check_nurse($a){
+        include '../connect.php';
 
-    include '../connect.php';
-    if ($con) {
-        $sql = "select * from `requested_nurse` where email='$u' and password='$p'";
+        $user = $a['uname'] . trim(" ");
+        $p = $a['pass'];
+        $p = md5($p);
+        $u = md5($user);
 
-        $r = mysqli_query($con, $sql);
-        try {
-            if ($r) {
-                $a = mysqli_fetch_assoc($r);
-                if ($a) {
-                    if ($a['Approval_status'] == 0) {                   
-                        header('location:../demo.php');
-                    }else{
-                        echo "Approved";
+        if(!$con){
+            die("Not connected to db");
+        }
+
+        if ($con) {
+            $sql = "select * from `requested_nurse` where email='$u' and password='$p'";
+    
+            $r = mysqli_query($con, $sql);
+            try {
+                if ($r) {
+                    $a = mysqli_fetch_assoc($r);
+                    if ($a) { 
+                        $_SESSION['requested_nurse']=$u;
+                        header('location:../system_nurses/profile.php');
+                    } else {
+                        echo "<script>alert('No Such Nusre')</script>";
                     }
-                } else {
-                    echo "<script>alert('No Such Nusre')</script>";
+                }else{
+                    die(mysqli_error($con));
                 }
-            }else{
-                die("Query Problem!!");
+            } catch (Exception $e) {
+                echo "There is Technical Problem ";
             }
-        } catch (Exception $e) {
-            echo "There is Technical Problem ";
         }
     }
-}
+
+    
 ?>
 
 

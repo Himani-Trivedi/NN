@@ -46,15 +46,13 @@
 		// echo $name."<br>";
 		// echo $pass."<br>";
 
-		$sql="INSERT INTO `requested_nurse`(`email`,`email2`, `name`, `password`, `ph_no`, `gender`,`total_exp`, `profile_pic`, `rn_cert`, `bio`, `Approval_status`, `Added_time`) 
-		VALUES ('$mail','$mail2','$name','$pass','$ph','$g', '$total','$photo','$rn','$bio',0,CURRENT_TIMESTAMP())";
+		$sql="INSERT INTO `requested_nurse`(`email`,`email2`, `name`, `password`, `ph_no`, `gender`,`total_exp`, `profile_pic`, `rn_cert`, `Approval_status`, `Added_time`, `bio`) VALUES ('$mail','$mail2','$name','$pass','$ph','$g', '$total','$photo','$rn',0,CURRENT_TIMESTAMP(),'$bio');";
 		$result=mysqli_query($con,$sql);
 
 		if(!$result){
 			mysqli_error($con);
 			if(!unlink($_SESSION['user']['rn_Cert']['dest']) && !unlink($_SESSION['user']['nurse_re_1']['profile_pic']['dest'])){
 				echo "Not deleted<br>";
-				die(mysqli_error($con));
 			}else{
 				echo "Done Deleted <br>";
 			}
@@ -78,7 +76,7 @@
 				$cert_tmp=$data['cert']['cer_file']['tmp_name'][$j];
 				$cert_dest=$data['cert']['cer_file']['dest'][$j];		
 
-				$sql_cert="INSERT INTO `certificates`( `email`, `certificate`, `course_name`) VALUES ('$mail','$cert_name','$cert_dest')";
+				$sql_cert="INSERT INTO `certificates`( `email`, `course`, `certificate`) VALUES ('$mail','$cert_name','$cert_dest')";
 				$result2=mysqli_query($con,$sql_cert);
 
 				if (!$result2) {
@@ -190,9 +188,8 @@
   </style>
 </head>
 
-<body>
-
-  <div class="testbox">
+<body id="responce">
+<div class="testbox">
     <form method="post">
       <div class="banner">
         <h3 style="color:white; padding-bottom: 10%;"> Submitted!</h3>
@@ -212,5 +209,6 @@
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+<script>
+</script>
 </html>

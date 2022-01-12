@@ -16,7 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link href="../system_nurses/style.min.css" rel="stylesheet">
+    <link href="../Nurse/system_nurses/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 </head>
@@ -268,8 +268,9 @@
                     <h4>Are you sure you want to remove xyz location?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes</button>
-                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;">No</button>
+                    <p id="pin_data"></p>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="yesRemove()">Yes</button></a>
+                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;" data-bs-dismiss="modal">No</button>
                 </div>
             </div>
         </div>
@@ -379,8 +380,14 @@
             alert("First Select the Location");
             $('#state').focus();
         }else{
-            $('#staticBackdrop').modal('toggle');
+            $('#staticBackdrop').modal('toggle'); 
         }
+    }
+
+
+    function yesRemove(){
+        var x=document.getElementById('pin').value;
+        window.location.href="deleteArea.php?pin="+x;
     }
 
 

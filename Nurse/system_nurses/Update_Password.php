@@ -1,6 +1,10 @@
+<?php
+    include '../connect.php';
+?>
 <html>
 <head>
     <title>Change Password</title>
+    <link href="../logo.jpeg" rel="icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
@@ -153,9 +157,6 @@
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
-                
-                
-				
 				<tr>
                     <td><input type="password" placeholder="Old Password" class="txt" name="oldpass" required></td>
                 </tr>
@@ -170,10 +171,8 @@
                     <td>&nbsp;</td>
                 </tr>
                 <td>
-                    <input type="submit" value="Reset" class="btn" name="reset">
-                </td>
-                
-			   
+                    <input type="submit" value="Reset" class="btn" name="reset_pass">
+                </td>       
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
@@ -181,5 +180,52 @@
         </form>
     </div>
 </body>
+<script>
+<?php
 
+    if(isset($_POST['reset_pass'])){
+        $old=$_POST['oldpass'];
+        $new=$_POST['newpass'];
+        $cnew=$_POST['cnewpass'];
+
+        if(!$con){
+            die("Not connected to db");
+        }
+
+        $mail=$_REQUEST['id'];
+        $sql_req="SELECT * FROM `requested_nurse` WHERE email='$mail';";
+        $result=mysqli_query($con,$sql_req);
+
+        if(!$result){
+            die(mysqli_error($con));
+        }
+
+        if(mysqli_num_rows($result) == 1){
+            while($row=mysqli_fetch_assoc($result)){
+                if($row['password'] != md5($old)){
+                    echo "alert('Wrong Old Password')";
+                }else{
+                    if($new != $cnew){
+                        echo "alert('New Password & Verfiy Password must be Same')";
+                    }else{
+                        $new=md5($new);
+                        $sql="UPDATE `requested_nurse` SET `password`='$new',`Modified_Time`=CURRENT_TIMESTAMP() WHERE `email`='$mail';";
+                        $result2=mysqli_query($con,$sql);
+
+                        if(!$result2){
+                            die(mysqli_error($con));
+                        }else{
+                            echo "if(confirm('Password Changed')){";
+                                echo "window.location.href='profile.php'";
+                            echo "}";
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+?>
+</script>
 </html>

@@ -312,7 +312,7 @@ if (isset($_POST['sub'])) {
                 </tr>
                 <td class="col1">
                     <br>
-                    <a href="#" class="col1">Forgot Password?</a>
+                    <a href="forgot_email.php" class="col1">Forgot Password?</a>
                 </td>
                 <tr>
                     <td>&nbsp;</td>

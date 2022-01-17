@@ -1,9 +1,12 @@
+<?php
+       include '../connect.php';
+?>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Forgot Password</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+    
     <style>
         body {
             margin: 0;
@@ -153,25 +156,15 @@
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
-                
-                
-				
-				
 				<tr>
-                    <td><input type="password" placeholder="New Password" class="txt" name="newpass" required min="10"></td>
-                </tr>
-				<tr>
-                    <td><input type="password" placeholder="Verify New Password" class="txt" name="cnewpass" required></td>
-                </tr>
-				
+                    <td><input type="email" placeholder="Enter Email" class="txt" name="u_mail" required></td>
+                </tr>			
 				<tr>
                     <td>&nbsp;</td>
                 </tr>
                 <td>
-                    <input type="submit" value="Reset" class="btn" name="reset">
-                </td>
-                
-			   
+                    <input type="submit" value="Send Mail" class="btn" name="send_mail">
+                </td>   
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
@@ -179,5 +172,54 @@
         </form>
     </div>
 </body>
+<script>
+    <?php
+        if(isset($_POST['send_mail'])){
+            if(isset($_POST['u_mail'])){
+            
+                $user = $_POST['u_mail'] . trim(" ");
+                $u = md5($user);
+        
+                if(!$con){
+                    die("Not connected to db");
+                }
+        
+                if ($con) {
+                    $sql = "select * from `requested_nurse` where email='$u'";
+            
+                    $r = mysqli_query($con, $sql);
+                    try {
+                        if ($r) {
+                            $a = mysqli_fetch_assoc($r);
+                            if ($a) { 
+                                $subject = "Forgot Password (Neighbouring Nurse) ";
+                                $body = "Click on this link to set new Password <br><a href='http://localhost/Project/NN/Nurse/login/forgot_password.php?email=$u'>forgot password</a>";
+                                $headers = "From: ht1872004@gmail.com";
+            
+                                if (mail($user, $subject, $body, $headers)) {
+                                     echo "alert('Email sent');";                       
+                                } else {
+                                    echo "alert('Email sent Error');";
+                                }
 
+                            } else {
+                                echo "alert('No Such Nusre');";
+                            }
+                        }else{
+                            die(mysqli_error($con));
+                        }
+                    } catch (Exception $e) {
+                        echo "There is Technical Problem ";
+                    }
+                }
+            }else{               
+                die(mysqli_error($con));
+            }
+        }else{
+            die(mysqli_error($con));
+        }    
+    ?>
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
 </html>

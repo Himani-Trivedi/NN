@@ -1,8 +1,6 @@
 <?php
-    include 'connect.php';
-
-    session_unset();
-
+       include '../connect.php';
+        session_unset();
 ?>
 
 <?php

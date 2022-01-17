@@ -1,6 +1,6 @@
 <?php
 
-	include 'connect.php';
+	include '../../connect.php';
 
 	if(!isset($_SESSION['user']) || !isset($_SESSION['user']['terms'])){
 		header('location:conditions.php');

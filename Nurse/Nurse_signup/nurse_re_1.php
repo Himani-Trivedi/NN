@@ -1,5 +1,5 @@
 <?php
-      include 'connect.php';
+     include '../../connect.php';
 
 if (!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['email']))) {
     header('location:conditions.php');

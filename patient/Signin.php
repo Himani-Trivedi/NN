@@ -1,16 +1,6 @@
-<?php
-    include '../../connect.php';
-
-    if(isset($_REQUEST['email'])){
-        $mail=$_REQUEST['email'];
-    }
-?>
-
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Forgot Password</title>
-    <link href="../../logo.jpeg" rel="icon">
+    <title>Sign In</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
@@ -157,25 +147,54 @@
             <table class="tb1">
                 <tr>
                     <td>
-                        <h2>Reset Password</h2>
+                        <h1>Sign Up</h1>
                     </td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
+                <tr>
+                    <td><input type="text" placeholder="Name" class="txt" name="name" required></td>
+                </tr>
+                
+				
 				<tr>
-                    <td><input type="password" placeholder="New Password" class="txt" name="newpass" required min="10"></td>
+                    <td><input type="mail" placeholder="Email Address" class="txt" name="uname" required></td>
                 </tr>
 				<tr>
-                    <td><input type="password" placeholder="Verify New Password" class="txt" name="cnewpass" required></td>
+                    <td><input type="number" placeholder="Phone Number" class="txt" name="phoneno" required min="10"></td>
+                </tr>
+				<tr>
+                    <td><input type="password" placeholder="Password" class="txt" name="pass" required></td>
                 </tr>
 				
 				<tr>
                     <td>&nbsp;</td>
                 </tr>
                 <td>
-                    <input type="submit" value="Reset" class="btn" name="reset_pass">
+                    <input type="submit" value="Sign Up" class="btn" name="signup">
                 </td>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center" style="color:rgb(214, 208, 208);"><span><b>OR</b></span></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+
+                </td>
+                </tr>
+               <tr>
+			   <td>&nbsp;</td>
+			    <tr>
+                    <td>
+                       <a href="' . $google_client->createAuthUrl() . '" role="button" style="text-transform:none;background-color:blue;" class="btn btn-outline-dark">
+                            <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />SignUp With Google
+                            </a>
+                    </td>
+                </tr>
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
@@ -183,40 +202,5 @@
         </form>
     </div>
 </body>
-<script>
-     <?php
-        if(isset($_POST['reset_pass'])){
 
-                if($_POST['newpass'] == $_POST['cnewpass']){
-
-                    $pass=$_POST['newpass'];
-                    $pass=md5($pass);
-
-                    if(!$con){
-                        die("Not connected to db");
-                    }
-                    
-                    $sql = "UPDATE `requested_nurse` SET `password`='$pass' WHERE `email`='$mail';";
-            
-                    $r = mysqli_query($con, $sql);
-                    try {
-                        if ($r) {
-                            ?>
-                    if(confirm("Password Updated")){
-                            window.location.href='login.php';
-                    }
-                <?php
-                          
-                        }else{
-                            die(mysqli_error($con));
-                        }
-                    } catch (Exception $e) {
-                        echo "There is Technical Problem ";
-                    }
-            }else{
-                echo "alert('Both Password must be same');";
-            }
-        }
-    ?>
-</script>
 </html>

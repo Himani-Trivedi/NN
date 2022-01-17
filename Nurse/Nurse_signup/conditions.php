@@ -59,7 +59,7 @@
   <?php
 
       if(isset($_POST['sub'])){
-        include 'connect.php';
+        include '../../connect.php';
 
         $_SESSION['user']['terms']=1;
 

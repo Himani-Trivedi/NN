@@ -3,17 +3,19 @@
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
-
-    <title>Nurse Certificates</title>
+    <title>Nurse Experience</title>
     <link href="../../logo.jpeg" rel="icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
     <style type="text/css">
         body{
             font-family: "Roboto", sans-serif;
@@ -91,10 +93,10 @@
                                     class="hide-menu">Profile</span></a>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate" style="color:rgba(63,187,192,255) ;"
-                                    aria-hidden="true"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Certificates</span></a></li>
+                                href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate" 
+                                    aria-hidden="true"></i><span class="hide-menu" >Certificates</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true"></i><span class="hide-menu">Experience</span></a></li>
+                                href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Experience</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="location.php" aria-expanded="false" ><i class="me-3 fa fa-globe" 
                                     aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
@@ -103,9 +105,9 @@
                                     aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" 
-                                    aria-hidden="true"></i><span class="hide-menu" >Services</span></a></li> 
+                                    aria-hidden="true"></i><span class="hide-menu" >Services</span></a></li>
 
-
+                        
                           <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check"
                                     aria-hidden="true"></i><span class="hide-menu">Accepted Services</span></a></li> 
@@ -113,11 +115,11 @@
                          <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle"
                                     aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> 
-
+ 
 
                         <li class="text-center p-20 upgrade-btn">
                             <a href="../login/logout.php"
-                                class="btn text-white mt-4"  style="background-color:rgba(63,187,192,255) ">Log Out</a>
+                                class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
                         </li>
                     </ul>
 
@@ -129,48 +131,62 @@
         
         <div class="page-wrapper">
            <div class="container-fluid">
+                 <div class="row">
 
-                <div class="row">
+                <?php
+                 if(isset($_SESSION['requested_nurse'])){
 
-                    <?php
+                        $i=1;
 
-                        if(isset($_SESSION['requested_nurse'])){
+                        if(!$con){
+                            die("Not connected to db");
+                        }
 
-                            $i=1;
+                        $mail=$_SESSION['requested_nurse'];
+                        $sql_req="SELECT * FROM `experience` WHERE email='$mail';";
+                        $result=mysqli_query($con,$sql_req);
 
-                            if(!$con){
-                                die("Not connected to db");
-                            }
-                
-                            $mail=$_SESSION['requested_nurse'];
-                            $sql_req="SELECT * FROM `certificates` WHERE email='$mail';";
-                            $result=mysqli_query($con,$sql_req);
-                
-                            if(!$result){
-                                die(mysqli_error($con));
-                            }
-                                while($row=mysqli_fetch_assoc($result)){
-                                    ?>
-                                         <!-- Column -->
+                        if(!$result){
+                            die(mysqli_error($con));
+                        }
+                            while($row=mysqli_fetch_assoc($result)){
+        ?>
+                    <!-- Column -->
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
                                 <form class="form-horizontal form-material mx-2">
-                                <label class="card-title">Course <?php echo $i;?></label>
+                                <label class="card-title">Experience <?php echo $i;?></label>
                                 <div class="form-group">
-                                <input type="text" placeholder="course name" 
-                                                class="form-control ps-0 form-control-line" disabled value="
-                                                <?php echo $row['course'];  ?>">
-                                      <a href="../Nurse_signup/<?php echo $row['certificate'];?>" target="_blank" class="link">
-                                           <i class="fa fa-certificate"></i>
-                                            <span class="font-normal">Course Certificate</span>
-                                        </a>
+                                    <input type="text" placeholder="Hospital name" value="<?php echo $row['hospital_name'];?>"
+                                                class="form-control ps-0 form-control-line" disabled>
                                 </div>
+                                <div class="form-group">
+                                    <input type="text" placeholder="Job Title" value="<?php echo $row['designation'];?>"
+                                                class="form-control ps-0 form-control-line" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" placeholder="from date" value="From: <?php echo $row['from_date'];?>"
+                                                class="form-control ps-0 form-control-line" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" placeholder="to date" value="To: <?php echo $row['to_date'];?>"
+                                                class="form-control ps-0 form-control-line" disabled>
+                                </div>
+                                <div class="form-group">
+                                 <textarea id="donation" rows="3" style="resize: none;" name="add[]" class="form-control ps-0 form-control-line" id="" disabled placeholder="Hospital address">
+                                        <?php echo $row['hos_address'];?>
+                                </textarea>
+                                </div>
+                                <a href="../Nurse_signup/<?php echo $row['Exp_letter'];?>" target="_blank" class="link">
+                                       <i class="fa fa-certificate"></i>
+                                        <span class="font-normal">Experience Letter</span>
+                                    </a>
+                                
                                 </form>                                                 
                             </div>
                         </div>
                     </div>
-                                    
                     <?php
                                 $i++;
                                 }
@@ -178,16 +194,15 @@
                     
                     ?>
                    
-                
-                   
                 </div>
+      
             </div>
         </div>
-        
+           
         </div>
     </div>
   
-   <!-- Modal -->
+ <!-- Modal -->
         <div class="modal fade" id="moneyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -205,7 +220,6 @@
             </div>
           </div>
         </div>
-
        
 </body>
 

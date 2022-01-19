@@ -54,3 +54,8 @@ echo "<script>document.writeln(p1);</script>";
 
  echo "Already Logged in";
  echo "Not System Nurse";
+
+?>
+
+
+

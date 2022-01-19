@@ -41,7 +41,7 @@
                    
                     <a class="navbar-brand" href="../Medicio/index.html">
                         <b class="logo-icon text-danger">
-                            <img src="../logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
+                            <img src="../../logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
                             <span style="color:rgba(63,187,192,255); font-size: 16px;">Neighbouring Nurse</span>
                         </b>
                     </a>

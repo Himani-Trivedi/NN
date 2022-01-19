@@ -11,7 +11,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Nurse Profile</title>
+    <title>Location </title>
     <link href="../logo.jpeg" rel="icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -196,7 +196,6 @@
                                             <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" data-bs-target="#staticBackdrop" onclick="dataSelectedRemove();">Remove</button>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -206,8 +205,7 @@
         </div>
     </div>
 
-    </div>
-    </div>
+ 
 
     <!-- update Modal -->
     <div class="modal fade" id="updatemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -383,7 +381,6 @@
             $('#staticBackdrop').modal('toggle'); 
         }
     }
-
 
     function yesRemove(){
         var x=document.getElementById('pin').value;

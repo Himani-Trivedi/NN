@@ -23,8 +23,6 @@
             color: #626262;
             font-weight: 500;
         }
-
-
     </style>
 </head>
 
@@ -83,10 +81,9 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" >
-                        <!-- User Profile-->
-                       <!--  <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="index.html" aria-expanded="false"><i class="me-3 far fa-clock fa-fw"
-                                    aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li> -->
+                    <?php
+                        if (isset($_SESSION['admin_profile'])) {
+                        ?>
                         <li class="sidebar-item" > <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="profile.php" aria-expanded="false">
                                 <i class="me-3 fa fa-user" aria-hidden="true"></i><span
@@ -96,7 +93,25 @@
                                 href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate" 
                                     aria-hidden="true"></i><span class="hide-menu" >Certificates</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Experience</span></a></li>
+                                href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Experience</span></a>
+                        </li>
+                        <li class="text-center p-20 upgrade-btn">
+                                <a href="../../Admin/req_nurses.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
+                            </li>
+                    <?php
+                    } else {
+                    ?>
+                    <li class="sidebar-item" > <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="profile.php" aria-expanded="false">
+                                <i class="me-3 fa fa-user" aria-hidden="true"></i><span
+                                    class="hide-menu">Profile</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate" 
+                                    aria-hidden="true"></i><span class="hide-menu" >Certificates</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Experience</span></a>
+                        </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="location.php" aria-expanded="false" ><i class="me-3 fa fa-globe" 
                                     aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
@@ -121,6 +136,10 @@
                             <a href="../login/logout.php"
                                 class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
                         </li>
+
+                        <?php
+                        }
+                        ?>
                     </ul>
 
                 </nav>

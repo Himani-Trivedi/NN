@@ -119,21 +119,21 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form class="form-horizontal form-material mx-2">
+                                <form class="form-horizontal form-material mx-2" id="">
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Services</label>
                                         <div class="col-sm-12 border-bottom">
                                             <select id="service" class="form-select shadow-none border-0 ps-0 form-control-line" onchange="addcharge(this.value);">
                                                 <?php
                                                 include '../connect.php';
-                                                $sql = "SELECT `service_name` from `services` GROUP BY `service_name`";
+                                                $sql = "SELECT * from `services` GROUP BY `service_name`";
                                                 if ($con) {
                                                     $result = mysqli_query($con, $sql);
 
                                                     if ($result) {
                                                         while ($row = mysqli_fetch_assoc($result)) {
                                                 ?>
-                                                            <option value=" <?php echo $row['service_name']; ?>"><?php echo $row['service_name']; ?></option>
+                                                            <option value="<?php echo $row['service_name']; ?>"><?php echo $row['service_name']; ?></option>
                                                 <?php
                                                         }
                                                     } else {
@@ -144,48 +144,13 @@
                                                 }
                                                 ?>
                                             </select>
+                                            <br>
+                                                <div id="service_data">
 
+                                                </div>
                                         </div>
                                         <span></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12 mb-0">Charges</label>
-                                        <div class="col-md-12">
-                                            <input type="text" id="charge" class="form-control ps-0 form-control-line" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-12 mb-0">Description</label>
-                                        <div class="col-md-12">
-                                            <textarea rows="5" class="form-control ps-0 form-control-line" style="resize:none;" disabled></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12 mb-0">Service Picture</label>
-                                        <div class="col-md-12">
-                                            <p><a href="2.jpeg" target="_blank">Open</a></p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12 mb-0">Added By</label>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control ps-0 form-control-line" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12 mb-0">Added Time</label>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control ps-0 form-control-line" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12 d-flex">
-                                            <button type="button" class="btn btn-success mx-4 me-md-3 text-white" style="background-color:rgba(63,187,192,255); border:0px" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button>
-                                            <button type="button" class="btn btn-success mx-4 me-md-3 text-white" style="background-color:rgba(63,187,192,255); border:0px" data-bs-toggle="modal" data-bs-target="#updateModal">Update </button>
-                                            <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Remove</button>
-                                        </div>
-                                    </div>
+                                    </div>                                
                                 </form>
                             </div>
                         </div>
@@ -307,14 +272,11 @@
     function addcharge(value) {
         // count++;
         $.ajax({
-            url: 'charge.php',
+            url: 'service_det.php',
             type: 'POST',
-            data: {
-                service: value
-            },
-
+            data: {service:value},
             success: function(result) {
-                $('#charge').val(result);
+               document.getElementById('service_data').innerHTML=result;
             }
         });
     }

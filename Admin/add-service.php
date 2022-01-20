@@ -9,11 +9,7 @@ if(isset($_POST['submit']))
 	print_r($files);
 	$filename=$files['name'];
 	$filetmp=$files['tmp_name'];
-	$fileerror=$files['error'];
-	
-		
-		
-		
+	$fileerror=$files['error'];	
 	$fileext = explode('.',$filename);
 	$filecheck = strtolower(end($fileext));
 	$fileextstored = array('png', 'jpg','jpeg');

@@ -353,7 +353,6 @@
             url:'pincode.php',
             type:'POST',
             data:{area:value},
-
             success:function(result){
                 $('#pin').val(result);
             }

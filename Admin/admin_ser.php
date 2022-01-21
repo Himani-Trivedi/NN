@@ -124,6 +124,7 @@
                                         <label class="col-md-12 mb-0">Services</label>
                                         <div class="col-sm-12 border-bottom">
                                             <select id="service" class="form-select shadow-none border-0 ps-0 form-control-line" onchange="addcharge(this.value);">
+                                            <option value=""></option>
                                                 <?php
                                                 include '../connect.php';
                                                 $sql = "SELECT * from `services` GROUP BY `service_name`";
@@ -131,6 +132,7 @@
                                                     $result = mysqli_query($con, $sql);
 
                                                     if ($result) {
+                                                        
                                                         while ($row = mysqli_fetch_assoc($result)) {
                                                 ?>
                                                             <option value="<?php echo $row['service_name']; ?>"><?php echo $row['service_name']; ?></option>

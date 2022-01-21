@@ -1,10 +1,7 @@
 <!-- <button id="rzp-button1">Pay</button> -->
-
 <?php
 
-    include '../connect.php';
-
-    
+    include '../connect.php';  
 ?>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -15,14 +12,13 @@
         "currency": "INR",
         "name": "Neighbouring Nurse",
         "description": "Registration Fee",
-        "image": "https://example.com/your_logo",
+        "image": "https://github.com/Himani-Trivedi/NN/blob/main/nurse_logo.png",
         // "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1    
         "handler": function(response) {
             alert(response.razorpay_payment_id);
             // alert(response.razorpay_order_id);
             // alert(response.razorpay_signature)
             console.log(response);
-            <?php header('location:../Nurse/system_nurses/profile.php');?>
         },
         "prefill": {
             "name": "Gaurav Kumar",

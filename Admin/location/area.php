@@ -1,5 +1,5 @@
 <?php
-    	include '../connect.php';
+    	include '../../connect.php';
 
 	    $t=$_POST['district'];
         $sql="SELECT * from `location` WHERE `district`='$t'";

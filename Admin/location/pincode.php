@@ -1,5 +1,5 @@
 <?php
-    	include '../connect.php';
+    	include '../../connect.php';
 
 	    $t=$_POST['area'];
         $sql="SELECT DISTINCT `Pincode` from `location` WHERE `area_name`='$t'";

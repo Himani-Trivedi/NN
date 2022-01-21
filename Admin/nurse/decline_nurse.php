@@ -11,7 +11,7 @@
 </head>
 <script>
     <?php
-            include '../connect.php';
+            include '../../connect.php';
 
             if (isset($_SESSION['accept_nurse']) && isset($_SESSION['admin']) && isset($_POST['reason'])) {
  

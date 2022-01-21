@@ -1,5 +1,5 @@
 <?php
-    	include '../connect.php';
+    	include '../../connect.php';
 
 	    $t=$_POST['state'];
         $sql="SELECT DISTINCT `district` from `location` WHERE `state`='$t'";

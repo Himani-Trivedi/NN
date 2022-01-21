@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en">
 
 <?php
-    include '../connect.php'
+    include '../../connect.php'
 ?>
 
 <head>
@@ -12,11 +12,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Location </title>
-    <link href="../logo.jpeg" rel="icon">
+    <link href="../../logo.jpeg" rel="icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link href="../Nurse/system_nurses/style.min.css" rel="stylesheet">
+    <link href="../../Nurse/system_nurses/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 </head>
@@ -47,7 +47,7 @@
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon -->
                         <b class="logo-icon text-danger">
-                            <img src="../logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
+                            <img src="../../logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
                             <span style="color:rgba(63,187,192,255); font-size: 17px;">Neighboring Nurse</span>
                         </b>
                         <!--End Logo icon -->

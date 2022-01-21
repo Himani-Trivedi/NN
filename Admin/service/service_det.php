@@ -1,5 +1,5 @@
 <?php
-include '../connect.php';
+include '../../connect.php';
 
 $t = $_POST['service'];
 $sql = "SELECT * FROM `services` where `service_name`='$t'";

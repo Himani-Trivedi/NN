@@ -2,7 +2,10 @@
 <?php
 
     include '../connect.php';  
-?>
+
+    if($_REQUEST['nurse']){
+        $nurse=$_REQUEST['nurse'];
+        ?>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -19,6 +22,7 @@
             // alert(response.razorpay_order_id);
             // alert(response.razorpay_signature)
             console.log(response);
+           <?php header("location:system_nurses/profile.php?nurse=$nurse");?> 
         },
         "prefill": {
             "name": "Gaurav Kumar",
@@ -53,3 +57,7 @@
         rzp1.open();
     });
 </script>
+
+<?php
+    }
+?>

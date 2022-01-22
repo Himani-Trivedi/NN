@@ -60,6 +60,14 @@ echo "<script>document.writeln(p1);</script>";
 
 <!-- Id: rzp_test_Nn47y52bQed0NF
 secret : 0wlIVCQcc4L6mtJmimxa8HK4
-image: "https://example.com/your_logo" -->
+image: "https://example.com/your_logo"
+
+
+
+status 0 : pending request
+        1: Account accpeted
+        2:Payment Done
+        3: Loaction,service,Timming added
+    Now Publish in appnurses-->
 
 

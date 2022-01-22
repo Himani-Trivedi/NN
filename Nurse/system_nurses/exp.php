@@ -65,7 +65,7 @@
                      
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                                 <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal">1500 Rs.
+                                 <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal" id="pay_btn">1500 Rs.
                             </a>
                             </a>
                             <ul class="dropdown-menu show" aria-labelledby="navbarDropdown"></ul>
@@ -96,7 +96,7 @@
                                 href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Experience</span></a>
                         </li>
                         <li class="text-center p-20 upgrade-btn">
-                                <a href="../../Admin/req_nurses.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
+                                <a href="../../Admin/nurse/unset_admin_profile.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
                             </li>
                     <?php
                     } else {
@@ -153,7 +153,7 @@
                  <div class="row">
 
                 <?php
-                 if(isset($_SESSION['requested_nurse'])){
+                 if(isset($_SESSION['nurse'])){
 
                         $i=1;
 
@@ -161,7 +161,7 @@
                             die("Not connected to db");
                         }
 
-                        $mail=$_SESSION['requested_nurse'];
+                        $mail=$_SESSION['nurse'];
                         $sql_req="SELECT * FROM `experience` WHERE email='$mail';";
                         $result=mysqli_query($con,$sql_req);
 
@@ -241,5 +241,13 @@
         </div>
        
 </body>
-
+<script>
+    <?php
+    if (isset($_SESSION['admin_profile'])) {
+    ?>
+        document.getElementById('pay_btn').style.display = "none";
+    <?php
+    }
+    ?>
+</script>
 </html> 

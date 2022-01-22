@@ -37,13 +37,13 @@
          $subject = "Neighbouring Nurse";
          $body = "Admin has accepted your request for creating your account as Nurse
           Now do Payment of 1000Rs as a deposite for trust.
-          <a href='http://localhost/Project/NN/Nurse/nurse_payment.php?nurse=$email'>PAYMENT</a>";
+          <a href='http://localhost/Project/NN/Nurse/payment/nurse_payment.php?nurse=$email'>PAYMENT</a>";
          $headers = "From: ht1872004@gmail.com";
 
          if (mail($to_email, $subject, $body, $headers)) {
             header('location:req_nurses.php');
          } else {
-            echo "Mail Not send";
+            die("<script>Mail Not send</script>");
          }
 
      }

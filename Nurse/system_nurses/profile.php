@@ -1,45 +1,26 @@
 <?php
+
+use Google\Service\CloudNaturalLanguage\Document;
+
 include '../../connect.php';
 
-if (isset($_SESSION['requested_nurse'])) {
+if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
 
     if (!$con) {
         die("Not connected to db");
     }
 
-    $mail = $_SESSION['requested_nurse'];
-    $sql_req = "SELECT * FROM `requested_nurse` WHERE email='$mail';";
-    $result = mysqli_query($con, $sql_req);
-
-    if (!$result) {
-        die(mysqli_error($con));
-    }
-
-    if (mysqli_num_rows($result) == 1) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $name = $row['name'];
-            $email = $row['email2'];
-            $ph = $row['ph_no'];
-            $bio = $row['bio'];
-            $gender = $row['gender'];
-            $rn = $row['rn_cert'];
-            $yrs_exp = $row['total_exp'];
-            $profile = $row['profile_pic'];
-            $status = $row['Approval_status'];
-            $_SESSION['status'] = $status;
-        }
+    if (isset($_SESSION['nurse'])) {
+        $mail = $_SESSION['nurse'];
     } else {
-        die(mysqli_error($con));
-    }
-} else if (isset($_REQUEST['nurse'])) {
-
-    if (!$con) {
-        die("Not connected to db");
+        $mail = $_REQUEST['nurse'];
+        $_SESSION['nurse'] = $mail;
     }
 
-    $mail = $_REQUEST['nurse'];
-    $_SESSION['requested_nurse'] = $mail;
-    $_SESSION['admin_profile'] = 1;
+    if (isset($_REQUEST['admin'])) {
+        $_SESSION['admin_profile'] = $_REQUEST['admin'];
+    }
+
     $sql = "SELECT * FROM `requested_nurse` WHERE email='$mail';";
     $result = mysqli_query($con, $sql);
 
@@ -63,6 +44,8 @@ if (isset($_SESSION['requested_nurse'])) {
     } else {
         die(mysqli_error($con));
     }
+}else{
+    header('location:../login/login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -130,7 +113,7 @@ if (isset($_SESSION['requested_nurse'])) {
                         <li class="nav-item dropdown">
                             <!-- <a href="" style="color:black; padding-right:0px"><i class="fa fa-bell fa-2x"></i></a> -->
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal">1500 Rs.
+                                <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal" id="pay_btn">1500 Rs.
                                 </a>
                                 <ul class="dropdown-menu show" aria-labelledby="navbarDropdown"></ul>
                         </li>
@@ -161,7 +144,7 @@ if (isset($_SESSION['requested_nurse'])) {
                             </li>
 
                             <li class="text-center p-20 upgrade-btn">
-                                <a href="../../Admin/req_nurses.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
+                                <a href="../../Admin/nurse/unset_admin_profile.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
                             </li>
                         <?php
                         } else {
@@ -309,20 +292,26 @@ if (isset($_SESSION['requested_nurse'])) {
                                             </select>
                                         </div>
                                     </div> -->
-                                    <div class="form-group">
-                                        <div class="col-sm-12 d-flex ">
-                                            <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="enable_data(this);">Update
-                                                Profile</button>
+                                    <?php
 
-                                            <button type="button" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;" onclick="window.location.href='update_password.php?id=<?php echo $mail; ?>'">Change Password
-                                            </button>
+                                    if (!isset($_SESSION['admin_profile'])) {
+                                    ?>
+                                        <div class="form-group">
+                                            <div class="col-sm-12 d-flex ">
+                                                <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="enable_data(this);">Update
+                                                    Profile</button>
 
-                                            <button formaction="update_nurse_profile.php" type="submit" id="n_update" name="n_update" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px; display:none;">Update
-                                            </button>
+                                                <button type="button" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;" onclick="window.location.href='update_password.php?id=<?php echo $mail; ?>'">Change Password
+                                                </button>
+
+                                                <button formaction="update_nurse_profile.php" type="submit" id="n_update" name="n_update" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px; display:none;">Update
+                                                </button>
+                                            </div>
+
                                         </div>
-
-                                    </div>
-
+                                    <?php
+                                    }
+                                    ?>
                                 </form>
                             </div>
                         </div>
@@ -366,12 +355,16 @@ if (isset($_SESSION['requested_nurse'])) {
         ?>
             document.getElementById('male_radio').checked = true;
 
-    <?php
+        <?php
         }
     }
 
+    if (isset($_SESSION['admin_profile'])) {
+        ?>
+            document.getElementById('pay_btn').style.display="none";
+    <?php
+    }
     ?>
-
 
     function enable_data(e) {
         e.style.display = "none";
@@ -383,8 +376,6 @@ if (isset($_SESSION['requested_nurse'])) {
         document.getElementById('female_radio').disabled = false;
         document.getElementById('male_radio').disabled = false;
     }
-
-    console.log(<?php print_r($_SESSION); ?>);
 </script>
 
 </html>

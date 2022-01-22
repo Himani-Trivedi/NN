@@ -1,10 +1,37 @@
 <!-- <button id="rzp-button1">Pay</button> -->
 <?php
 
-    include '../connect.php';  
+    include '../../connect.php';  
 
-    if($_REQUEST['nurse']){
+    if(isset($_REQUEST['nurse'])){
         $nurse=$_REQUEST['nurse'];
+    } else if(isset($_SESSION['nurse'])){
+        $nurse=$_SESSION['nurse'];
+    }
+
+    if(isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])){
+
+        if(!$con){
+            die("Not connected to db");
+        }
+
+        $sql_req="SELECT * FROM `requested_nurse` where `email`='$nurse'";
+        $result=mysqli_query($con,$sql_req);
+
+        if(!$result){
+            die(mysqli_error($con));
+        }
+
+        if (mysqli_num_rows($result) == 1) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $name = $row['name'];
+                $email = $row['email2'];
+                $ph = $row['ph_no'];
+            }
+        } else {
+            die(mysqli_error($con));
+        }
+
         ?>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,12 +49,12 @@
             // alert(response.razorpay_order_id);
             // alert(response.razorpay_signature)
             console.log(response);
-           <?php header("location:system_nurses/profile.php?nurse=$nurse");?> 
+            window.location.href='success.php?nurse=<?php echo $nurse;?>';
         },
         "prefill": {
-            "name": "Gaurav Kumar",
-            "email": "gaurav.kumar@example.com",
-            "contact": "9999999999"
+            "name": "<?php echo $name;?>",
+            "email": "<?php echo $email;?>",
+            "contact": "<?php echo $ph;?>"
         },
         "notes": {
             "address": "Government Polytechnic Ahmedabad"
@@ -47,6 +74,7 @@
             // // alert(response.error.metadata.order_id);
             // alert(response.error.metadata.payment_id);
             console.log(response);
+            alert('Payment Failed!! Try Again');
         });
     // document.getElementById('rzp-button1').onclick = function(e) {
     //     rzp1.open();
@@ -59,5 +87,7 @@
 </script>
 
 <?php
+    }else{
+        header('location:../../demo.php?nurse=<?php echo $nurse;?>');
     }
 ?>

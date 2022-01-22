@@ -28,36 +28,46 @@ if (isset($_GET["code"])) {
         $data = $google_service->userinfo->get();
 
         if (!empty($data['email'])) {
-            $u=$data['email'];
-            $u=md5($u);
+            $u = $data['email'];
+            $u = md5($u);
 
             include '../../connect.php';
 
-            if(!$con){
+            if (!$con) {
                 die("Not connected to db");
             }
-    
+
             if ($con) {
                 $sql = "select * from `requested_nurse` where email='$u'";
-        
+
                 $r = mysqli_query($con, $sql);
                 try {
                     if ($r) {
                         $a = mysqli_fetch_assoc($r);
-                        if ($a) { 
-                            $_SESSION['requested_nurse']=$u;
+
+                        if (!$a) {
+                            die("<script>alert('No Such Nusre')</script>");
+                        }
+
+                        $ipaddress = $_SERVER['REMOTE_ADDR'];
+                        $nurse = $a['email'];
+
+                        $sql_login = "INSERT INTO `nurselogin`(`Email`, `IP_address`,`in_out`) VALUES ('$nurse','$ipaddress','i')";
+                        $result_login = mysqli_query($con, $sql_login);
+
+                        if ($result_login) {
+                            $_SESSION['nurse'] = $u;
                             header('location:../system_nurses/profile.php');
                         } else {
-                            echo "<script>alert('No Such Nusre')</script>";
+                            die ("<script>alert('Login Failed! Try Again ')</script>");
                         }
-                    }else{
+                    } else {
                         die(mysqli_error($con));
                     }
                 } catch (Exception $e) {
                     echo "There is Technical Problem ";
                 }
             }
-
         }
     }
 }
@@ -80,8 +90,7 @@ if (!isset($_SESSION['access_token'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <style>
-
-        h3{
+        h3 {
             font-size: 20px;
             color: blue;
             text-align: center;
@@ -229,41 +238,53 @@ if (isset($_POST['sub'])) {
     check_nurse($_POST);
 }
 
-    function check_nurse($a){
-        include '../../connect.php';
+function check_nurse($a)
+{
+    include '../../connect.php';
 
-        $user = $a['uname'] . trim(" ");
-        $p = $a['pass'];
-        $p = md5($p);
-        $u = md5($user);
+    $user = $a['uname'] . trim(" ");
+    $p = $a['pass'];
+    $p = md5($p);
+    $u = md5($user);
 
-        if(!$con){
-            die("Not connected to db");
-        }
-
-        if ($con) {
-            $sql = "select * from `requested_nurse` where email='$u' and password='$p'";
-    
-            $r = mysqli_query($con, $sql);
-            try {
-                if ($r) {
-                    $a = mysqli_fetch_assoc($r);
-                    if ($a) { 
-                        $_SESSION['requested_nurse']=$u;
-                        header('location:../system_nurses/profile.php');
-                    } else {
-                        echo "<script>alert('No Such Nusre')</script>";
-                    }
-                }else{
-                    die(mysqli_error($con));
-                }
-            } catch (Exception $e) {
-                echo "There is Technical Problem ";
-            }
-        }
+    if (!$con) {
+        die("Not connected to db");
     }
 
-    
+    if ($con) {
+        $sql = "select * from `requested_nurse` where email='$u' and password='$p'";
+
+        $r = mysqli_query($con, $sql);
+        try {
+            if ($r) {
+                $a = mysqli_fetch_assoc($r);
+
+                if (!$a) {
+                    die("<script>alert('No Such Nusre')</script>");
+                }
+
+                $ipaddress = $_SERVER['REMOTE_ADDR'];
+                $nurse = $a['email'];
+
+                $sql_login = "INSERT INTO `nurselogin`(`Email`, `IP_address`,`in_out`) VALUES ('$nurse','$ipaddress','i')";
+                $result_login = mysqli_query($con, $sql_login);
+
+                if ($result_login) {
+                    $_SESSION['nurse'] = $u;
+                    header('location:../system_nurses/profile.php');
+                } else {
+                    die ("<script>alert('Login Failed! Try Again ')</script>");
+                }
+            } else {
+                die(mysqli_error($con));
+            }
+        } catch (Exception $e) {
+            echo "There is Technical Problem ";
+        }
+    }
+}
+
+
 ?>
 
 
@@ -304,7 +325,7 @@ if (isset($_POST['sub'])) {
                 <tr>
                     <td>
                         <?php
-                            echo $login_button;
+                        echo $login_button;
                         ?>
                     </td>
                 </tr>

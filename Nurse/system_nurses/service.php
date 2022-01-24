@@ -1,5 +1,7 @@
 <?php
 include '../../connect.php';
+$nurse = $_SESSION['nurse'];
+
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -109,6 +111,11 @@ include '../../connect.php';
         </aside>
 
         <div class="page-wrapper">
+            <center>
+                <div class="alert alert-danger" role="alert" id="add_nurse" style="display: none;">
+                    Add Locations,Services and Timing Schedule to Become System Nurses.
+                </div>
+            </center>
             <div class="container-fluid" id="box1">
                 <div class="row">
                     <div class="col-12">
@@ -298,13 +305,17 @@ include '../../connect.php';
         document.getElementById('box1').style.display = "none";
         document.getElementById('box2').style.display = "inline-block";
     <?php
-     } else if ($_SESSION['status'] == 1) {
-        ?>
-            document.getElementById('box1').style.display = "none";
-            document.getElementById('pay_btn').style.display = "inline-block";
-            document.getElementById('box2').style.display = "inline-block";
-            document.getElementById('do_pay').innerHTML = "Please Complete Your Payment"
-        <?php
+    } else if ($_SESSION['status'] == 1) {
+    ?>
+        document.getElementById('box1').style.display = "none";
+        document.getElementById('pay_btn').style.display = "inline-block";
+        document.getElementById('box2').style.display = "inline-block";
+        document.getElementById('do_pay').innerHTML = "Please Complete Your Payment"
+    <?php
+    } else if ($_SESSION['status'] == 2) {
+    ?>
+        document.getElementById('add_nurse').style.display = "inline-block";
+    <?php
     } else {
     ?>
         document.getElementById('box1').style.display = "inline-block";

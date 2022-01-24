@@ -46,7 +46,7 @@ if (isset($_GET["code"])) {
                         $a = mysqli_fetch_assoc($r);
 
                         if (!$a) {
-                            die("<script>alert('No Such Nusre')</script>");
+                            echo("<script>alert('No Such Nusre')</script>");
                         }
 
                         $ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -59,7 +59,7 @@ if (isset($_GET["code"])) {
                             $_SESSION['nurse'] = $u;
                             header('location:../system_nurses/profile.php');
                         } else {
-                            die ("<script>alert('Login Failed! Try Again ')</script>");
+                            echo("<script>alert('Login Failed! Try Again ')</script>");
                         }
                     } else {
                         die(mysqli_error($con));
@@ -256,12 +256,8 @@ function check_nurse($a)
 
         $r = mysqli_query($con, $sql);
         try {
-            if ($r) {
+            if (mysqli_num_rows($r) == 1) {
                 $a = mysqli_fetch_assoc($r);
-
-                if (!$a) {
-                    die("<script>alert('No Such Nusre')</script>");
-                }
 
                 $ipaddress = $_SERVER['REMOTE_ADDR'];
                 $nurse = $a['email'];
@@ -273,10 +269,10 @@ function check_nurse($a)
                     $_SESSION['nurse'] = $u;
                     header('location:../system_nurses/profile.php');
                 } else {
-                    die ("<script>alert('Login Failed! Try Again ')</script>");
+                    echo("<script>alert('Login Failed! Try Again ')</script>");
                 }
             } else {
-                die(mysqli_error($con));
+                echo("<script>alert('No Such Nusre')</script>");              
             }
         } catch (Exception $e) {
             echo "There is Technical Problem ";

@@ -1,5 +1,6 @@
 <?php
 include '../../connect.php';
+$nurse = $_SESSION['nurse'];
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -26,7 +27,6 @@ include '../../connect.php';
         }
     </style>
 </head>
-
 
 <body>
 
@@ -110,6 +110,11 @@ include '../../connect.php';
 
 
         <div class="page-wrapper">
+            <center>
+                <div class="alert alert-danger" role="alert" id="add_nurse" style="display: none;">
+                    Add Locations,Services and Timing Schedule to Become System Nurses.
+                </div>
+            </center>
             <div class="container-fluid" id="box1">
                 <div class="row">
                     <div class="col-12">
@@ -174,7 +179,7 @@ include '../../connect.php';
                         <div class="card">
                             <div class="card-body">
                                 <p style="font-size: 25px;" id="do_pay">Please Wait for the Admin approval to Select Location, Services, Timming & to get into Search </p>
-                                <button id="pay_btn" type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="display:none;background-color:rgba(63,187,192,255) ; border:0px" onclick='window.location.href="../payment/nurse_payment.php"';>Pay</button>
+                                <button id="pay_btn" type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="display:none;background-color:rgba(63,187,192,255) ; border:0px" onclick='window.location.href="../payment/nurse_payment.php"' ;>Pay</button>
                             </div>
                         </div>
                     </div>
@@ -297,6 +302,10 @@ include '../../connect.php';
         document.getElementById('pay_btn').style.display = "inline-block";
         document.getElementById('box2').style.display = "inline-block";
         document.getElementById('do_pay').innerHTML = "Please Complete Your Payment"
+    <?php
+    } else if ($_SESSION['status'] == 2) {
+    ?>
+        document.getElementById('add_nurse').style.display = "inline-block";
     <?php
     } else {
     ?>

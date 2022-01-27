@@ -4,6 +4,10 @@
 
     unset($_SESSION['admin_profile']);
 
-    header('location:req_nurses.php');
+    if(isset($_REQUEST['re'])){
+         header('location:accepted_nurses.php');
+    }else{
+        header('location:req_nurses.php');
+    }
 
 ?>

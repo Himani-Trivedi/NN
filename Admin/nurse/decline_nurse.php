@@ -36,8 +36,42 @@
                 if (!$result) {
                     die(mysqli_error($con));
                 }
+
+                $sql_select = "SELECT * FROM `requested_nurse` WHERE `email`='$email'";
+                $result_select = mysqli_query($con, $sql_select);
+        
+                if (!$result_select) {
+                    die(mysqli_error($con));
+                }
+
+                while($row=mysqli_fetch_assoc($result_select)){
+                    $to_email=$row['email2'];
+                }
+
+                $subject = "Neighbouring Nurse";
+                $body = "Sorry But admin has declined your account with this reason :".$reason;
+                $headers = "From: ht1872004@gmail.com";
+
+                if (mail($to_email, $subject, $body, $headers)) {
+                    echo "
+                  console.log(
+                   ";  
+                   mysqli_error($con);
+                   echo ");";
+                } else {
+                  echo "
+                  console.log(
+                  ";  
+                  mysqli_error($con);
+                  echo ");";
+                }
+
+                if(isset($_REQUEST['re']) == 0){
+                    header('location:req_nurses.php');   
+                }else{
+                    header('location:accepted_nurses.php');   
+                }
        
-                header('location:req_nurses.php');
             } 
         ?>       
 </script>

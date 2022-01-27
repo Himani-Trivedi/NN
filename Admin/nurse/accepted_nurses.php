@@ -79,12 +79,7 @@ $_SESSION['admin'] = md5('ht@gamil.com');
                 </div>
             </nav>
         </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
+       
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
@@ -112,16 +107,7 @@ $_SESSION['admin'] = md5('ht@gamil.com');
             </div>
             <!-- End Sidebar scroll-->
         </aside>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
                     <div class="col-md-6 col-8 align-self-center">
@@ -214,7 +200,7 @@ $_SESSION['admin'] = md5('ht@gamil.com');
                                                     ?>
                                                     </td>
                                                     <td>
-                                                        <a href='decline_reason.php?email=<?php echo $email; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp
+                                                        <a href='decline_reason.php?email=<?php echo $email; ?>&re=1' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp
                                                             <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">
                                                                 Delete
                                                             </button>

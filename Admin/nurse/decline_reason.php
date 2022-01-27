@@ -20,6 +20,7 @@ if (isset($_REQUEST['email'])) {
 
     while ($row = mysqli_fetch_assoc($result)) {
         $name = $row['name'];
+        $status = $row['Approval_status'];
     }
 }
 ?>
@@ -50,7 +51,17 @@ if (isset($_REQUEST['email'])) {
                 </div>
                 <br>
                 <button type="submit" class="btn btn-secondary" style="background-color:rgba(63,187,192,255) ;">Decline</button>
-                <a href='req_nurses.php' class="btn btn-secondary">Cancle</a>
+
+                <?php
+
+                if ($status == 0) {
+                    echo "<a href='req_nurses.php' class='btn btn-secondary'>Cancle</a>";
+                } else {
+                    echo "
+                         <a href='accepted_nurses.php?re=1' class='btn btn-secondary'>Cancle</a>
+                        ";
+                }
+              ?>
             </form>
         </div>
     </div>

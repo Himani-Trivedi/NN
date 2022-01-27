@@ -55,8 +55,7 @@ echo "<script>document.writeln(p1);</script>";
  echo "Already Logged in";
  echo "Not System Nurse";
 
-?>
-
+?>                          
 
 <!-- Id: rzp_test_Nn47y52bQed0NF
 secret : 0wlIVCQcc4L6mtJmimxa8HK4

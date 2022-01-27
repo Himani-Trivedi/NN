@@ -59,7 +59,7 @@ $_SESSION['admin']=md5('ht@gamil.com');
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal">1500 Rs.
+                                <!-- <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal">1500 Rs. -->
                                 </a>
                             </a>
                             <ul class="dropdown-menu show" aria-labelledby="navbarDropdown"></ul>
@@ -83,9 +83,9 @@ $_SESSION['admin']=md5('ht@gamil.com');
                             
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Profile.php" aria-expanded="false">
                                 <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Req_Nurse.php" aria-expanded="false" style="color:rgba(63,187,192,255) ;"><i class="me-3 fa fa-columns" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu">Requested Nurse</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="req_nurses.php" aria-expanded="false" style="color:rgba(63,187,192,255) ;"><i class="me-3 fa fa-columns" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu">Requested Nurse</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="req_nurses.php" aria-expanded="false"><i class="me-3 fa fa-table" aria-hidden="true"></i><span class="hide-menu">Accepted Nurse</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_nurses.php" aria-expanded="false"><i class="me-3 fa fa-table" aria-hidden="true"></i><span class="hide-menu">Accepted Nurse</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin_loc.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
                         </li>
 
@@ -115,7 +115,6 @@ $_SESSION['admin']=md5('ht@gamil.com');
                                             <tr>
                                                 <th class="border-top-0">Sr. No</th>
                                                 <th class="border-top-0">Name</th>
-
                                                 <th class="border-top-0">Gender</th>
                                                 <th class="border-top-0">Accept</th>
                                                 <th class="border-top-0">Decline</th>

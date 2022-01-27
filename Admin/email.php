@@ -5,7 +5,7 @@
 	<title>Email</title>
     <link href="../logo.jpeg" rel="icon">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../Nurse/Nurse_signup/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 
     <style type="text/css">
@@ -39,11 +39,11 @@
 <body>
     <?php
 
-        include '../../connect.php';
+        include '../connect.php';
 
-        if(!((isset($_SESSION['user']['terms'])))){
-            header('location:conditions.php');
-        }
+        // if(!((isset($_SESSION['user']['terms'])))){
+        //     header('location:conditions.php');
+        // }
 
     ?>
 	<div class="testbox" id="sendmail">
@@ -125,25 +125,26 @@
               }else{
                     $subject = "Neighbouring Nurse";
                     $body = "Thank You For Enrolling in Neighbouring Nurse as Nurse.\nThis is your verification code $no \n Please fill This code to verify your MailId.  ";
-                    $headers = "From: ht1872004@gmail.com";
+                    $headers = "From:ht1872004@gmail.com";
 
                     $_SESSION['no']=$no;
                     $_SESSION['user']['email']=$to_email;
 
                     if (mail($to_email, $subject, $body, $headers)) {
-                      echo "$('#verify').show();
-                      $('#sendmail').hide();
-                      console.log(
-                       ";  
-                       mysqli_error($con);
-                       echo ");";
+                        echo "$('#verify').show();
+                         $('#sendmail').hide();
+                         console.log(
+                          ";  
+                          mysqli_error($con);
+                          echo ");";
                     } else {
-                      echo "$('#error').html('Wrong MailId');
-                      $('#error').show(); 
-                      console.log(
-                      ";  
-                      mysqli_error($con);
-                      echo ");";
+                        echo "$('#error').html('Wrong MailId');
+                        $('#error').show(); 
+                        console.log(
+                        ";  
+                        mysqli_error($con);
+
+                        echo ");";
                     }
               }   
         }else {

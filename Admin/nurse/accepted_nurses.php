@@ -207,7 +207,7 @@ $_SESSION['admin'] = md5('ht@gamil.com');
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="../../Nurse/system_nurses/profile.php?nurse=<?php echo $email; ?>&admin=<?php echo $_SESSION['admin']; ?>" style="color:rgba(63,187,192,255) ;">
+                                                        <a href="profile.php?nurse=<?php echo $email; ?>&admin=<?php echo $_SESSION['admin']; ?>" style="color:rgba(63,187,192,255) ;">
                                                             <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">
                                                                 Open
                                                             </button>

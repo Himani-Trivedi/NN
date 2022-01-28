@@ -157,7 +157,7 @@ $_SESSION['admin']=md5('ht@gamil.com');
                                                     <a href='decline_reason.php?email=<?php echo $email;?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
                                                 </td>
                                                 <td>
-                                                    <a href="../../Nurse/system_nurses/profile.php?nurse=<?php echo $email;?>&admin=<?php echo $_SESSION['admin'];?>" style="color:rgba(63,187,192,255) ;"><button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">
+                                                    <a href="profile.php?nurse=<?php echo $email;?>&admin=<?php echo $_SESSION['admin'];?>" style="color:rgba(63,187,192,255) ;"><button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">
                                                             Open</button> </a>
                                                 </td>
                                             </tr>

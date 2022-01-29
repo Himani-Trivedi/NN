@@ -374,7 +374,10 @@ $nurse = $_SESSION['nurse'];
     var t = new Date(to.slice(6, 10), to_new_month, to.slice(0, 2));
 
     calcDate(f, t);
-    if (Difference_In_Day != "0") {
+    console.log( typeof Difference_In_Days);
+    console.log( Difference_In_Days);
+
+    if(Difference_In_Day) {
       document.getElementById('time').style.display = "inline-block";
     } else {
       alert("Error");
@@ -389,7 +392,6 @@ $nurse = $_SESSION['nurse'];
     // To calculate the no. of days between two dates
     Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
     console.log(Difference_In_Days);
-    console.log(Difference_In_Time);
     console.log(f);
     console.log(t);
 

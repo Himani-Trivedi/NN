@@ -246,7 +246,6 @@ $nurse = $_SESSION['nurse'];
                           echo  rows(19);
                           echo  rows(20);
                           echo  rows(21);
-
                           ?>
                           <tr>
                             <th scope="row" colspan="7">
@@ -281,16 +280,106 @@ $nurse = $_SESSION['nurse'];
 </body>
 <script>
   let from, to;
+  let Difference_In_Day
 
   function funEna() {
+
     document.getElementById('time').disabled = false;
     from = document.getElementById('from').value;
     to = document.getElementById('to').value;
 
-    var f = new Date(from.slice(6, 10), from.slice(3, 5), from.slice(0, 2));
-    var t = new Date(to.slice(6, 10), to.slice(3, 5), to.slice(0, 2));
+    let from_new_month = from.slice(3, 5);
+    let to_new_month = to.slice(3, 5);
+
+
+    switch (from_new_month) {
+      case "01":
+        from_new_month = "00";
+        break;
+      case "02":
+        from_new_month = "01";
+        break;
+      case "03":
+        from_new_month = "02";
+        break;
+      case "04":
+        from_new_month = "03";
+        break;
+      case "05":
+        from_new_month = "04";
+        break;
+      case "06":
+        from_new_month = "05";
+        break;
+      case "07":
+        from_new_month = "06";
+        break;
+      case "08":
+        from_new_month = "07";
+        break;
+      case "09":
+        from_new_month = "08";
+        break;
+      case "10":
+        from_new_month = "09";
+        break;
+      case "11":
+        from_new_month = "10";
+        break;
+      case "12":
+        from_new_month = "11";
+        break;
+    }
+
+    switch (to_new_month) {
+      case "01":
+        to_new_month = "00";
+        break;
+      case "02":
+        to_new_month = "01";
+        break;
+      case "03":
+        to_new_month = "02";
+        break;
+      case "04":
+        to_new_month = "03";
+        break;
+      case "05":
+        to_new_month = "04";
+        break;
+      case "06":
+        to_new_month = "05";
+        break;
+      case "07":
+        to_new_month = "06";
+        break;
+      case "08":
+        to_new_month = "07";
+        break;
+      case "09":
+        to_new_month = "08";
+        break;
+      case "10":
+        to_new_month = "09";
+        break;
+      case "11":
+        to_new_month = "10";
+        break;
+      case "12":
+        to_new_month = "11";
+        break;
+    }
+
+    var f = new Date(from.slice(6, 10), from_new_month, from.slice(0, 2));
+    var t = new Date(to.slice(6, 10), to_new_month, to.slice(0, 2));
 
     calcDate(f, t);
+    if (Difference_In_Day != "0") {
+      document.getElementById('time').style.display = "inline-block";
+    } else {
+      alert("Error");
+    }
+
   }
 
   function calcDate(f, t) {
@@ -298,9 +387,13 @@ $nurse = $_SESSION['nurse'];
     var Difference_In_Time = t.getTime() - f.getTime();
 
     // To calculate the no. of days between two dates
-    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
+    Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
     console.log(Difference_In_Days);
+    console.log(Difference_In_Time);
+    console.log(f);
+    console.log(t);
+
+
   }
 
 
@@ -342,6 +435,8 @@ $nurse = $_SESSION['nurse'];
   } else if ($_SESSION['status'] == 2) {
   ?>
     document.getElementById('add_nurse').style.display = "inline-block";
+    document.getElementById('box2').style.display = "none";
+
   <?php
   } else {
   ?>
@@ -351,6 +446,8 @@ $nurse = $_SESSION['nurse'];
   <?php
   }
   ?>
+
+  document.getElementById('time').style.display = "none";
 </script>
 <?php
 

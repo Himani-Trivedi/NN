@@ -23,7 +23,7 @@
         echo $gender."<br>";
         echo $bio."<br>";
 
-        $sql_update="UPDATE `requested_nurse` SET `email`='$mail',`email2`='$mail2',`name`='$name',`ph_no`='$ph',`gender`='$gender',`bio`='$bio',`Modified_Time`=CURRENT_TIMESTAMP() WHERE `email2`='$mail2'";
+        $sql_update="UPDATE `requested_nurse` SET `email`='$mail',`email2`='$mail2',`name`='$name',`ph_no`='$ph',`gender`='$gender',`bio`='$bio',`Modified_Time`=CURRENT_TIMESTAMP() WHERE `email2`='$mail2' ";
         $result=mysqli_query($con,$sql_update);
 
         if(!$result){

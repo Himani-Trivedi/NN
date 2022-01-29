@@ -66,6 +66,13 @@
                   echo ");";
                 }
 
+                $sql_delete = "DELETE FROM `requested_nurse` WHERE `email`='$email'";
+                $result_select = mysqli_query($con, $sql_delete);
+        
+                if (!$result_select) {
+                    die(mysqli_error($con));
+                }
+
                 if(isset($_REQUEST['re']) == 0){
                     header('location:req_nurses.php');   
                 }else{

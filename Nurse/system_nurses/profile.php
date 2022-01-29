@@ -386,7 +386,7 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
         e.style.display = "none";
         document.getElementById('n_update').style.display = "inline-block";
         document.getElementById('n_name').disabled = false;
-        document.getElementById('n_mail').disabled = false;
+        // document.getElementById('n_mail').disabled = false;
         document.getElementById('n_bio').disabled = false;
         document.getElementById('n_ph').disabled = false;
         document.getElementById('female_radio').disabled = false;

@@ -51,10 +51,6 @@ echo "<script>document.writeln(p1);</script>";
  echo "<br>";
  echo "<br>";
  echo "<br>";
-
- echo "Already Logged in";
- echo "Not System Nurse";
-
 ?>                          
 
 <!-- Id: rzp_test_Nn47y52bQed0NF
@@ -68,4 +64,18 @@ status 0 : pending request
         2:Payment Done
         3: Loaction,service,Timming added
     Now Publish in appnurses-->
+
+
+
+<!-- color :#3fbbc0
+rgba(63,187,192,255) 
+rgba(63,187,192,0.7)
+
+
+font-family: "Roboto", sans-serif;
+    font-size: 13px;
+
+    color: #626262;
+
+    font-weight: 500;-->
 

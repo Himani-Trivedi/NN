@@ -312,7 +312,7 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
 
                                     if (!isset($_SESSION['admin_profile'])) {
                                     ?>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="col-sm-12 d-flex ">
                                                 <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="enable_data(this);">Update
                                                     Profile</button>
@@ -324,7 +324,7 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
                                                 </button>
                                             </div>
 
-                                        </div>
+                                        </div> -->
                                     <?php
                                     }
                                     ?>

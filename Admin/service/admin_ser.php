@@ -50,28 +50,14 @@
                 <!-- End Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-collapse collapse" style="background-color:rgba(63,187,192,255) ;" id="navbarSupportedContent" data-navbarbg="skin5">
-
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
                     <ul class="navbar-nav me-auto mt-md-0 ">
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
                         <li class="nav-item hidden-sm-down">
                             <!-- <i class="me-3 fa fa-user" aria-hidden="true"></i> -->
                             <span class="hide-menu" style="color:white;font-size: 20px; padding-left: 30px;">Service</span></a>
                         </li>
-
                     </ul>
 
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav">
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
+                    <ul class="navbar-nav">          
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Diya Vora
@@ -82,12 +68,7 @@
                 </div>
             </nav>
         </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
+     
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
@@ -95,16 +76,19 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <!-- User Profile-->
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Profile.php" aria-expanded="false">
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../profile/Admin-Profile.php" aria-expanded="false">
                                 <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Req_Nurse.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Requested Nurse</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../nurse/req_nurses.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Requested Nurse</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Acc_Nurse.php" aria-expanded="false"><i class="me-3 fa fa-table" aria-hidden="true"></i><span class="hide-menu">Accepted Nurse</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Loc/Admin-Location.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href=../nurse/accepted_nurses.php" aria-expanded="false"><i class="me-3 fa fa-table" aria-hidden="true"></i><span class="hide-menu">Accepted Nurse</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../location/admin_loc.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
                         </li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Service.php" aria-expanded="false" style="color:rgba(63,187,192,255) ;"><i class="me-3 fa fa-info-circle" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu">Services</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin_ser.php" aria-expanded="false" style="color:rgba(63,187,192,255) ;"><i class="me-3 fa fa-info-circle" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu">Services</span></a></li>
 
+                        <li class="text-center p-20 upgrade-btn">
+                            <a href="../login/logout.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
+                        </li>
                     </ul>
 
                 </nav>
@@ -124,7 +108,7 @@
                                         <label class="col-md-12 mb-0">Services</label>
                                         <div class="col-sm-12 border-bottom">
                                             <select id="service" class="form-select shadow-none border-0 ps-0 form-control-line" onchange="addcharge(this.value);">
-                                            <option value=""></option>
+                                                <option value=""></option>
                                                 <?php
                                                 include '../../connect.php';
                                                 $sql = "SELECT * from `services` GROUP BY `service_name`";
@@ -132,7 +116,7 @@
                                                     $result = mysqli_query($con, $sql);
 
                                                     if ($result) {
-                                                        
+
                                                         while ($row = mysqli_fetch_assoc($result)) {
                                                 ?>
                                                             <option value="<?php echo $row['service_name']; ?>"><?php echo $row['service_name']; ?></option>
@@ -147,12 +131,12 @@
                                                 ?>
                                             </select>
                                             <br>
-                                                <div id="service_data">
+                                            <div id="service_data">
 
-                                                </div>
+                                            </div>
                                         </div>
                                         <span></span>
-                                    </div>                                
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -169,11 +153,11 @@
                         <h5 class="modal-title" id="staticBackdropLabel">Remove Service</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" >
+                    <div class="modal-body">
                         <h5> Are you sure you want to remove xyz service?<h5>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" >Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="yesRemove()">Yes</button>
                         <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;" data-bs-dismiss="modal">No</button>
                     </div>
                 </div>
@@ -189,36 +173,29 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal form-material mx-2" action="add-service.php" method="POST" enctype="multipart/form-data">
-
+                        <form class="form-horizontal form-material mx-2" action="add_ser.php" method="POST">
                             <div class="form-group">
                                 <label class="col-md-12 mb-0">Service</label>
                                 <div class="col-md-12">
-                                    <input type="text"name="service" id="service" class="form-control ps-0 form-control-line">
+                                    <input type="text" name="service" id="service" class="form-control ps-0 form-control-line">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12 mb-0">Charge</label>
                                 <div class="col-md-12">
-                                    <input type="text"  name="charge" id="charge" class="form-control ps-0 form-control-line">
+                                    <input type="text" name="charge" id="charge" class="form-control ps-0 form-control-line">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12 mb-0">Description</label>
                                 <div class="col-md-12">
-                                    <textarea rows="5"  name="des" id="des" class="form-control ps-0 form-control-line" style="resize:none;"></textarea>
+                                    <textarea rows="5" name="des" id="des" class="form-control ps-0 form-control-line" style="resize:none;"></textarea>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-12 mb-0">Upload Image</label>
-                                <div class="col-md-12">
-                                    <input type="file" name="file" accept="image/*">
-                                </div>
-                            </div>                     
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgba(63,187,192,255) ;">Submit</button>
+                        <button type="submit" name="save" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgba(63,187,192,255) ;">Submit</button>
                     </div>
                     </form>
                 </div>
@@ -235,7 +212,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <form class="form-horizontal form-material mx-2" method="POST" action="">
+                        <form class="form-horizontal form-material mx-2"  method="POST" action="Service-update.php">
                             <div class="form-group">
                                 <label class="col-md-12 mb-0">Service</label>
                                 <div class="col-md-12">
@@ -250,25 +227,19 @@
                                 <div class="form-group">
                                     <label class="col-md-12 mb-0">Description</label>
                                     <div class="col-md-12">
-                                        <textarea rows="5" class="form-control ps-0 form-control-line" style="resize:none;"></textarea>
+                                        <textarea rows="5" class="form-control ps-0 form-control-line" style="resize:none;" name="des"></textarea>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-12 mb-0">Upload Image</label>
-                                    <div class="col-md-12">
-                                        <input type="file" id="img" accept="image/*">
-                                    </div>
-                                </div>
+                                </div>               
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" name="save" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgba(63,187,192,255) ;">Save changes</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgba(63,187,192,255) ;">Save changes</button>
-                    </div>
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 <script>
     function addcharge(value) {
@@ -276,9 +247,11 @@
         $.ajax({
             url: 'service_det.php',
             type: 'POST',
-            data: {service:value},
+            data: {
+                service: value
+            },
             success: function(result) {
-               document.getElementById('service_data').innerHTML=result;
+                document.getElementById('service_data').innerHTML = result;
             }
         });
     }
@@ -294,6 +267,21 @@
             document.getElementById('charge_update').value = document.getElementById('charge').value;
         }
     }
+
+    function dataSelectedRemove() {
+        if (document.getElementById('service').value == 0) {
+            alert("First Select the Service");
+            $('#service').focus();
+        } else {
+            $('#staticBackdrop').modal('toggle');
+        }
+    }
+
+    function yesRemove() {
+        var x = document.getElementById('service').value;
+        window.location.href = "delete_ser.php?service=" + x;
+    }
+
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

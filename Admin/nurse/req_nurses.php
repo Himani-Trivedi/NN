@@ -1,7 +1,6 @@
 <?php
 include '../../connect.php';
 
-$_SESSION['admin']=md5('ht@gamil.com');
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -58,7 +57,7 @@ $_SESSION['admin']=md5('ht@gamil.com');
 
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="../profile/Admin-Profile.php" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <!-- <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal">1500 Rs. -->
                                 </a>
                             </a>
@@ -81,15 +80,15 @@ $_SESSION['admin']=md5('ht@gamil.com');
                                     aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li> -->
                     
                             
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Profile.php" aria-expanded="false">
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../profile/Admin-Profile.php" aria-expanded="false">
                                 <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="req_nurses.php" aria-expanded="false" style="color:rgba(63,187,192,255) ;"><i class="me-3 fa fa-columns" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu">Requested Nurse</span></a></li>
 
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_nurses.php" aria-expanded="false"><i class="me-3 fa fa-table" aria-hidden="true"></i><span class="hide-menu">Accepted Nurse</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin_loc.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../location/admin_loc.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
                         </li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin_ser.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../service/admin_ser.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
                         <li class="text-center p-20 upgrade-btn">
                             <a href="../login/logout.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
                         </li>

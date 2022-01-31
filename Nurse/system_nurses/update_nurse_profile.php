@@ -9,28 +9,21 @@
 			die("Not connected to db");
 		}
 
-        $mail2=$_POST['n_mail'];
-        $mail=md5($mail2);
+        $mail2=$_SESSION['nurse'];
         $name=$_POST['n_name'];
         $ph=$_POST['n_ph'];
         $bio=$_POST['n_bio'];
         $gender=$_POST['gender'];
 
         echo $mail2."<br>";
-        echo $mail."<br>";
         echo $name."<br>";
         echo $ph."<br>";
         echo $gender."<br>";
         echo $bio."<br>";
 
-        $sql_update="UPDATE `requested_nurse` SET `email`='$mail',`email2`='$mail2',`name`='$name',`ph_no`='$ph',`gender`='$gender',`bio`='$bio',`Modified_Time`=CURRENT_TIMESTAMP() WHERE `email2`='$mail2' ";
+        $sql_update="UPDATE `requested_nurse` SET `name`='$name',`ph_no`='$ph',`gender`='$gender',`bio`='$bio',`Modified_Time`=CURRENT_TIMESTAMP() WHERE `email`='$mail2'";
         $result=mysqli_query($con,$sql_update);
-
-        if(!$result){
-			die(mysqli_error($con));
-		}
-
-        header("location:profile.php?nurse='$mail'");
+        header("location:profile.php?nurse='$mail2'");
     }
 
 ?>

@@ -8,6 +8,7 @@ if ($con) {
     $result = mysqli_query($con, $sql);
     if ($result) {
         while ($row = mysqli_fetch_array($result)) {
+            $_SESSION['current_service']=$row['service_name'];
 ?>
             <div class='form-group'>
                 <label class='col-md-12 mb-0'>Charges</label>
@@ -24,12 +25,6 @@ if ($con) {
                 </div>
             </div>
             <div class='form-group'>
-                <label class='col-md-12 mb-0'>Service Picture</label>
-                <div class='col-md-12'>
-                    <p><a href='<?php echo "{$row['photo']}"; ?>' target='_blank'>Open</a></p>
-                </div>
-            </div>
-            <div class='form-group'>
                 <label class='col-md-12 mb-0'>Added By</label>
                 <div class='col-md-12'>
                     <input type='text' class='form-control ps-0 form-control-line' value='<?php echo "{$row['Added_by']}"; ?>' disabled>
@@ -42,9 +37,15 @@ if ($con) {
                 </div>
             </div>
             <div class='form-group'>
+                <label class='col-md-12 mb-0'>Modified By</label>
+                <div class='col-md-12'>
+                    <input type='text' class='form-control ps-0 form-control-line' value='<?php echo "{$row['Modified_By']}"; ?>' disabled>
+                </div>
+            </div>
+            <div class='form-group'>
                 <div class='col-sm-12 d-flex'>
                     <button type='button' class='btn btn-success mx-4 me-md-3 text-white' style='background-color:rgba(63,187,192,255); border:0px' data-bs-toggle='modal' data-bs-target='#exampleModal'>Add</button>
-                    <button type='button' class='btn btn-success mx-4 me-md-3 text-white' style='background-color:rgba(63,187,192,255); border:0px' data-bs-toggle='modal' data-bs-target='#updateModal'>Update </button>
+                    <button type='button' class='btn btn-success mx-4 me-md-3 text-white' style='background-color:rgba(63,187,192,255); border:0px' data-bs-toggle='modal' data-bs-target='#updateModal' onclick="dataSelectedUpdate()">Update </button>
                     <button type='button' class='btn btn-success mx-auto mx-md-0 text-white' style='background-color:rgba(63,187,192,255) ; border:0px' data-bs-toggle='modal' data-bs-target='#staticBackdrop'>Remove</button>
                 </div>
             </div>

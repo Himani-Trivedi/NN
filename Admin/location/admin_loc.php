@@ -110,15 +110,19 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <!-- User Profile-->
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Profile.php" aria-expanded="false">
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../profile/Admin-Profile.php" aria-expanded="false">
                                 <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Req_Nurse.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Requested Nurse</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../nurse/req_nurses.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Requested Nurse</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Acc_Nurse.php" aria-expanded="false"><i class="me-3 fa fa-table" aria-hidden="true"></i><span class="hide-menu">Accepted Nurse</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Location.php" aria-expanded="false" style="color:rgba(63,187,192,255) ;"><i class="me-3 fa fa-globe" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu">Locations</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../nurse/accepted_nurses.php" aria-expanded="false"><i class="me-3 fa fa-table" aria-hidden="true"></i><span class="hide-menu">Accepted Nurse</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin_loc.php" aria-expanded="false" style="color:rgba(63,187,192,255) ;"><i class="me-3 fa fa-globe" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu">Locations</span></a></li>
                         </li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Admin-Service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../service/admin_ser.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
+
+                        <li class="text-center p-20 upgrade-btn">
+                            <a href="../login/logout.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
+                        </li>
                     </ul>
 
                 </nav>
@@ -216,7 +220,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="Loc-Insert.php" method="POST">
+                    <form action="Loc-update.php" method="POST">
                         <div class="form-group">
                             <label class="col-md-12 mb-0">State</label>
                             <div class="col-md-12">
@@ -246,7 +250,7 @@
                         
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn" data-bs-dismiss="modal" style="background-color:rgba(63,187,192,255) ;" name="add_loc" onclick="add_location()">Update</button>
+                            <button type="submit" class="btn" data-bs-dismiss="modal" style="background-color:rgba(63,187,192,255) ;" name="save">Update</button>
                         </div>
                     </form>
                 </div>
@@ -314,7 +318,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn" data-bs-dismiss="modal" style="background-color:rgba(63,187,192,255) ;" name="add_loc" onclick="add_location()">Add</button>
+                    <button type="submit" class="btn" data-bs-dismiss="modal" style="background-color:rgba(63,187,192,255) ;" name="add_loc">Add</button>
                 </div>
             </form>
             </div>

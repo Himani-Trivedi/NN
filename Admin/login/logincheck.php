@@ -14,7 +14,9 @@ if (isset($_POST['sub'])) {
 		echo "login successful";
 		$_SESSION['admin'] = $user;
 		header('location:../profile/Admin-Profile.php');
-	} else
-	echo("<script>alert('No Such Nusre')</script>");
+	} else{
+		echo("<script>alert('No Such Admin')</script>");
+		header('location:login.php');
+	}
 
 }

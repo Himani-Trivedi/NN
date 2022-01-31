@@ -69,14 +69,3 @@ status 0 : pending request
         3: Loaction,service,Timming added
     Now Publish in appnurses-->
 
-
-   WHILE($ROW= SELECT * FROM `NURSE_SELECTED_LOCATIONS`;){
-           $PIN=$ROW['PINCODE'];
-           $SQL2="SELECT * FROM LOCATION WHERE pINCODE='$PN';"
-                $RESULT=QUERY($SQL2);
-                $ROW=MYSQLI_FECT_ASSOC($RESULT);
-     
-   }
-
-  
-                  

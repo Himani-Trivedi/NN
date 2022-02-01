@@ -174,18 +174,6 @@ include '../../connect.php';
                                                            echo "
                                                             <button type='button' class='btn btn-warning'>Payment Incomplete</button>
                                                             ";
-                                                        }else if($status == 2 ){
-                                                            echo "
-                                                            <button type='button' class='btn btn-secondary'>Locations Not Added</button>
-                                                            ";
-                                                        }else if($status == 3){
-                                                            echo "
-                                                            <button type='button' class='btn btn-success'>Services Not Added</button>
-                                                            ";
-                                                        }else if($status == 4){
-                                                            echo "
-                                                            <button type='button' class='btn btn-danger'>Timming Not Set</button>
-                                                            ";
                                                         }else{
                                                             echo "
                                                             <button type='button' class='btn btn-warning'>

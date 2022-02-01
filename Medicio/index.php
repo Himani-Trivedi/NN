@@ -73,6 +73,7 @@
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto" href="nurse_service.php">Search</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact Us</a></li>
           <li><a class="nav-link scrollto" href="#">Sign up</a></li>
           <li><a class="nav-link scrollto" href="#departments">Login</a></li>
         </ul>
@@ -291,11 +292,8 @@
 
 
       <div class="container">
-
         <div class="row mt-5">
-
           <div class="col-lg-6">
-
             <div class="row">
               <div class="col-md-12">
                 <div class="info-box">

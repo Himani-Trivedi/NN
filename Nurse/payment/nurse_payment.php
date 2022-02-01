@@ -49,7 +49,7 @@
             // alert(response.razorpay_order_id);
             // alert(response.razorpay_signature)
             console.log(response);
-            window.location.href='success.php?nurse=<?php echo $nurse;?>';
+            window.location.href='success.php?nurse=<?php echo $nurse;?>&payId='+response.razorpay_payment_id;
         },
         "prefill": {
             "name": "<?php echo $name;?>",

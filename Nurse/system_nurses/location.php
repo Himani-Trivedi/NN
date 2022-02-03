@@ -16,6 +16,8 @@ $nurse = $_SESSION['nurse'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
     <style type="text/css">
@@ -124,40 +126,45 @@ $nurse = $_SESSION['nurse'];
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Selected Area</label>
                                         <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none border-0 ps-0 form-control-line">
-                                                <option>Ambawadi</option>
-                                                <option>Maninagar</option>
-                                                <option>Ghodasar</option>
-                                                <option>Nehrunagar</option>
-                                                <option>Thaltej</option>
+                                            <select id="state" class="form-select shadow-none border-0 ps-0 form-control-line" name="area" onchange="addPincode(this.value);">
+                                                <option value=""></option>
+                                                <?php
+                                                $sql = "SELECT `Pincode` from `nurse_selected_areas` WHERE `email`='$nurse'";
+                                                if ($con) {
+                                                    $result = mysqli_query($con, $sql);
+
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $Pincode = $row['Pincode'];
+                                                        $sql2 = "SELECT * from `location` WHERE `Pincode`=$Pincode";
+                                                        if ($con) {
+                                                            $result2 = mysqli_query($con, $sql2);
+                                                            if ($result2) {
+                                                                while ($row = mysqli_fetch_assoc($result2)) {
+                                                ?>
+                                                                    <option value="<?php echo $row['area_name']; ?>">
+                                                                        <?php echo $row['area_name']; ?>
+                                                                    </option>
+                                                <?php
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                         <span></span>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12 mb-0">State</label>
+                                        <label class="col-md-12 mb-0">Pincode</label>
                                         <div class="col-md-12">
-                                            <input type="text" class="form-control ps-0 form-control-line" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-12 mb-0">District</label>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control ps-0 form-control-line" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-12 mb-0">Area Name </label>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control ps-0 form-control-line" disabled>
+                                            <input type="text" id="pincode" class="form-control ps-0 form-control-line" disabled value="0">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-sm-12 d-flex">
-                                            <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Remove</button>
+                                            <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="yesRemove()">Remove</button>
 
                                             <button type="button" class="btn btn-success mx-4 me-md-3 text-white" style="background-color:rgba(63,187,192,255); border:0px" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button>
                                         </div>
@@ -200,12 +207,12 @@ $nurse = $_SESSION['nurse'];
                     <h5 class="modal-title" id="staticBackdropLabel">Remove location</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="font-size: 20px;">
                     Are you sure yopu want to remove xyz location?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes</button>
-                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;">No</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="remove()">Yes</button>
+                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;" data-bs-dismiss="modal">No</button>
                 </div>
             </div>
         </div>
@@ -220,16 +227,30 @@ $nurse = $_SESSION['nurse'];
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal form-material mx-2">
+                    <form class="form-horizontal form-material mx-2" action="Loc-Insert.php" method="POST" >
                         <div class="form-group">
                             <label class="col-md-12 mb-0">State</label>
                             <div class="col-sm-12 border-bottom">
-                                <select class="form-select shadow-none border-0 ps-0 form-control-line">
-                                    <option>Ambawadi</option>
-                                    <option>Maninagar</option>
-                                    <option>Ghodasar</option>
-                                    <option>Nehrunagar</option>
-                                    <option>Thaltej</option>
+                                <select id="state" name="st" class="form-select shadow-none border-0 ps-0 form-control-line" onchange="addDistrict(this.value);">
+                                    <option>Choose State</option>
+                                    <?php
+                                    $sql = "SELECT `state` from `location` GROUP BY `state`;";
+                                    if ($con) {
+                                        $result = mysqli_query($con, $sql);
+
+                                        if ($result) {
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                                <option value="<?php echo $row['state']; ?>"><?php echo $row['state']; ?></option>
+                                    <?php
+                                            }
+                                        } else {
+                                            die('Query problem! while showing states');
+                                        }
+                                    } else {
+                                        die('Db Problem!');
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -237,12 +258,8 @@ $nurse = $_SESSION['nurse'];
                         <div class="form-group">
                             <label class="col-md-12 mb-0">District</label>
                             <div class="col-sm-12 border-bottom">
-                                <select class="form-select shadow-none border-0 ps-0 form-control-line">
-                                    <option>Ambawadi</option>
-                                    <option>Maninagar</option>
-                                    <option>Ghodasar</option>
-                                    <option>Nehrunagar</option>
-                                    <option>Thaltej</option>
+                                <select id="district" name="dis" class="form-select shadow-none border-0 ps-0 form-control-line" onchange="addArea(this.value);">
+                                    <option>Choose District</option>
                                 </select>
                             </div>
                         </div>
@@ -250,22 +267,25 @@ $nurse = $_SESSION['nurse'];
                         <div class="form-group">
                             <label class="col-md-12 mb-0">Area</label>
                             <div class="col-sm-12 border-bottom">
-                                <select class="form-select shadow-none border-0 ps-0 form-control-line">
-                                    <option>Ambawadi</option>
-                                    <option>Maninagar</option>
-                                    <option>Ghodasar</option>
-                                    <option>Nehrunagar</option>
-                                    <option>Thaltej</option>
+                                <select id="area" name="ar" class="form-select shadow-none border-0 ps-0 form-control-line" onchange="addPin(this.value);">
+                                    <option>Choose Area</option>
                                 </select>
                             </div>
                         </div>
-                    </form>
+
+                        <div class="form-group">
+                            <label class="col-md-12 mb-0">Pincode</label>
+                            <div class="col-md-12">
+                                <input type="text" id="pin" name="pinId" class="form-control ps-0 form-control-line">
+                            </div>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn " style="background-color:rgba(63,187,192,255) ;">Save changes</button>
+                    <input type="submit" value="submit" name="save" class="btn btn-secondary" style="background-color:rgba(63,187,192,255) ;">
                 </div>
             </div>
+            </form>
         </div>
     </div>
 
@@ -314,6 +334,76 @@ $nurse = $_SESSION['nurse'];
     <?php
     }
     ?>
+
+    function addDistrict(value) {
+        // count++;
+        $.ajax({
+            url: 'district.php',
+            type: 'POST',
+            data: {
+                state: value
+            },
+
+            success: function(result) {
+                $('#district').html(result);
+            }
+        });
+    }
+
+    function addArea(value) {
+        // count++;
+        $.ajax({
+            url: 'area.php',
+            type: 'POST',
+            data: {
+                district: value
+            },
+            success: function(result) {
+                $('#area').html(result);
+            }
+        });
+    }
+
+    function addPin(value) {
+        $.ajax({
+            url: 'pincode.php',
+            type: 'POST',
+            data: {
+                area: value
+            },
+            success: function(result) {
+                $('#pin').val(result);
+            }
+        });
+    }
+
+    function addPincode(value) {
+        $.ajax({
+            url: 'pincode.php',
+            type: 'POST',
+            data: {
+                area: value
+            },
+            success: function(result) {
+                $('#pincode').val(result);
+            }
+        });
+    }
+
+    function remove() {
+        var x = document.getElementById('pincode').value;
+        window.location.href = "deleteArea.php?pincode=" + x;
+    }
+
+    function yesRemove() {
+        if (document.getElementById('pincode').value == 0) {
+            alert("First Select the Location");
+            $('#state').focus();
+        } else {
+            $('#staticBackdrop').modal('toggle');
+
+        }
+    }
 </script>
 
 </html>

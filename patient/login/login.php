@@ -25,28 +25,33 @@ if (isset($_GET["code"])) {
 
         $data = $google_service->userinfo->get();
 
-        if (!empty($data['Admin_email'])) {
-            $u = $data['Admin_email'];
+        if (!empty($data['email'])) {
+            $u = $data['email'];
             $u = md5($u);
 
-            include 'connect.php';
+            include '../../connect.php';
 
             if (!$con) {
                 die("Not connected to db");
             }
 
             if ($con) {
-                $sql = "select * from `admin` where Admin_email='$u'";
+                $sql = "select * from patient where Email='$u'"; 
 
                 $r = mysqli_query($con, $sql);
                 try {
                     if ($r) {
-                        $a = mysqli_fetch_assoc($r);
-                        if ($a) {
-                            $_SESSION['admin'] = $u;
-                            header('location:../Admin-Profile.php');
+                        $ipaddress = $_SERVER['REMOTE_ADDR'];
+                        $nurse =$u;
+        
+                        $sql_login = "INSERT INTO `patientlogin`(`Email`, `IP_address`,`Time`) VALUES ('$nurse','$ipaddress',CURRENT_TIMESTAMP())";
+                        $result_login = mysqli_query($con, $sql_login);
+        
+                        if ($result_login) {
+                            $_SESSION['user'] = $u;
+                            header('location:../profile/profile.php');
                         } else {
-                            echo "<script>alert('No Such Admin')</script>";
+                            echo("<script>alert('Login Failed! Try Again ')</script>");
                         }
                     } else {
                         die(mysqli_error($con));

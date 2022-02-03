@@ -51,10 +51,10 @@ if (isset($_GET["code"])) {
 
                         $ipaddress = $_SERVER['REMOTE_ADDR'];
                         $nurse = $a['email'];
-
+        
                         $sql_login = "INSERT INTO `nurselogin`(`Email`, `IP_address`,`in_out`) VALUES ('$nurse','$ipaddress','i')";
                         $result_login = mysqli_query($con, $sql_login);
-
+        
                         if ($result_login) {
                             $_SESSION['nurse'] = $u;
                             header('location:../system_nurses/profile.php');

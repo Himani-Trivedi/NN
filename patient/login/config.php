@@ -14,7 +14,7 @@ $google_client->setClientId('231554672595-s64on8aajclp9uo2eph849hnbqghdjqj.apps.
 $google_client->setClientSecret('x8xOrFHwBOa-PQfUb7kxR2Is');
 
 //Set the OAuth 2.0 Redirect URI
-$google_client->setRedirectUri('http://localhost/Project/NN/Nurse/login/login.php');
+$google_client->setRedirectUri('http://localhost/Project/NN/patient/login/login.php');
 
 // to get the email and profile 
 $google_client->addScope('email');

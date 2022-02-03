@@ -24,11 +24,12 @@ if (isset($_GET["code"])) {
 
         $data = $google_service->userinfo->get();
 
-        if (!empty($data['Admin_email'])) {
-            $u = $data['Admin_email'];
+        if (!empty($data['email'])) {
+
+            $u = $data['email'];
             $u = md5($u);
 
-            include 'connect.php';
+            include '../../connect.php';
 
             if (!$con) {
                 die("Not connected to db");
@@ -39,24 +40,26 @@ if (isset($_GET["code"])) {
 
                 $r = mysqli_query($con, $sql);
                 try {
-                    if ($r) {
-                        $a = mysqli_fetch_assoc($r);
-                        if ($a) {
+                    if (mysqli_num_rows($r) == 1) {
+                        $ipaddress = $_SERVER['REMOTE_ADDR'];
+                        $sql_login = "INSERT INTO `adminlogin`(`Email`, `IP_address`,`Time`) VALUES ('$u','$ipaddress',CURRENT_TIMESTAMP())";
+                        $result_login = mysqli_query($con, $sql_login);
+
+                        if ($result_login) {
                             $_SESSION['admin'] = $u;
-                            header('location:../Admin-Profile.php');
+                            header('location:../profile/Admin-Profile.php');
                         } else {
-                            echo "<script>alert('No Such Admin')</script>";
+                            echo ("<script>alert('Login Failed! Try Again ')</script>");
                         }
-                    } else {
-                        die(mysqli_error($con));
                     }
-                } catch (Exception $e) {
-                    echo "There is Technical Problem ";
-                }
+                    } catch (Exception $e) {
+                        echo "There is Technical Problem ";
+                    }
+                } 
             }
         }
     }
-}
+
 
 
 if (!isset($_SESSION['access_token'])) {
@@ -270,7 +273,7 @@ if (!isset($_SESSION['access_token'])) {
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
-                 <!-- <tr>
+                <!-- <tr>
                   <td>Don't have an account ?&nbsp;<a href="../Nurse_signup/conditions.php">Sign Up</a></td>
                 </tr> -->
             </table>

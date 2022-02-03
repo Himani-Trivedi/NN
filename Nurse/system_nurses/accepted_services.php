@@ -93,11 +93,11 @@ include '../../connect.php';
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate" aria-hidden="true"></i><span class="hide-menu">Certificates</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true"></i><span class="hide-menu">Experience</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li>
+                        <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li> -->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
 
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i style="color:rgba(63,187,192,255) ;" class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Accepted Services</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li>
+                        <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> -->
 
                         <li class="text-center p-20 upgrade-btn">
                             <a href="../login/logout.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
@@ -150,7 +150,9 @@ include '../../connect.php';
                                                         <th class="border-top-0">Service</th>
                                                         <th class="border-top-0">Area</th>
                                                         <th class="border-top-0">Timing</th>
+                                                        <th class="border-top-0">Charge</th>
                                                         <th class="border-top-0">Status</th>
+                                                        <th class="border-top-0"></th>
                                                         <th class="border-top-0"></th>
                                                     </tr>
                                                 </thead>
@@ -160,6 +162,7 @@ include '../../connect.php';
                                                         <td>Dressing</td>
                                                         <td>Ambawadi</td>
                                                         <td>5 December 14:58</td>
+                                                        <td>300 Rs.</td>
                                                         <td>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12 d-flex">
@@ -171,21 +174,38 @@ include '../../connect.php';
                                                         <td>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12 d-flex">
-                                                                    <button type="button" class="btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop">X
+                                                                    <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">open
                                                                     </button>
                                                                 </div>
                                                             </div>
                                                         </td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12 d-flex">
+                                                                    <button type="button" class="btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop">X
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>                                                      
                                                     </tr>
                                                     <tr>
                                                         <td>2</td>
                                                         <td>Vital Checks</td>
                                                         <td>Thaltej</td>
                                                         <td>5 December 14:58</td>
+                                                        <td>200 Rs.</td>
                                                         <td>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12 d-flex">
                                                                     <button class="btn btn-success mx-auto mx-md-0 text-white" style="border:0px;">Ruuning
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12 d-flex">
+                                                                    <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">open
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -203,12 +223,20 @@ include '../../connect.php';
                                                         <td>3</td>
                                                         <td>Dressing</td>
                                                         <td>Ambawadi</td>
-
                                                         <td>5 December 14:58</td>
+                                                        <td>100 Rs.</td>
                                                         <td>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12 d-flex">
                                                                     <button class="btn btn-success mx-auto mx-md-0 text-white" style="border:0px; ">Ruuning
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12 d-flex">
+                                                                    <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">open
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -226,12 +254,20 @@ include '../../connect.php';
                                                         <td>5</td>
                                                         <td>Dressing</td>
                                                         <td>Maninagar</td>
-
                                                         <td>5 December 14:58</td>
+                                                        <td>150 Rs.</td>
                                                         <td>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12 d-flex">
                                                                     <button class="btn btn-dark mx-auto mx-md-0 text-white" style="border:0px;">Expired
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12 d-flex">
+                                                                    <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">open
                                                                     </button>
                                                                 </div>
                                                             </div>

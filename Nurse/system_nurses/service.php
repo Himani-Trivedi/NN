@@ -16,6 +16,7 @@ $nurse = $_SESSION['nurse'];
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="style.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -91,12 +92,12 @@ $nurse = $_SESSION['nurse'];
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate" aria-hidden="true"></i><span class="hide-menu">Certificates</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true"></i><span class="hide-menu">Experience</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li>
+                        <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li> -->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" style="color:rgba(63,187,192,255) ;" aria-hidden="true"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Services</span></a></li>
 
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Accepted Services</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li>
+                        <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> -->
 
 
                         <li class="text-center p-20 upgrade-btn">
@@ -113,7 +114,7 @@ $nurse = $_SESSION['nurse'];
         <div class="page-wrapper">
             <center>
                 <div class="alert alert-danger" role="alert" id="add_nurse" style="display: none;">
-                    Add Locations,Services and Timing Schedule to Become System Nurses.
+                    Add Locations,Services to Become System Nurses.
                 </div>
             </center>
             <div class="container-fluid" id="box1">
@@ -125,12 +126,26 @@ $nurse = $_SESSION['nurse'];
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Selecte Service</label>
                                         <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none border-0 ps-0 form-control-line">
-                                                <option>Dressing</option>
-                                                <option>Catheterization</option>
-                                                <option>Injection</option>
-                                                <option>Wound Care</option>
-                                                <option>Vital Checks</option>
+                                            <select id="service" class="form-select shadow-none border-0 ps-0 form-control-line" onchange="addcharge(this.value);">
+                                                <option value=""></option>
+                                                <?php
+                                                $sql = "SELECT * from `nurse_selected_services` WHERE `Email`='$nurse'";
+                                                if ($con) {
+                                                    $result = mysqli_query($con, $sql);
+
+                                                    if ($result) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                ?>
+                                                            <option value="<?php echo $row['service_name']; ?>"><?php echo $row['service_name']; ?></option>
+                                                <?php
+                                                        }
+                                                    } else {
+                                                        die('Query problem! while showing states');
+                                                    }
+                                                } else {
+                                                    die('Db Problem!');
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                         <span></span>
@@ -138,17 +153,17 @@ $nurse = $_SESSION['nurse'];
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Charges</label>
                                         <div class="col-md-12">
-                                            <input type="text" class="form-control ps-0 form-control-line" disabled>
+                                            <input type="text" class="form-control ps-0 form-control-line" disabled id="charge" value="0">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-sm-12 d-flex">
-                                            <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Remove</button>
+                                            <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="yesRemove()">Remove</button>
 
                                             <button type="button" class="btn btn-success mx-4 me-md-3 text-white" style="background-color:rgba(63,187,192,255); border:0px" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button>
 
-                                            <button type="button" class="btn btn-success mx-4 me-md-3 text-white" style="background-color:rgba(63,187,192,255); border:0px" data-bs-toggle="modal" data-bs-target="#updateModal">Update </button>
+                                            <button type="button" class="btn btn-success mx-4 me-md-3 text-white" style="background-color:rgba(63,187,192,255); border:0px" onclick="dataSelectedUpdate();">Update </button>
                                         </div>
                                     </div>
 
@@ -166,7 +181,7 @@ $nurse = $_SESSION['nurse'];
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <p style="font-size: 25px;" id="do_pay">Please Wait for the Admin approval to Select Location, Services, Timming & to get into Search </p>
+                                <p style="font-size: 25px;" id="do_pay">Please Wait for the Admin approval to Select Location, Services & to get into Search </p>
                                 <button id="pay_btn" type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="display:none;background-color:rgba(63,187,192,255) ; border:0px" onclick='window.location.href="../payment/nurse_payment.php"' ;>Pay</button>
                             </div>
                         </div>
@@ -175,7 +190,6 @@ $nurse = $_SESSION['nurse'];
             </div>
         </div>
     </div>
-
     </div>
     </div>
 
@@ -192,8 +206,8 @@ $nurse = $_SESSION['nurse'];
                     Are you sure yopu want to remove xyz service from your profile?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes</button>
-                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;">No</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="remove()">Yes</button>
+                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;" data-bs-dismiss="modal">No</button>
                 </div>
             </div>
         </div>
@@ -208,16 +222,30 @@ $nurse = $_SESSION['nurse'];
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal form-material mx-2">
+                    <form class="form-horizontal form-material mx-2" action="add_nurse_service.php" method="POST">
                         <div class="form-group">
                             <label class="col-md-12 mb-0">Selecte Service</label>
                             <div class="col-sm-12 border-bottom">
-                                <select class="form-select shadow-none border-0 ps-0 form-control-line">
-                                    <option>Dressing</option>
-                                    <option>Catheterization</option>
-                                    <option>Injection</option>
-                                    <option>Wound Care</option>
-                                    <option>Vital Checks</option>
+                                <select class="form-select shadow-none border-0 ps-0 form-control-line" name="serviceeg" id="service">
+                                    <option value=""></option>
+                                    <?php
+                                    $sql = "SELECT * from `services` GROUP BY `service_name`";
+                                    if ($con) {
+                                        $result = mysqli_query($con, $sql);
+
+                                        if ($result) {
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                                <option value="<?php echo $row['service_name']; ?>"><?php echo $row['service_name']; ?></option>
+                                    <?php
+                                            }
+                                        } else {
+                                            die('Query problem! while showing services');
+                                        }
+                                    } else {
+                                        die('Db Problem!');
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <span></span>
@@ -225,15 +253,18 @@ $nurse = $_SESSION['nurse'];
                         <div class="form-group">
                             <label class="col-md-12 mb-0">Charges</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control ps-0 form-control-line" disabled>
+                                <input type="text" class="form-control ps-0 form-control-line" name="charge" required value="0">
                             </div>
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn " style="background-color:rgba(63,187,192,255) ;">Save changes</button>
+                    <div class="form-group">
+                        <input type="submit" name="save" class="btn" style="background-color:rgba(63,187,192,255) ;">
+                    </div>
                 </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -248,54 +279,49 @@ $nurse = $_SESSION['nurse'];
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal form-material mx-2">
+                    <form class="form-horizontal form-material mx-2" method="POST" action="updateservice.php">
                         <div class="form-group">
-                            <label class="col-md-12 mb-0">Selecte Service</label>
-                            <div class="col-sm-12 border-bottom">
-                                <select class="form-select shadow-none border-0 ps-0 form-control-line">
-                                    <option>Dressing</option>
-                                    <option>Catheterization</option>
-                                    <option>Injection</option>
-                                    <option>Wound Care</option>
-                                    <option>Vital Checks</option>
-                                </select>
-                            </div>
-                            <span></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12 mb-0">Charges</label>
-                            <div class="col-md-12">
-                                <input type="text" class="form-control ps-0 form-control-line" disabled>
+                            <div class="form-group">
+                                <label class="col-md-12 mb-0">Service</label>
+                                <div class="col-md-12">
+                                    <input type="text" name="service" id="service_update" class="form-control ps-0 form-control-line">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12 mb-0">Charges</label>
+                                    <div class="col-md-12">
+                                        <input type="text" name="charge" id="charge_update" class="form-control ps-0 form-control-line">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" value="submit" name="save" class="btn btn-secondary" style="background-color:rgba(63,187,192,255) ;">
+                        </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn " style="background-color:rgba(63,187,192,255) ;">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+                </form>
 
-    <!-- Modal -->
-    <div class="modal fade" id="moneyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Earned Money</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="font-size:17px;">
-                    Do you want to withdraw money or delete account?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete</button>
-                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;">Withdraw</button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="moneyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Earned Money</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="font-size:17px;">
+                        Do you want to withdraw money or delete account?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete</button>
+                        <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;">Withdraw</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 <script>
     <?php
@@ -323,6 +349,48 @@ $nurse = $_SESSION['nurse'];
     <?php
     }
     ?>
+
+    function addcharge(value) {
+        // count++;
+        $.ajax({
+            url: 'charge.php',
+            type: 'POST',
+            data: {
+                service: value
+            },
+
+            success: function(result) {
+                $('#charge').val(result);
+            }
+        });
+    }
+
+    function remove() {
+        var x = document.getElementById('service').value;
+        window.location.href = "deleteService.php?service=" + x;
+    }
+
+    function yesRemove() {
+        if (document.getElementById('charge').value == 0) {
+            alert("First Select the Service");
+            $('#service').focus();
+        } else {
+            $('#staticBackdrop').modal('toggle');
+
+        }
+    }
+
+    function dataSelectedUpdate() {
+        if (document.getElementById('charge').value == 0) {
+            alert("First Select the Service");
+            $('#service').focus();
+        } else {
+            $('#updateModal').modal('toggle');
+            document.getElementById('service_update').value = document.getElementById('service').value;
+            document.getElementById('charge_update').value = document.getElementById('charge').value;
+
+        }
+    }
 </script>
 
 </html>

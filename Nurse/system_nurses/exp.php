@@ -115,9 +115,9 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="location.php" aria-expanded="false" ><i class="me-3 fa fa-globe" 
                                     aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns"
-                                    aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li>
+                                    aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li> -->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" 
                                     aria-hidden="true"></i><span class="hide-menu" >Services</span></a></li>
@@ -127,10 +127,10 @@
                                 href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check"
                                     aria-hidden="true"></i><span class="hide-menu">Accepted Services</span></a></li> 
 
-                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                         <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle"
                                     aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> 
- 
+  -->
 
                         <li class="text-center p-20 upgrade-btn">
                             <a href="../login/logout.php"

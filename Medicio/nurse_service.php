@@ -133,7 +133,7 @@ include '../connect.php';
           <p>Short term nursing procedures that reduce your need to visit a hospital everyday.</p>
         </div>
 
-        <form>
+        <form action="nurse.php" method="POST" >
           <div class="form-row" style="margin-left: 25%;">
             <div class="form-group col-md-4 required">
               <label for="inputState">Service</label>
@@ -185,7 +185,7 @@ include '../connect.php';
             </div>
           </div>
           <br>
-          <input type="submit" value="Submit" name="submit" style=" margin-left: 47% ; background-color: #3fbbc0; color: #fff; border: #3fbbc0; padding: 10px; padding-left: 20px; padding-right: 20px; border-radius: 4px;" />
+          <input type="submit" value="Submit" name="save" style=" margin-left: 47% ; background-color: #3fbbc0; color: #fff; border: #3fbbc0; padding: 10px; padding-left: 20px; padding-right: 20px; border-radius: 4px;" />
         </form>
     </section>
 

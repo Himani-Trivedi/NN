@@ -54,7 +54,7 @@ if (mysqli_num_rows($result) == 1) {
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-                    <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="../../Medicio/index.php">
                         <!-- Logo icon -->
                         <b class="logo-icon">
                           

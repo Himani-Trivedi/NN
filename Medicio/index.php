@@ -1,3 +1,6 @@
+<?php
+include '../connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +19,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-			  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -38,8 +41,8 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
- integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 <body>
 
   <!-- ======= Top Bar ======= -->
@@ -59,10 +62,10 @@
     <div class="container d-flex align-items-center">
       <a class="navbar-brand" href="../Medicio/index.php">
         <b class="logo-icon text-danger">
-            <img src="assets/img/nursing.png" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
-            <span style="color:rgba(63,187,192,255); font-size: 25px;">Neighbouring Nurse</span>
+          <img src="assets/img/nursing.png" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
+          <span style="color:rgba(63,187,192,255); font-size: 25px;">Neighbouring Nurse</span>
         </b>
-    </a>
+      </a>
       <!-- <a href="index.html" class="logo me-auto" style="color: #3fbbc0;"><img src="assets/img/nursing.png" alt=""> NEIGHBOURING NURSE</a> -->
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
@@ -74,16 +77,159 @@
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto" href="nurse_service.php">Search</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact Us</a></li>
-          <li><a class="nav-link scrollto" href="#">Sign up</a></li>
-          <li><a class="nav-link scrollto" href="#departments">Login</a></li>
+          <?php
+
+          if (isset($_SESSION['nurse'])) {
+            $mail = $_SESSION['nurse'];
+          ?>
+            <li><a class="nav-link scrollto" href="../Nurse/system_nurses/profile.php?nurse=<?php echo $mail; ?>">Profile</a></li>
+            <li><a class="nav-link scrollto" href="../Nurse/login/logout.php">Logout</a></li>
+          <?php
+
+          } elseif (isset($_SESSION['user'])) {
+            $mail = $_SESSION['user'];
+          ?>
+            <li><a class="nav-link scrollto" href="../patient/profile/profile.php?<?php echo $mail; ?>">Profile</a></li>
+            <li><a class="nav-link scrollto" href="../patient/login/logout.php">Logout</a></li>
+          <?php
+          } elseif (isset($_SESSION['admin'])) {
+            $mail = $_SESSION['admin'];
+          ?>
+            <li><a class="nav-link scrollto" href="../Admin/profile/Admin-Profile.php?admin=<?php echo $mail; ?>">Profile</a></li>
+            <li><a class="nav-link scrollto" href="../Admin/login/logout.php">Logout</a></li>
+          <?php
+          } else {
+          ?>
+            <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#login">Login</a></li>
+            <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#signup">Sign up</a></li>
+          <?php
+          }
+          ?>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
-      <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
-
+     <a class="appointment-btn scrollto" onclick="isLog()"><span class="d-none d-md-inline" data-bs-toggle="modal" data-bs-target="#appointment">Make an</span> Appointment</a>
+      
     </div>
   </header><!-- End Header -->
+
+  <!-- Modal SignUp -->
+  <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">SIGN UP AS...</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <a href="../patient/signUp/email.php"><button type="button" class="btn btn-secondary" style="background-color: rgba(63,187,192,255) ;" data-bs-dismiss="modal">Sign up as user</button></a>
+          <a href="../Nurse/Nurse_signup/conditions.php"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sign up as nurse</button></a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal Login -->
+  <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">LOGIN AS...</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <a href="../patient/login/login.php"><button type="button" class="btn btn-secondary" style="background-color: rgba(63,187,192,255) ;" data-bs-dismiss="modal">login as user</button></a>
+          <a href="../Nurse/login/login.php"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">login as nurse</button></a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Request App Modal -->
+
+  <div class="modal fade" id="appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Requested Appointment </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table align="center" cellpadding="10" cellspacing="10" bgcolor="White">
+            <tr>
+              <td><b>Service Name:</b></td>
+              <td>
+
+                <select id="inputState" class="form-control" name="service" required>
+                  <option disabled selected>Choose</option>
+                  <?php
+                  include 'connect.php';
+                  $sql = "SELECT `service_name` from `services`";
+                  if ($con) {
+                    $result = mysqli_query($con, $sql);
+                    if ($result) {
+                      while ($row = mysqli_fetch_assoc($result)) {
+                  ?>
+                        <option><?php echo $row['service_name']; ?></option>
+                  <?php
+                      }
+                    } else {
+                      die('Oops !something went wrong.');
+                    }
+                  } else {
+                    die('Database issue.');
+                  }
+                  ?>
+
+                </select>
+              </td>
+
+        </div>
+        </tr>
+        <tr>
+          <td><b>Service Time:</b></td>
+          <td><input type="time" style="width:600" id="time" name="Service_Time" placeholder="11:30" maxlength="30" />
+          </td>
+        </tr>
+        <tr>
+          <td><b>Service Date:</b></td>
+          <td><input type="date" style="width:600" id="Service_Date" name="Last_Name" placeholder="12-10-2022" maxlength="30" />
+          </td>
+        </tr>
+        <tr>
+          <td><b>Address:</b><br /><br /><br /></td>
+          <td><textarea name="Address" rows="4" cols="60" placeholder="A/102 Marvel Acro, Ahmedabad"></textarea></td>
+        </tr>
+        <tr>
+          <td><b>Pincode:</b></td>
+          <td><input type="PINCODE" style="width:600" id="pincode" name="Pincode" placeholder="382330" maxlength="30" />
+          </td>
+        </tr>
+        <tr>
+          <td><B>Prescription</B></TD>
+          <TD><input type="file" style="width:600" name="file" id="Prescription" placeholder="Prescription.pdf">
+        </tr>
+        </td>
+        <tr>
+          <td><b>Requested to:</b></td>
+          <td><button type="button" class="button button1"><a href="Nurse/profile.php" style="color:white;">Nurse Name</a></button>
+          </td>
+        </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button button1" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <!-- Modal -->
 
   <!-- ======= Hero Section ======= -->
   <section id="hero">
@@ -162,7 +308,7 @@
           <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
             <p class="fst-italic">
               Nurses are experienced minimum 2 years
-              Patients get treatment at their doorsteps with proper sanitary. 
+              Patients get treatment at their doorsteps with proper sanitary.
               Good quality products with sanitation are used for injections, wound care, dressing for giving a better service to patient.
             </p>
             <ul>
@@ -187,38 +333,36 @@
           <h2>What we offer</h2>
           <p>Short term nursing procedures that reduce your need to visit a hospital everyday.</p>
         </div>
-      <div class="row">
-        <?php
-          include 'connect.php';
-          $sql = "SELECT `icons`,`service_name`,`description` FROM `services`";
-            if($con){
-              $result = mysqli_query($con,$sql);
-              if($result){
-                while($row = mysqli_fetch_assoc($result)){      
-        ?>        
-                    <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
-                      <div class="icon"><i class="<?php echo $row['icons'];?>"></i></div>
-                      <h4 class="title"><a href=""><?php echo $row['service_name'];?></a></h4>
-                      <p class="description"><?php echo $row['description'];?></p>
-                    </div>
-                  
+        <div class="row">
           <?php
-                }
-              }
-              else{
-                die('Oops! something wrong occured.');
-              }
-            }else{
-              die('Database issue.');
-            }
+          $sql = "SELECT `icons`,`service_name`,`description` FROM `services`";
+          if ($con) {
+            $result = mysqli_query($con, $sql);
+            if ($result) {
+              while ($row = mysqli_fetch_assoc($result)) {
           ?>
-        </div>  
-       
+                <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="icon"><i class="<?php echo $row['icons']; ?>"></i></div>
+                  <h4 class="title"><a href=""><?php echo $row['service_name']; ?></a></h4>
+                  <p class="description"><?php echo $row['description']; ?></p>
+                </div>
+
+          <?php
+              }
+            } else {
+              die('Oops! something wrong occured.');
+            }
+          } else {
+            die('Database issue.');
+          }
+          ?>
+        </div>
+
       </div>
     </section><!-- End Services Section -->
 
-    <!-- ======= Appointment Section ======= -->
-    <section id="appointment" class="appointment section-bg">
+    <!-- ======= Appointment Section ======= --> -->
+    <!-- <section id="appointment" class="appointment section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -242,41 +386,40 @@
               <select name="department" id="department" class="form-select" required>
                 <option value="" disable>Select Services</option>
                 <?php
-                include 'connect.php';
                 $sql = "SELECT `service_name` from `services`";
-                if($con){
-                  $result = mysqli_query($con,$sql);
-                  if($result){
-                    while($row = mysqli_fetch_assoc($result)){
-              ?>
-                      <option><?php echo $row['service_name'];?></option>
-              <?php
+                if ($con) {
+                  $result = mysqli_query($con, $sql);
+                  if ($result) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                      <option><?php echo $row['service_name']; ?></option>
+                <?php
                     }
-                  }else{
+                  } else {
                     die('Oops !something went wrong.');
                   }
-                }else{
+                } else {
                   die('Database issue.');
                 }
-              ?>
+                ?>
               </select>
             </div>
             <div class="form-group mt-3">
               <textarea class="form-control" name="message" rows="5" placeholder="prescription" required></textarea>
             </div>
-          <div class="form-group mt-3">
-            <textarea class="form-control" name="message" rows="5" placeholder="description" required></textarea>
-          </div>
-          <div class="my-3">
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
-          </div>
-          <div class="text-center"><button type="submit">Make an Appointment</button></div>
+            <div class="form-group mt-3">
+              <textarea class="form-control" name="message" rows="5" placeholder="description" required></textarea>
+            </div>
+            <div class="my-3">
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+            </div>
+            <div class="text-center"><button type="submit">Make an Appointment</button></div>
         </form>
 
       </div>
-    </section><!-- End Appointment Section -->
+    </section>End Appointment Section -->
 
 
     <!-- ======= Contact Section ======= -->
@@ -285,11 +428,8 @@
 
         <div class="section-title">
           <h2>Contact</h2>
-
         </div>
-
       </div>
-
 
       <div class="container">
         <div class="row mt-5">
@@ -385,7 +525,7 @@
             </ul>
           </div>
 
-          
+
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>Our Newsletter</h4>
@@ -406,10 +546,10 @@
       </div>
       <!-- <div class="credits">
         <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/medicio-free-bootstrap-theme/ -->
-      </div>
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/medicio-free-bootstrap-theme/ -->
+    </div>
     </div>
   </footer><!-- End Footer -->
 
@@ -426,12 +566,28 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script> -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" 
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
+<script>
+  function isLog() {
+
+    <?php
+
+    if (isset($_SESSION['user'])) {
+    ?>
+      $('#appointment').modal('toggle');
+    <?php
+    } else {
+    ?>
+      window.location.href = '../patient/login/login.php';
+    <?php
+    }
+
+
+    ?>
+  }
+</script>
 
 </html>

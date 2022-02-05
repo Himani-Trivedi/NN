@@ -1,5 +1,5 @@
-<?php/*
-include '../../connect.php';*/
+<?php
+include '../../connect.php';
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -34,7 +34,7 @@ include '../../connect.php';*/
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
 
-                    <a class="navbar-brand" href="../Medicio/index.html">
+                    <a class="navbar-brand" href="../../Medicio/index.php">
                         <b class="logo-icon text-danger">
                             <img src="logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
                             <span style="color:rgba(63,187,192,255); font-size: 17px;">Neighboring Nurse</span>
@@ -90,12 +90,11 @@ include '../../connect.php';*/
                          <!--   <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
-<!-- 
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Accepted Services</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> -->
 
                             <li class="text-center p-20 upgrade-btn">
-                                <a href="../Req_Appointments.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
+                                <a href="../../Medicio/nurse_service.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
                             </li>
                         
                     </ul>
@@ -111,7 +110,7 @@ include '../../connect.php';*/
 
                 <div class="row">
 
-                    <?php/*
+                    <?php
 
                     if (isset($_SESSION['nurse'])) {
 
@@ -128,7 +127,7 @@ include '../../connect.php';*/
                         if (!$result) {
                             die(mysqli_error($con));
                         }
-                        while ($row = mysqli_fetch_assoc($result)) {*/
+                        while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                             <!-- Column -->
                             <div class="col-sm-6">
@@ -150,10 +149,9 @@ include '../../connect.php';*/
                             </div>
 
                     <?php
-                     //       $i++;
-                      //  }
-                   // }
-
+                           $i++;
+                       }
+                   }
                     ?>
 
 

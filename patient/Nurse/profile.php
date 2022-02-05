@@ -1,6 +1,4 @@
 <?php
-/*
-use Google\Service\CloudNaturalLanguage\Document;
 
 include '../../connect.php';
 
@@ -12,9 +10,6 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
 
     if (isset($_REQUEST['nurse'])) {
         $mail = $_REQUEST['nurse'];
-        $_SESSION['nurse'] = $mail;
-    } else {
-        $mail = $_SESSION['nurse'];
     }
 
     if (isset($_REQUEST['admin'])) {
@@ -46,7 +41,7 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
     }
 } else {
     header('location:../login/login.php');
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -137,12 +132,11 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
                           <!--  <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
-<!-- 
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Accepted Services</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> -->
 
                             <li class="text-center p-20 upgrade-btn">
-                                <a href="../Req_Appointments.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
+                                <a href="../../Medicio/nurse_service.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
                             </li>
                         <?php
                         

@@ -1,5 +1,5 @@
 <?php 
-   // include '../../connect.php';
+   include '../../connect.php';
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -121,7 +121,7 @@
                                     aria-hidden="true"></i><span class="hide-menu" >Services</span></a></li>
 
                         
-                        <!--  <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                          <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check"
                                     aria-hidden="true"></i><span class="hide-menu">Accepted Services</span></a></li> 
 
@@ -131,8 +131,7 @@
  
 
                         <li class="text-center p-20 upgrade-btn">
-                            <a href="../Req_Appointments.php"
-                                class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
+                                <a href="../../Medicio/nurse_service.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
                         </li>
 
                         <?php
@@ -150,7 +149,7 @@
            <div class="container-fluid">
                  <div class="row">
 
-                <?php/*
+                <?php
                  if(isset($_SESSION['nurse'])){
 
                         $i=1;
@@ -167,7 +166,7 @@
                             die(mysqli_error($con));
                         }
                             while($row=mysqli_fetch_assoc($result)){
-       */ ?>
+        ?>
                     <!-- Column -->
                     <div class="col-sm-6">
                         <div class="card">
@@ -195,7 +194,7 @@
                                         <?php echo $row['hos_address'];?>
                                 </textarea>
                                 </div>
-                                <a href="../Nurse_signup/<?php echo $row['Exp_letter'];?>" target="_blank" class="link">
+                                <a href="../../Nurse/Nurse_signup/<?php echo $row['Exp_letter'];?>" target="_blank" class="link">
                                        <i class="fa fa-certificate"></i>
                                         <span class="font-normal">Experience Letter</span>
                                     </a>
@@ -205,9 +204,9 @@
                         </div>
                     </div>
                     <?php
-                               // $i++;
-                             //   }
-                      //  }
+                               $i++;
+                               }
+                       }
                     
                     ?>
                    
@@ -240,12 +239,12 @@
        
 </body>
 <script>
-    <?php/*
+    <?php
     if (isset($_SESSION['admin_profile'])) {
     ?>
-        document.getElementById('pay_btn').style.display = "none";*/
+        document.getElementById('pay_btn').style.display = "none";
     <?php
-    //}
+    }
     ?>
 </script>
 </html> 

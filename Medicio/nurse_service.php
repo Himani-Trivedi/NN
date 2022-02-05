@@ -101,8 +101,34 @@ include '../connect.php';
             <li><a class="nav-link scrollto" href="index.php#services">Services</a></li>
             <li><a class="nav-link scrollto" href="nurse_service.php">Search</a></li>
             <li><a class="nav-link scrollto" href="index.php#contact">Contact Us</a></li>
-            <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#signup">Sign up</a></li>
+            <?php
+
+          if (isset($_SESSION['nurse'])) {
+            $mail = $_SESSION['nurse'];
+          ?>
+            <li><a class="nav-link scrollto" href="../Nurse/system_nurses/profile.php?nurse=<?php echo $mail; ?>">Profile</a></li>
+            <li><a class="nav-link scrollto" href="../Nurse/login/logout.php">Logout</a></li>
+          <?php
+
+          } elseif (isset($_SESSION['user'])) {
+            $mail = $_SESSION['user'];
+          ?>
+            <li><a class="nav-link scrollto" href="../patient/profile/profile.php?<?php echo $mail; ?>">Profile</a></li>
+            <li><a class="nav-link scrollto" href="../patient/login/logout.php">Logout</a></li>
+          <?php
+          } elseif (isset($_SESSION['admin'])) {
+            $mail = $_SESSION['admin'];
+          ?>
+            <li><a class="nav-link scrollto" href="../Admin/profile/Admin-Profile.php?admin=<?php echo $mail; ?>">Profile</a></li>
+            <li><a class="nav-link scrollto" href="../Admin/login/logout.php">Logout</a></li>
+          <?php
+          } else {
+          ?>
             <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#login">Login</a></li>
+            <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#signup">Sign up</a></li>
+          <?php
+          }
+          ?>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
@@ -158,7 +184,7 @@ include '../connect.php';
                 <option selected value="0">Choose</option>
                 <?php
                 include '../connect.php';
-                $sql = "SELECT `area_name` FROM `location`";
+                $sql = "SELECT `area_name` FROM `location` order by `area_name`";
                 if ($con) {
                   $result = mysqli_query($con, $sql);
                   if ($result) {
@@ -200,6 +226,7 @@ include '../connect.php';
         $t = $_POST['service'];
         $loc = $_POST['location'];
         $pin = '';
+        $i=0;
         // echo $t . "<br>" . $loc . "<br>";
 
         $query = "SELECT `Pincode` from `location` where `area_name`='$loc'";
@@ -224,6 +251,7 @@ include '../connect.php';
 
         if (mysqli_num_rows($ans) != 0) {
           while ($ro = mysqli_fetch_assoc($ans)) {
+            $i++;
             $email = $ro['email'];
             // echo "$email" . "<br>";
 
@@ -231,11 +259,11 @@ include '../connect.php';
             $ans2 = mysqli_query($con, $res);
 
 
-            if (mysqli_num_rows($ans2) == 0) {
+            if (mysqli_num_rows($ans2) == 0 && $i==1) {
               die("<h3>Sorry No Such a Nurse!! 2</h3>");
             }
 
-            if (mysqli_num_rows($ans2) != 0) {
+            if (mysqli_num_rows($ans2)) {
               while ($r = mysqli_fetch_assoc($ans2)) {
                 $mail = $r['email'];
                 // echo "In:".$mail."<br>";
@@ -263,6 +291,7 @@ include '../connect.php';
                     }
 
                     $name = $row['name'];
+                    $m=$row['email'];
                     $email = $row['email2'];
                     $ph = $row['ph_no'];
                     $bio = $row['bio'];
@@ -273,7 +302,7 @@ include '../connect.php';
                     $status = $row['Approval_status'];
     ?>
 
-                    <div class="card">
+                    <div class="card" style="width:25%; height:24%;">
                       <h3><?php echo $name; ?></h3>
                       <hr>
                       <img src="../Nurse/Nurse_signup/<?php echo $profile; ?>" class="rounded-circle mx-auto d-block" alt="Profile Photo" width="150px" style="radius : 100px; padding-bottom : 20px;">
@@ -283,8 +312,8 @@ include '../connect.php';
                       <span><b>Bio : </b><?php echo $bio; ?></span>
                       <br><br>
                       <div class="d-flex">
-                        <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
-                        <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+                        <input type="button" value="Show profile" onclick="window.location.href='../patient/Nurse/profile.php?nurse=<?php echo $m;?>'" style="background :grey; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+                        <input type="button" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
                       </div>
                     </div>
     <?php

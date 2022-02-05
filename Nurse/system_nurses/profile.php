@@ -317,14 +317,13 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
                                                 <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="enable_data(this);">Update
                                                     Profile</button>
 
-                                                <button type="button" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;" onclick="window.location.href='update_password.php?id=<?php echo $mail; ?>'">Change Password
-                                                </button>
-
                                                 <button formaction="update_nurse_profile.php" type="submit" id="n_update" name="n_update" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px; display:none;">Update
                                                 </button>
                                             </div>
 
                                         </div> -->
+                                        <button type="button" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;" onclick="window.location.href='update_password.php?id=<?php echo $mail; ?>'">Change Password
+                                                </button>
                                     <?php
                                     }
                                     ?>

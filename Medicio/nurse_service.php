@@ -33,13 +33,6 @@ include '../connect.php';
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Medicio - v4.7.0
-  * Template URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
   <style>
     * {
       box-sizing: border-box;
@@ -133,12 +126,12 @@ include '../connect.php';
           <p>Short term nursing procedures that reduce your need to visit a hospital everyday.</p>
         </div>
 
-        <form method="POST" action="">
+        <form method="POST" action="#data">
           <div class="form-row" style="margin-left: 25%;">
             <div class="form-group col-md-4 required">
               <label for="inputState">Service</label>
-              <select id="inputState" class="form-control" name="service" required>
-                <option disabled selected>Choose</option>
+              <select id="inputService" class="form-control" name="service" required>
+                <option selected value="0">Choose</option>
                 <?php
                 $sql = "SELECT `service_name` from `services`";
                 if ($con) {
@@ -161,8 +154,8 @@ include '../connect.php';
             </div>
             <div class="form-group col-md-4 required">
               <label for="inputState">Location</label>
-              <select id="inputState" class="form-control" name="location" required>
-                <option disabled selected>Choose</option>
+              <select id="inputLocation" class="form-control" name="location" required>
+                <option selected value="0">Choose</option>
                 <?php
                 include '../connect.php';
                 $sql = "SELECT `area_name` FROM `location`";
@@ -188,8 +181,129 @@ include '../connect.php';
           <input type="submit" value="Submit" name="save" style=" margin-left: 47% ; background-color: #3fbbc0; color: #fff; border: #3fbbc0; padding: 10px; padding-left: 20px; padding-right: 20px; border-radius: 4px;" />
         </form>
     </section>
+    <?php
+    if (isset($_POST['save'])) {
+
+      if ($_POST['service'] == 0) {
+        die("
+          <script>
+              alert('Select Both Location & Service');
+          </script>
+        ");
+      } elseif ($_POST['location'] == 0) {
+        die("
+        <script>
+            alert('Select Both Location & Service');
+        </script>
+      ");
+      } else {
+        $t = $_POST['service'];
+        $loc = $_POST['location'];
+        $pin = '';
+        // echo $t . "<br>" . $loc . "<br>";
+
+        $query = "SELECT `Pincode` from `location` where `area_name`='$loc'";
+        $result = mysqli_query($con, $query);
+
+        if (mysqli_num_rows($result)) {
+          while ($row = mysqli_fetch_assoc($result)) {
+            $pin = $row['Pincode'];
+            // echo $pin . "<br>";
+          }
+        }
+
+        $sql = "SELECT `email` from `nurse_selected_services` where `service_name`='$t'";
+        $ans = mysqli_query($con, $sql);
+
+        echo "<center> <div class='section' id='data'>
+          <div class='main1'>";
+
+        if (mysqli_num_rows($ans) == 0) {
+          die("<h3>Sorry No Such a Nurse!! 1</h3>");
+        }
+
+        if (mysqli_num_rows($ans) != 0) {
+          while ($ro = mysqli_fetch_assoc($ans)) {
+            $email = $ro['email'];
+            // echo "$email" . "<br>";
+
+            $res = "SELECT `email` from `nurse_selected_areas` where `Pincode`='$pin' and `Email`='$email'";
+            $ans2 = mysqli_query($con, $res);
 
 
+            if (mysqli_num_rows($ans2) == 0) {
+              die("<h3>Sorry No Such a Nurse!! 2</h3>");
+            }
+
+            if (mysqli_num_rows($ans2) != 0) {
+              while ($r = mysqli_fetch_assoc($ans2)) {
+                $mail = $r['email'];
+                // echo "In:".$mail."<br>";
+
+                $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$mail';";
+                $result_nurse = mysqli_query($con, $sql_nurse);
+
+                if (mysqli_num_rows($result_nurse) == 0) {
+                  die("<h3>Sorry No Such a Nurse!!</h3>");
+                }
+
+                if (mysqli_num_rows($result_nurse)) {
+                  while ($row = mysqli_fetch_assoc($result_nurse)) {
+
+                    $charge = '';
+                    $sql_charge = "SELECT `s_charge` from `nurse_selected_services` where `service_name`='$t' and `email`='$mail';";
+                    $result_charge = mysqli_query($con, $sql_charge);
+
+                    if (!$result_charge) {
+                      die(mysqli_error($con));
+                    }
+
+                    while ($row2 = mysqli_fetch_assoc($result_charge)) {
+                      $charge = $row2['s_charge'];
+                    }
+
+                    $name = $row['name'];
+                    $email = $row['email2'];
+                    $ph = $row['ph_no'];
+                    $bio = $row['bio'];
+                    $gender = $row['gender'];
+                    $rn = $row['rn_cert'];
+                    $yrs_exp = $row['total_exp'];
+                    $profile = $row['profile_pic'];
+                    $status = $row['Approval_status'];
+    ?>
+
+                    <div class="card">
+                      <h3><?php echo $name; ?></h3>
+                      <hr>
+                      <img src="../Nurse/Nurse_signup/<?php echo $profile; ?>" class="rounded-circle mx-auto d-block" alt="Profile Photo" width="150px" style="radius : 100px; padding-bottom : 20px;">
+                      <span><b>Service name : </b><?php echo $t; ?></span>
+                      <span><b>Location : </b><?php echo $loc; ?></span>
+                      <span><b>Service charge : </b>Rs. <?php echo $charge; ?></span>
+                      <span><b>Bio : </b><?php echo $bio; ?></span>
+                      <br><br>
+                      <div class="d-flex">
+                        <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+                        <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+                      </div>
+                    </div>
+    <?php
+
+                  }
+                }
+              }
+            }
+          }
+        }
+        echo "  </div>
+  </section>
+  <center>
+  ";
+      }
+    }
+
+
+    ?>
 
     <!-- Modal SignUp -->
     <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -226,107 +340,9 @@ include '../connect.php';
       </div>
     </div>
 
-    <?php
-
-    if (isset($_POST['save'])) {
-
-      $t = $_POST['service'];
-      $loc = $_POST['location'];
-      $pin = '';
-
-      // echo $t . "<br>" . $loc . "<br>";
-
-      $query = "SELECT `Pincode` from `location` where `area_name`='$loc'";
-      $result = mysqli_query($con, $query);
-
-      if (mysqli_num_rows($result)) {
-        while ($row = mysqli_fetch_assoc($result)) {
-          $pin = $row['Pincode'];
-          // echo $pin . "<br>";
-        }
-      }
-      $sql = "SELECT `Email` from `nurse_selected_services` where `service_name`='$t'";
-      $ans = mysqli_query($con, $sql);
-
-      if (mysqli_num_rows($ans)) {
-        while ($ro = mysqli_fetch_assoc($ans)) {
-          $email = $ro['Email'];
-          // echo "$email" . "<br>";
-
-          $res = "SELECT `Email` from `nurse_selected_areas` where `Pincode`='$pin' and `Email`='$email'";
-          $ans = mysqli_query($con, $res);
-
-          if (($ans)) {
-            while ($r = mysqli_fetch_assoc($ans)) {
-              $email = $ro['Email'];
-              // echo $email;
-
-              $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email';";
-              $result_nurse = mysqli_query($con, $sql_nurse);
-
-              if (!$result_nurse) {
-                die(mysqli_error($con));
-              }
-
-              echo " <section class='form'>
-              <div class='main1'>";
-
-              if ($result_nurse) {
-                while ($row = mysqli_fetch_assoc($result_nurse)) {
-
-                  $charge='';
-                  $sql_charge = "SELECT `s_charge` from `nurse_selected_services` where `service_name`='$t' and `email`='$email';";
-                  $result_charge = mysqli_query($con, $sql_charge);
-    
-                  if (!$result_charge) {
-                    die(mysqli_error($con));
-                  }
-    
-                  while($row2=mysqli_fetch_assoc($result_charge)){
-                    $charge=$row2['s_charge'];
-                  }
-
-                  $name = $row['name'];
-                  $email = $row['email2'];
-                  $ph = $row['ph_no'];
-                  $bio = $row['bio'];
-                  $gender = $row['gender'];
-                  $rn = $row['rn_cert'];
-                  $yrs_exp = $row['total_exp'];
-                  $profile = $row['profile_pic'];
-                  $status = $row['Approval_status'];
-    ?>
-
-                  <div class="card">
-                    <h3><?php echo $name; ?></h3>
-                    <hr>
-                    <img src="../Nurse/Nurse_signup/<?php echo $profile;?>" class="rounded-circle mx-auto d-block" alt="..." width="150px" style="radius : 100px; padding-bottom : 20px;">
-                    <span><b>Service name : </b><?php echo $t;?></span>
-                    <span><b>Location : </b><?php echo $loc;?></span>
-                    <span><b>Service charge : </b>Rs. <?php echo $charge;?></span>
-                    <span><b>Bio : </b><?php echo $bio; ?></span>
-                    <br><br>
-                    <div class="d-flex">
-                      <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
-                      <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
-                    </div>
-                  </div>
-    <?php
-
-                }
-                echo "  </div>
-              </section>";
-              }
-            }
-          }
-        }
-      }
-    }
-    ?>
-
-    <section class="form">
+    <!-- <section class="form">
       <div class="main1">
-        <!-- card1 -->
+         
         <div class="card">
 
           <h3>Nurse name</h3>
@@ -341,7 +357,7 @@ include '../connect.php';
             <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
           </div>
         </div>
-        <!-- card 2 -->
+        
         <div class="card">
           <h2>Nurse name</h2>
           <hr>
@@ -356,7 +372,7 @@ include '../connect.php';
             <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
           </div>
         </div>
-        <!-- card 3 -->
+       
         <div class="card">
           <h2>Nurse name</h2>
           <hr>
@@ -373,7 +389,7 @@ include '../connect.php';
             <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
           </div>
         </div>
-        <!-- card 4 -->
+      
         <div class="card">
           <h2>Nurse name</h2>
           <hr>
@@ -389,7 +405,7 @@ include '../connect.php';
             <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
           </div>
         </div>
-        <!-- card 5 -->
+       
         <div class="card">
           <h2>Nurse name</h2>
           <hr>
@@ -406,7 +422,7 @@ include '../connect.php';
             <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
           </div>
         </div>
-        <!-- card 6 -->
+      
         <div class="card">
           <h2>Nurse name</h2>
           <hr>
@@ -426,7 +442,8 @@ include '../connect.php';
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
+
 
     <div id="preloader"></div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -445,5 +462,8 @@ include '../connect.php';
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
+<script>
+
+</script>
 
 </html>

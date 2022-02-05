@@ -165,7 +165,7 @@ include '../../connect.php';
                                         <?php echo $row['hos_address']; ?>
                                 </textarea>
                                             </div>
-                                            <a href="../Nurse_signup/<?php echo $row['Exp_letter']; ?>" target="_blank" class="link">
+                                            <a href="../../Nurse/Nurse_signup/<?php echo $row['Exp_letter']; ?>" target="_blank" class="link">
                                                 <i class="fa fa-certificate"></i>
                                                 <span class="font-normal">Experience Letter</span>
                                             </a>

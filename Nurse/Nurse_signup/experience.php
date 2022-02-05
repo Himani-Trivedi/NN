@@ -66,7 +66,9 @@
             <div class="banner">
                 <h3>Experience Details</h3>
             </div>
-            <p style="color:red; text-align:center;">At least 2 years of experience required </p>
+            <p style="color:red; text-align:center;">At least 2 years of experience required<br>
+             First select from then select to date
+        </p>
             <br />
             <fieldset id="dynamic_exp">
 
@@ -212,7 +214,7 @@
                 changeMonth:true,
                 maxDate:0,
                 onClose: function( selectedDate ) {
-                $( "#to"+ i).datepicker( "option", "minDate", selectedDate );
+                $( "#to"+ i).datepicker( "option", "minDate", selectedDate);
             },
             onSelect: function(dateText, inst) { 
                 var date = $(this).datepicker('getDate'),
@@ -222,7 +224,6 @@
                 from[i]=new Date(year,month,day);
                 if (typeof  from[i] !== 'undefined' && typeof to[i] != 'undefined') {
                     calcDate(i); 
-                    // console.log(from);
                 }
             }
             });
@@ -242,7 +243,10 @@
                     to[i]=new Date(year,month,day);
                     if (typeof from[i] !== 'undefined' && typeof to[i] != 'undefined') {
                         calcDate(i); 
-                        // console.log(to);
+                    }else{
+                        alert('First select from date');
+                        window.location.reload();
+                        $('#from'+i).focus();
                     }
                 }
             }); 
@@ -272,7 +276,8 @@
                 from[0]=new Date(year,month,day);
                 if (typeof from[0] !== 'undefined' && typeof to[0] != 'undefined') {
                     calcDate(0); 
-                    console.log(from[0]);
+                }else{
+                    console.log("From " + from[0]);
                 }
             }
         });
@@ -294,7 +299,10 @@
             to[i]=new Date(year,month,day);
             if (typeof from[0] !== 'undefined' && typeof to[0] != 'undefined') {
                 calcDate(0); 
-                console.log(to[0]);
+            }else{
+                alert('First select from date');
+                window.location.reload();
+                $('#from').focus();
             }
         }
     });  

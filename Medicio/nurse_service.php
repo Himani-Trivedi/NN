@@ -260,7 +260,7 @@ include '../connect.php';
 
 
             if (mysqli_num_rows($ans2) == 0 && $i==1) {
-              die("<h3>Sorry No Such a Nurse!! 2</h3>");
+              die("<h3>Sorry No Such a Nurse!!</h3>");
             }
 
             if (mysqli_num_rows($ans2)) {

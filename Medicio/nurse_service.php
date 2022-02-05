@@ -133,7 +133,7 @@ include '../connect.php';
           <p>Short term nursing procedures that reduce your need to visit a hospital everyday.</p>
         </div>
 
-        <form action="nurse.php" method="POST" >
+        <form method="POST" action="">
           <div class="form-row" style="margin-left: 25%;">
             <div class="form-group col-md-4 required">
               <label for="inputState">Service</label>
@@ -226,6 +226,103 @@ include '../connect.php';
       </div>
     </div>
 
+    <?php
+
+    if (isset($_POST['save'])) {
+
+      $t = $_POST['service'];
+      $loc = $_POST['location'];
+      $pin = '';
+
+      // echo $t . "<br>" . $loc . "<br>";
+
+      $query = "SELECT `Pincode` from `location` where `area_name`='$loc'";
+      $result = mysqli_query($con, $query);
+
+      if (mysqli_num_rows($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
+          $pin = $row['Pincode'];
+          // echo $pin . "<br>";
+        }
+      }
+      $sql = "SELECT `Email` from `nurse_selected_services` where `service_name`='$t'";
+      $ans = mysqli_query($con, $sql);
+
+      if (mysqli_num_rows($ans)) {
+        while ($ro = mysqli_fetch_assoc($ans)) {
+          $email = $ro['Email'];
+          // echo "$email" . "<br>";
+
+          $res = "SELECT `Email` from `nurse_selected_areas` where `Pincode`='$pin' and `Email`='$email'";
+          $ans = mysqli_query($con, $res);
+
+          if (($ans)) {
+            while ($r = mysqli_fetch_assoc($ans)) {
+              $email = $ro['Email'];
+              // echo $email;
+
+              $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email';";
+              $result_nurse = mysqli_query($con, $sql_nurse);
+
+              if (!$result_nurse) {
+                die(mysqli_error($con));
+              }
+
+              echo " <section class='form'>
+              <div class='main1'>";
+
+              if ($result_nurse) {
+                while ($row = mysqli_fetch_assoc($result_nurse)) {
+
+                  $charge='';
+                  $sql_charge = "SELECT `s_charge` from `nurse_selected_services` where `service_name`='$t' and `email`='$email';";
+                  $result_charge = mysqli_query($con, $sql_charge);
+    
+                  if (!$result_charge) {
+                    die(mysqli_error($con));
+                  }
+    
+                  while($row2=mysqli_fetch_assoc($result_charge)){
+                    $charge=$row2['s_charge'];
+                  }
+
+                  $name = $row['name'];
+                  $email = $row['email2'];
+                  $ph = $row['ph_no'];
+                  $bio = $row['bio'];
+                  $gender = $row['gender'];
+                  $rn = $row['rn_cert'];
+                  $yrs_exp = $row['total_exp'];
+                  $profile = $row['profile_pic'];
+                  $status = $row['Approval_status'];
+    ?>
+
+                  <div class="card">
+                    <h3><?php echo $name; ?></h3>
+                    <hr>
+                    <img src="../Nurse/Nurse_signup/<?php echo $profile;?>" class="rounded-circle mx-auto d-block" alt="..." width="150px" style="radius : 100px; padding-bottom : 20px;">
+                    <span><b>Service name : </b><?php echo $t;?></span>
+                    <span><b>Location : </b><?php echo $loc;?></span>
+                    <span><b>Service charge : </b>Rs. <?php echo $charge;?></span>
+                    <span><b>Bio : </b><?php echo $bio; ?></span>
+                    <br><br>
+                    <div class="d-flex">
+                      <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+                      <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+                    </div>
+                  </div>
+    <?php
+
+                }
+                echo "  </div>
+              </section>";
+              }
+            }
+          }
+        }
+      }
+    }
+    ?>
 
     <section class="form">
       <div class="main1">
@@ -239,8 +336,10 @@ include '../connect.php';
           <span><b>Service charge : </b>Rs. 350</span>
           <span><b>Experience : </b>September 2008 to March 2012<br>San Jose Hospital Sao Paolo<br> Assisted physicians in taking blood pressure,mesuring heartbeat and recording vitals in physical examination.</span>
           <br><br>
-          <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
-
+          <div class="d-flex">
+            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+          </div>
         </div>
         <!-- card 2 -->
         <div class="card">
@@ -252,7 +351,10 @@ include '../connect.php';
           <span><b>Service charge : </b>Rs. 700</span>
           <span><b>Experience : </b>Compassionate elder caregiver and CNA with 6+ years experience providing in-home patient care. Have consistently maintained client reviews in excess of 94% positive. </span>
           <br>
-          <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+          <div class="d-flex">
+            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+          </div>
         </div>
         <!-- card 3 -->
         <div class="card">
@@ -266,7 +368,10 @@ include '../connect.php';
             National Healing Corporation, New York, NY
             Provided direct patient care and managed care for draining wounds, fistulas, pressure ulcers and skin breakdowns.</span>
           <br>
-          <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+          <div class="d-flex">
+            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+          </div>
         </div>
         <!-- card 4 -->
         <div class="card">
@@ -279,7 +384,10 @@ include '../connect.php';
           <span><b>Experience : </b>Bashirian, Walsh and Keeling - South Russellfort, Ohio<br>
             Maintained the highest level of patient satisfaction,generating referrals to keep the automotive rehabilitation unit productive. Prepared blood,tissue, and other labratory specimens for testing in lab.</span>
           <br>
-          <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+          <div class="d-flex">
+            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+          </div>
         </div>
         <!-- card 5 -->
         <div class="card">
@@ -293,7 +401,10 @@ include '../connect.php';
             University of Colorado Hospital,Auraro<br>
             Provide in-home nursing assessments and treatments visits in the patients home as ordered. Experience with DSL system use with daily skilled nursing documentation.</span>
           <br><br>
-          <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+          <div class="d-flex">
+            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+          </div>
         </div>
         <!-- card 6 -->
         <div class="card">
@@ -309,7 +420,10 @@ include '../connect.php';
             Administered pain managment and infection control medication.
           </span>
           <br><br>
-          <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+          <div class="d-flex">
+            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+          </div>
         </div>
       </div>
     </section>

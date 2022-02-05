@@ -203,7 +203,7 @@
         </div>
         <div class="btn-block">   
           <button type="button" class="btn" style="background-color:#3fbbc0; color:white;" onclick="window.location.href='../system_nurses/profile.php?nurse=<?php echo $mail;?>'">Profile</button>
-          <button type="button" class="btn" style="background-color:#3fbbc0; color:white;" onclick="window.location.href='../demo.php'">Home</button>
+          <button type="button" class="btn" style="background-color:#3fbbc0; color:white;" onclick="window.location.href='../../Medicio/index.php'">Home</button>
         </div>
       </fieldset>
   </div>

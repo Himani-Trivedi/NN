@@ -2,7 +2,7 @@
 
 include '../../connect.php';
 
-if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
+if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse_profile'])) {
 
     if (!$con) {
         die("Not connected to db");
@@ -10,6 +10,9 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
 
     if (isset($_REQUEST['nurse'])) {
         $mail = $_REQUEST['nurse'];
+        $_SESSION['nurse_profile']=$mail;
+    }else{
+        $mail = $_SESSION['nurse_profile'];
     }
 
     if (isset($_REQUEST['admin'])) {
@@ -34,13 +37,10 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
             $yrs_exp = $row['total_exp'];
             $profile = $row['profile_pic'];
             $status = $row['Approval_status'];
-            $_SESSION['status'] = $status;
         }
     } else {
         die(mysqli_error($con));
     }
-} else {
-    header('location:../login/login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -75,7 +75,7 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
 
-                    <a class="navbar-brand" href="../Medicio/index.html">
+                    <a class="navbar-brand" href="../../Medicio/index.php">
                         <b class="logo-icon text-danger">
                             <img src="logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
                             <span style="color:rgba(63,187,192,255); font-size: 16px;">Neighbouring Nurse</span>
@@ -129,11 +129,11 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
                             </li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true"></i><span class="hide-menu">Experience</span></a>
                             </li>
-                          <!--  <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li>
+                           <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
+                            <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li> -->
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Accepted Services</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> -->
+                            <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Accepted Services</span></a></li> -->
+                            <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> --> 
 
                             <li class="text-center p-20 upgrade-btn">
                                 <a href="../../Medicio/nurse_service.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
@@ -161,7 +161,7 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
                                     <h6 class="card-subtitle"><?php echo $yrs_exp; ?> years Experience</h6>
                                     <div class="row justify-content-center">
                                         <div class="col-4">
-                                            <a href="../Nurse_signup/<?php echo $rn; ?>" target="_blank" class="link">
+                                            <a href="../../Nurse/Nurse_signup/<?php echo $rn; ?>" target="_blank" class="link">
                                                 <i class="fa fa-certificate"></i>
                                                 <span class="font-normal">RN Certificate</span>
                                             </a>
@@ -195,12 +195,12 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
                                                 class="form-control ps-0 form-control-line">
                                         </div>
                                     </div> -->
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="col-md-12 mb-0">Phone No</label>
                                         <div class="col-md-12">
                                             <input type="text" id="n_ph" name="n_ph" class="form-control ps-0 form-control-line" disabled value="<?php echo $ph; ?>">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Bio</label>
                                         <div class="col-md-12">

@@ -35,7 +35,7 @@ include '../../connect.php';
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
 
-                    <a class="navbar-brand" href="../Medicio/index.html">
+                    <a class="navbar-brand" href="../../Medicio/index.php">
                         <b class="logo-icon text-danger">
                             <img src="../../logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
                             <span style="color:rgba(63,187,192,255); font-size: 17px;">Neighboring Nurse</span>
@@ -84,12 +84,20 @@ include '../../connect.php';
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.php" aria-expanded="false">
                                     <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
                             </li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cert.php?status=1" aria-expanded="false" ><i  class="me-3 fa fa-certificate" aria-hidden="true"></i><span class="hide-menu">Certificates</span></a>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cert.php?status=1" aria-expanded="false">
+                                    <i class="me-3 fa fa-certificate" aria-hidden="true"></i>
+                                    <span class="hide-menu">Certificates</span>
+                                </a>
                             </li>
-                            <li class="sidebar-item"> <a style="color:rgba(63,187,192,255) ;" class="sidebar-link waves-effect waves-dark sidebar-link" href="exp.php?status=1" aria-expanded="false"><i style="color:rgba(63,187,192,255) ;" class="me-3 fa fa-building" aria-hidden="true"></i><span class="hide-menu">Experience</span></a>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="exp.php?status=1" aria-expanded="false" style="color:rgba(63,187,192,255) ;">
+                                    <i style="color:rgba(63,187,192,255) ;" class="me-3 fa fa-building" aria-hidden="true"></i>
+                                    <span class="hide-menu">Experience</span>
+                                </a>
                             </li>
                             <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php?status=1" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php?status=1" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li>
+                            <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php?status=1" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li> -->
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php?status=1" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
                             <!-- 
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Accepted Services</span></a></li>
@@ -104,8 +112,8 @@ include '../../connect.php';
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.php" aria-expanded="false">
                                     <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
                             </li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate" style="color:rgba(63,187,192,255) ;" aria-hidden="true"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Certificates</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true"></i><span class="hide-menu">Experience</span></a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate"  aria-hidden="true"></i><span class="hide-menu" >Certificates</span></a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Experience</span></a></li>
                             <li class="text-center p-20 upgrade-btn">
                                 <a href="../../Admin/nurse/unset_admin_profile.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
                             </li>
@@ -125,7 +133,7 @@ include '../../connect.php';
                 <div class="row">
 
                     <?php
-                    if (isset($_SESSION['nurse'])) {
+                    if (isset($_SESSION['nurse_profile'])) {
 
                         $i = 1;
 
@@ -133,7 +141,7 @@ include '../../connect.php';
                             die("Not connected to db");
                         }
 
-                        $mail = $_SESSION['nurse'];
+                        $mail = $_SESSION['nurse_profile'];
                         $sql_req = "SELECT * FROM `experience` WHERE email='$mail';";
                         $result = mysqli_query($con, $sql_req);
 

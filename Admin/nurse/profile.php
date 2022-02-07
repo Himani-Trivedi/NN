@@ -103,7 +103,6 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse_profile'])) {
 
 
                     <ul class="navbar-nav">
-
                         <li class="nav-item dropdown">
                             <!-- <a href="" style="color:black; padding-right:0px"><i class="fa fa-bell fa-2x"></i></a> -->
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

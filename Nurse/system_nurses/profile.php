@@ -39,6 +39,7 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
             $yrs_exp = $row['total_exp'];
             $profile = $row['profile_pic'];
             $status = $row['Approval_status'];
+            $bal=$row['acc_balance'];
             $_SESSION['status'] = $status;
         }
     } else {
@@ -112,9 +113,28 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
 
                         <li class="nav-item dropdown">
                             <!-- <a href="" style="color:black; padding-right:0px"><i class="fa fa-bell fa-2x"></i></a> -->
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal" id="pay_btn">1500 Rs.
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">    
+                                <?php
+                                if (($_SESSION['status']) == 2) {
+                                ?>
+                                    <a href="../delete/del_y_n.php?s=2" class="btn btn-light" id="pay_btn">
+                                    <?php echo $bal." Rs.";?>
                                 </a>
+                                <?php
+                                }elseif(($_SESSION['status']) == 1){
+                                    ?>
+                                    <a href="../delete/del_y_n.php?s=1" class="btn btn-light" id="pay_btn">
+                                    <?php echo $bal." Rs.";?>
+                                </a>
+                                <?php
+                                }else{
+                                    ?>
+                                    <a href="../delete/del_y_n.php?s=0" class="btn btn-light" id="pay_btn">
+                                    <?php echo $bal." Rs.";?>
+                                </a>
+                                <?php
+                                }
+                                ?>
                                 <ul class="dropdown-menu show" aria-labelledby="navbarDropdown"></ul>
                         </li>
                     </ul>
@@ -153,7 +173,7 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
                             <?php
                             } else {
                             ?>
-                             <li class="text-center p-20 upgrade-btn">
+                                <li class="text-center p-20 upgrade-btn">
                                     <a href="../../Admin/nurse/unset_admin_profile.php?re=1" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
                                 </li>
                             <?php
@@ -323,7 +343,7 @@ if (isset($_REQUEST['nurse']) || isset($_SESSION['nurse'])) {
 
                                         </div> -->
                                         <button type="button" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;" onclick="window.location.href='update_password.php?id=<?php echo $mail; ?>'">Change Password
-                                                </button>
+                                        </button>
                                     <?php
                                     }
                                     ?>

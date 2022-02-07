@@ -64,8 +64,8 @@ $nurse = $_SESSION['nurse'];
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal">1500 Rs.
-                                </a>
+                                <!-- <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal">1500 Rs.
+                                </a> -->
                             </a>
                             <ul class="dropdown-menu show" aria-labelledby="navbarDropdown"></ul>
                         </li>

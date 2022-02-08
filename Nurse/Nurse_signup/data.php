@@ -49,13 +49,7 @@
 		$sql="INSERT INTO `requested_nurse`(`email`,`email2`, `name`, `password`, `ph_no`, `gender`,`total_exp`, `profile_pic`, `rn_cert`, `Approval_status`, `Added_time`, `bio`) VALUES ('$mail','$mail2','$name','$pass','$ph','$g', '$total','$photo','$rn',0,CURRENT_TIMESTAMP(),'$bio');";
 		$result=mysqli_query($con,$sql);
 
-		if(!$result){
-			mysqli_error($con);
-			if(!unlink($_SESSION['user']['rn_Cert']['dest']) && !unlink($_SESSION['user']['nurse_re_1']['profile_pic']['dest'])){
-				echo "Not deleted<br>";
-			}else{
-				echo "Done Deleted <br>";
-			}
+		if(!$result){			
 			die(mysqli_error($con));
 		}
 
@@ -79,13 +73,7 @@
 				$sql_cert="INSERT INTO `certificates`( `email`, `course`, `certificate`) VALUES ('$mail','$cert_name','$cert_dest')";
 				$result2=mysqli_query($con,$sql_cert);
 
-				if (!$result2) {
-					if(!unlink($cert_dest)){
-						echo "Certificate Not deleted<br>";
-						die(mysqli_error($con));
-					}else{
-						echo "Done Certificate Deleted $cert_filename <br>";
-					}
+				if(!$result2){			
 					die(mysqli_error($con));
 				}
 
@@ -129,13 +117,7 @@
 
 				$result_exp=mysqli_query($con,$sql_exp);
 
-				if(!$result_exp){
-					if(!unlink($letter)){
-						echo "Certificate Not deleted<br>";
-						die(mysqli_error($con));
-					}else{
-						echo "Done Certificate Deleted $letter <br>";
-					}
+				if(!$result_exp){			
 					die(mysqli_error($con));
 				}
 
@@ -149,7 +131,7 @@
 			}
 
 		}
-		
+		$_SESSION['nurse']=$mail;
 	}
 
 	// echo "<br>";
@@ -203,7 +185,7 @@
         </div>
         <div class="btn-block">   
           <button type="button" class="btn" style="background-color:#3fbbc0; color:white;" onclick="window.location.href='../system_nurses/profile.php?nurse=<?php echo $mail;?>'">Profile</button>
-          <button type="button" class="btn" style="background-color:#3fbbc0; color:white;" onclick="window.location.href='../../Medicio/index.php'">Home</button>
+          <button type="button" class="btn" style="background-color:#3fbbc0; color:white;" onclick="window.location.href='../../Medicio/index.php?nurse=<?php echo $mail;?>'">Home</button>
         </div>
       </fieldset>
   </div>

@@ -228,18 +228,20 @@ include '../connect.php';
         $pin = '';
         $i = 0;
         // echo $t . "<br>" . $loc . "<br>";
+
+
+
         $query = "SELECT `Pincode` from `location` where `area_name`='$loc'";
         $result = mysqli_query($con, $query);
 
         if (mysqli_num_rows($result)) {
           while ($row = mysqli_fetch_assoc($result)) {
             $pin = $row['Pincode'];
-            // echo $pin . "<br>";
+            echo $pin . "<br>";
           }
         }
 
-        $sql = "SELECT * from nurse_selected_services where service_name='$t' and email IN
-        (SELECT email FROM `nurse_selected_areas` WHERE Pincode='$pin')";
+        $sql = "SELECT `email` from `nurse_selected_areas`where `Pincode`='$pin'";
         $ans = mysqli_query($con, $sql);
 
         echo "<center> <div class='section' id='data'>
@@ -250,71 +252,91 @@ include '../connect.php';
         }
 
         if (mysqli_num_rows($ans) != 0) {
+          $i = mysqli_num_rows($ans);
           while ($ro = mysqli_fetch_assoc($ans)) {
             $email = $ro['email'];
+            echo "$email" . "<br>";
 
-            $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email';";
-            $result_nurse = mysqli_query($con, $sql_nurse);
+            $res = "SELECT `email` from `nurse_selected_services` where `service_name`='$t' and `email`='$email'";
+            $ans2 = mysqli_query($con, $res);
 
-            if (mysqli_num_rows($result_nurse)) {
-              while ($row = mysqli_fetch_assoc($result_nurse)) {
+            if (mysqli_num_rows($ans2) == 0 && $i == 0) {
+              die("<h3>Sorry No Such a Nurse!!</h3>");
+            }
 
-                $charge = '';
-                $sql_charge = "SELECT `s_charge` from `nurse_selected_services` where `service_name`='$t' and `email`='$mail';";
-                $result_charge = mysqli_query($con, $sql_charge);
+            if (mysqli_num_rows($ans2)) {
+              while ($r = mysqli_fetch_assoc($ans2)) {
+                $mail = $r['email'];
+                echo "In:" . $mail . "<br>";
 
-                if (!$result_charge) {
-                  die(mysqli_error($con));
+                $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$mail';";
+                $result_nurse = mysqli_query($con, $sql_nurse);
+
+                if (mysqli_num_rows($result_nurse) == 0) {
+                  die("<h3>Sorry No Such a Nurse!!</h3>");
                 }
 
-                while ($row2 = mysqli_fetch_assoc($result_charge)) {
-                  $charge = $row2['s_charge'];
-                }
+                if (mysqli_num_rows($result_nurse)) {
+                  while ($row = mysqli_fetch_assoc($result_nurse)) {
 
-                $name = $row['name'];
-                $m = $row['email'];
-                $email = $row['email2'];
-                $ph = $row['ph_no'];
-                $bio = $row['bio'];
-                $gender = $row['gender'];
-                $rn = $row['rn_cert'];
-                $yrs_exp = $row['total_exp'];
-                $profile = $row['profile_pic'];
-                $status = $row['Approval_status'];
+                    $charge = '';
+                    $sql_charge = "SELECT `s_charge` from `nurse_selected_services` where `service_name`='$t' and `email`='$mail';";
+                    $result_charge = mysqli_query($con, $sql_charge);
+
+                    if (!$result_charge) {
+                      die(mysqli_error($con));
+                    }
+
+                    while ($row2 = mysqli_fetch_assoc($result_charge)) {
+                      $charge = $row2['s_charge'];
+                    }
+
+                    $name = $row['name'];
+                    $m = $row['email'];
+                    $email = $row['email2'];
+                    $ph = $row['ph_no'];
+                    $bio = $row['bio'];
+                    $gender = $row['gender'];
+                    $rn = $row['rn_cert'];
+                    $yrs_exp = $row['total_exp'];
+                    $profile = $row['profile_pic'];
+                    $status = $row['Approval_status'];
     ?>
 
-                <div class="card" style="width:25%; height:20%;">
-                  <h3><?php echo $name; ?>
-                  </h3>
-                  <hr>
-                  <img src="../Nurse/Nurse_signup/<?php echo $profile; ?>" class="rounded-circle mx-auto d-block" alt="Profile Photo" width="150px" style="radius : 100px; padding-bottom : 20px;">
-                  <h3>
-                    <?php
-                    if ($gender == 'f') {
-                    ?>
-                      <i class="fas fa-female"></i>
-                    <?php
-                    } else {
-                    ?>
-                      <i class="fas fa-male"></i>
-                    <?php
-                    }
-                    ?>
-                  </h3>
-                  <span><b>Service name : </b><?php echo $t; ?></span>
-                  <span><b>Location : </b><?php echo $loc; ?></span>
-                  <span><b>Service charge : </b>Rs. <?php echo $charge; ?></span>
-                  <span><b>Experience : </b><?php echo $yrs_exp; ?> years</span>
-                  <span><b>Bio : </b><?php echo $bio; ?></span>
-                  <br><br>
-                  <div class="d-flex">
-                    <a href="../patient/Nurse/profile.php?nurse=<?php echo $m; ?>" target="_blank"><input type="button" value="Show profile" style="background :grey; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" /></a>
-                    <input type="button" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
-                  </div>
-                </div>
+                    <div class="card" style="width:25%; height:24%;">
+                      <h3><?php echo $name; ?>
+                      </h3>
+                      <hr>
+                      <img src="../Nurse/Nurse_signup/<?php echo $profile; ?>" class="rounded-circle mx-auto d-block" alt="Profile Photo" width="150px" style="radius : 100px; padding-bottom : 20px;">
+                      <h3>
+                        <?php
+                        if ($gender == 'f') {
+                        ?>
+                          <i class="fas fa-female"></i>
+                        <?php
+                        } else {
+                        ?>
+                          <i class="fas fa-male"></i>
+                        <?php
+                        }
+                        ?>
+                      </h3>
+                      <span><b>Service name : </b><?php echo $t; ?></span>
+                      <span><b>Location : </b><?php echo $loc; ?></span>
+                      <span><b>Service charge : </b>Rs. <?php echo $charge; ?></span>
+                      <span><b>Experience : </b><?php echo $yrs_exp; ?> years</span>
+                      <span><b>Bio : </b><?php echo $bio; ?></span>
+                      <br><br>
+                      <div class="d-flex">
+                        <a href="../patient/Nurse/profile.php?nurse=<?php echo $m; ?>" target="_blank"><input type="button" value="Show profile" style="background :grey; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" /></a>
+                        <input type="button" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+                      </div>
+                    </div>
     <?php
 
-                $i--;
+                    $i--;
+                  }
+                }
               }
             }
           }
@@ -328,6 +350,7 @@ include '../connect.php';
 
 
     ?>
+
 
 
     <!-- Modal SignUp -->

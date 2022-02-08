@@ -41,27 +41,8 @@ if (isset($_REQUEST['email'])) {
 <body>
     <div class="container rounded-3 my-5 p-4" id="confirm" style="width: 600px;  box-shadow:5px 10px rgba(63,187,192,255)">
         <h3>Are you sure to delete your account?</h3>
-        <?php
-        if (($_REQUEST['s']) == 2) {
-        ?>
-            <a href="del_paid_nurse.php?s=2" class="btn btn-secondary" style="background-color:rgba(63,187,192,255) ;">
-               YES
-            </a>
-        <?php
-        } elseif (($_REQUEST['s']) == 1) {
-        ?>
-            <a href="del_app_nurse.php?s=1" class="btn btn-light" style="background-color:rgba(63,187,192,255) ;">
-               YES
-            </a>
-        <?php
-        } else {
-        ?>
-            <a href="del_req_nurse.php?s=0" class="btn btn-light" style="background-color:rgba(63,187,192,255) ;">
-               YES
-            </a>
-        <?php
-        }
-        ?>
+        <a href="del_req_nurse.php?s=2" class="btn btn-secondary" style="background-color:rgba(63,187,192,255) ;">YES
+        </a>
         <a href='../system_nurses/profile.php' class="btn btn-secondary">NO</a>
     </div>
 </body>

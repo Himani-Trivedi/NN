@@ -20,7 +20,7 @@ include '../connect.php';
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -103,32 +103,32 @@ include '../connect.php';
             <li><a class="nav-link scrollto" href="index.php#contact">Contact Us</a></li>
             <?php
 
-          if (isset($_SESSION['nurse'])) {
-            $mail = $_SESSION['nurse'];
-          ?>
-            <li><a class="nav-link scrollto" href="../Nurse/system_nurses/profile.php?nurse=<?php echo $mail; ?>">Profile</a></li>
-            <li><a class="nav-link scrollto" href="../Nurse/login/logout.php">Logout</a></li>
-          <?php
+            if (isset($_SESSION['nurse'])) {
+              $mail = $_SESSION['nurse'];
+            ?>
+              <li><a class="nav-link scrollto" href="../Nurse/system_nurses/profile.php?nurse=<?php echo $mail; ?>">Profile</a></li>
+              <li><a class="nav-link scrollto" href="../Nurse/login/logout.php">Logout</a></li>
+            <?php
 
-          } elseif (isset($_SESSION['user'])) {
-            $mail = $_SESSION['user'];
-          ?>
-            <li><a class="nav-link scrollto" href="../patient/profile/profile.php?<?php echo $mail; ?>">Profile</a></li>
-            <li><a class="nav-link scrollto" href="../patient/login/logout.php">Logout</a></li>
-          <?php
-          } elseif (isset($_SESSION['admin'])) {
-            $mail = $_SESSION['admin'];
-          ?>
-            <li><a class="nav-link scrollto" href="../Admin/profile/Admin-Profile.php?admin=<?php echo $mail; ?>">Profile</a></li>
-            <li><a class="nav-link scrollto" href="../Admin/login/logout.php">Logout</a></li>
-          <?php
-          } else {
-          ?>
-            <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#login">Login</a></li>
-            <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#signup">Sign up</a></li>
-          <?php
-          }
-          ?>
+            } elseif (isset($_SESSION['user'])) {
+              $mail = $_SESSION['user'];
+            ?>
+              <li><a class="nav-link scrollto" href="../patient/profile/profile.php?<?php echo $mail; ?>">Profile</a></li>
+              <li><a class="nav-link scrollto" href="../patient/login/logout.php">Logout</a></li>
+            <?php
+            } elseif (isset($_SESSION['admin'])) {
+              $mail = $_SESSION['admin'];
+            ?>
+              <li><a class="nav-link scrollto" href="../Admin/profile/Admin-Profile.php?admin=<?php echo $mail; ?>">Profile</a></li>
+              <li><a class="nav-link scrollto" href="../Admin/login/logout.php">Logout</a></li>
+            <?php
+            } else {
+            ?>
+              <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#login">Login</a></li>
+              <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#signup">Sign up</a></li>
+            <?php
+            }
+            ?>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
@@ -226,7 +226,7 @@ include '../connect.php';
         $t = $_POST['service'];
         $loc = $_POST['location'];
         $pin = '';
-        $i=0;
+        $i = 0;
         // echo $t . "<br>" . $loc . "<br>";
 
         $query = "SELECT `Pincode` from `location` where `area_name`='$loc'";
@@ -259,7 +259,7 @@ include '../connect.php';
             $ans2 = mysqli_query($con, $res);
 
 
-            if (mysqli_num_rows($ans2) == 0 && $i==1) {
+            if (mysqli_num_rows($ans2) == 0 && $i == 1) {
               die("<h3>Sorry No Such a Nurse!!</h3>");
             }
 
@@ -291,7 +291,7 @@ include '../connect.php';
                     }
 
                     $name = $row['name'];
-                    $m=$row['email'];
+                    $m = $row['email'];
                     $email = $row['email2'];
                     $ph = $row['ph_no'];
                     $bio = $row['bio'];
@@ -303,16 +303,31 @@ include '../connect.php';
     ?>
 
                     <div class="card" style="width:25%; height:24%;">
-                      <h3><?php echo $name; ?></h3>
+                      <h3><?php echo $name; ?>
+                      </h3>
                       <hr>
                       <img src="../Nurse/Nurse_signup/<?php echo $profile; ?>" class="rounded-circle mx-auto d-block" alt="Profile Photo" width="150px" style="radius : 100px; padding-bottom : 20px;">
+                      <h3>
+                        <?php
+                        if ($gender == 'f') {
+                        ?>
+                          <i class="fas fa-female"></i>
+                        <?php
+                        } else {
+                        ?>
+                          <i class="fas fa-male"></i>
+                        <?php
+                        }
+                        ?>
+                      </h3>
                       <span><b>Service name : </b><?php echo $t; ?></span>
                       <span><b>Location : </b><?php echo $loc; ?></span>
                       <span><b>Service charge : </b>Rs. <?php echo $charge; ?></span>
+                      <span><b>Experience : </b><?php echo $yrs_exp; ?> years</span>
                       <span><b>Bio : </b><?php echo $bio; ?></span>
                       <br><br>
                       <div class="d-flex">
-                        <input type="button" value="Show profile" onclick="window.location.href='../patient/Nurse/profile.php?nurse=<?php echo $m;?>'" style="background :grey; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
+                        <input type="button" value="Show profile" onclick="window.location.href='../patient/Nurse/profile.php?nurse=<?php echo $m; ?>'" style="background :grey; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
                         <input type="button" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
                       </div>
                     </div>

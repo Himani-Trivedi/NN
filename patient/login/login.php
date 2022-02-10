@@ -36,22 +36,22 @@ if (isset($_GET["code"])) {
             }
 
             if ($con) {
-                $sql = "select * from patient where Email='$u'"; 
+                $sql = "select * from patient where Email='$u'";
 
                 $r = mysqli_query($con, $sql);
                 try {
                     if ($r) {
                         $ipaddress = $_SERVER['REMOTE_ADDR'];
-                        $nurse =$u;
-        
+                        $nurse = $u;
+
                         $sql_login = "INSERT INTO `patientlogin`(`Email`, `IP_address`,`Time`) VALUES ('$nurse','$ipaddress',CURRENT_TIMESTAMP())";
                         $result_login = mysqli_query($con, $sql_login);
-        
+
                         if ($result_login) {
                             $_SESSION['user'] = $u;
                             header('location:../profile/profile.php');
                         } else {
-                            echo("<script>alert('Login Failed! Try Again ')</script>");
+                            echo ("<script>alert('Login Failed! Try Again ')</script>");
                         }
                     } else {
                         die(mysqli_error($con));
@@ -77,8 +77,10 @@ if (!isset($_SESSION['access_token'])) {
 <head>
     <title>Login</title>
     <link href="../../logo.jpeg" rel="icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+   
     </script>
     <style>
         h3 {
@@ -225,6 +227,7 @@ if (!isset($_SESSION['access_token'])) {
 
 
 <body>
+    <a href='../../Medicio/index.php' style="decoration:none;"><i style="padding:4px" class="fa fa-arrow-left"></i> Back to home</a>
     <div class="main">
         <form class="form" method="POST" action="logincheck.php">
             <table class="tb1">

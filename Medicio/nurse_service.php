@@ -31,6 +31,10 @@ include '../connect.php';
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <style>
@@ -175,7 +179,6 @@ include '../connect.php';
                   die('Database issue.');
                 }
                 ?>
-
               </select>
             </div>
             <div class="form-group col-md-4 required">
@@ -252,7 +255,6 @@ include '../connect.php';
         if (mysqli_num_rows($ans) != 0) {
           while ($ro = mysqli_fetch_assoc($ans)) {
             $email = $ro['email'];
-
             $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email';";
             $result_nurse = mysqli_query($con, $sql_nurse);
 
@@ -283,7 +285,7 @@ include '../connect.php';
                 $status = $row['Approval_status'];
     ?>
 
-                <div class="card" style="width:25%; height:20%;">
+                <div class="card" style="height:20%;">
                   <h3><?php echo $name; ?>
                   </h3>
                   <hr>
@@ -309,7 +311,11 @@ include '../connect.php';
                   <br><br>
                   <div class="d-flex">
                     <a href="../patient/Nurse/profile.php?nurse=<?php echo $m; ?>" target="_blank"><input type="button" value="Show profile" style="background :grey; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" /></a>
-                    <input type="button" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
+                    <!-- <a data-bs-toggle="modal" data-bs-target="#Requested_appointment"> -->
+                    <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
+                      Make An Appointment
+                    </button>
+                    <!-- </a> -->
                   </div>
                 </div>
     <?php
@@ -326,8 +332,88 @@ include '../connect.php';
       }
     }
 
+    if (isset($_SESSION['nurse'])) {
+      $mail = $_SESSION['nurse'];
+    } elseif (isset($_SESSION['user'])) {
+      $mail = $_SESSION['user'];
+    } elseif (isset($_SESSION['admin'])) {
+      $mail = $_SESSION['admin'];
+    } else {
+    ?>
+      <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#login">Login</a></li>
+      <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#signup">Sign up</a></li>
+    <?php
+    }
 
     ?>
+
+
+    <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <form action="form.php" method="post" enctype="multipart/form-data">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Requested Appointment </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table align="center" cellpadding="10" cellspacing="10" bgcolor="White">
+                <tr>
+                  <td><b>Nurse :</b></td>
+                  <td><input type="email" name="Nursename" value="<?php echo $name; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;" id="NurseName" readonly /></td>
+                </tr>
+                <tr>
+                  <td><b>Service :</b></td>
+                  <td><input type="text" name="service" value="<?php echo $t;?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;color:black;" placeholder="Vital Checks" id="nurse_email" readonly /></td>
+                  </td>
+                </tr>
+                <!-- <tr>
+                  <td><b>Date :</b></td>
+                  <td><input type="text" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="service_date" name="service_date" maxlength="30" required />
+                  </td>
+                </tr> -->
+                <tr>
+                  <td><b>Date-Time :</b></td>
+                  <td><input type="text" autocomplete="off" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="datetime" name="date_time"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td><B>Prescription :</B></TD>
+                  <td><input type="file" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="pres" id="Prescription" required></td>
+                </tr>
+
+                <tr>
+                  <td><b>Floor No. :</b></td>
+                  <td><input style="width:100%;border-color:lightgrey;padding:5px;border-radius:5px;" id="Landmark" name="floor_no" placeholder="House/Flat/Apartment No." required /></td>
+                </tr>
+                <tr>
+                  <td><b>Landmark :</b></td>
+                  <td><input style="width:100%;border-color:lightgrey;padding:5px;border-radius:5px;" id="Landmark" name="Landmark" placeholder="Landmark" required /></td>
+                </tr>
+                <tr>
+                  <td><b>Address :</b></td>
+                  <td><textarea style="border-color:lightgrey;padding:5px;border-radius:5px;" name="Address" rows="4" cols="60" placeholder="Address" required></textarea></td>
+                </tr>
+                <tr>
+                  <td><b>Pincode :</b></td>
+                  <td><input type="PINCODE" value="<?php echo $pin; ?>" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="pincode" name="Pincode" placeholder="380007" maxlength="30" readonly required />
+                  </td>
+                </tr>
+                </td>
+                <input type="hidden" value="" id="NurseEmail" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="nurse_email" />
+                <input type="hidden" value="<?php echo $mail; ?>" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="patient_email" />
+                </td>
+                </tr>
+              </table>
+
+            </div>
+            <div class="modal-footer">
+              <button type="submit" name="submit" style="background-color:#3fbbc0;color:white;padding: 10px;border:#3fbbc0;border-radius:5px;" class="button button1">Send Request</button>
+            </div>
+        </form>
+      </div>
+    </div>
+
 
 
     <!-- Modal SignUp -->
@@ -486,9 +572,45 @@ include '../connect.php';
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"> </script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="jquery.datetimepicker.min.css" />
+    <script src="jquery.js"></script>
+    <script src="jquery.datetimepicker.full.js"></script>
 </body>
 <script>
+  $(document).ready(function() {
 
+    // $('#service_date').datepicker({
+    //   dateFormat: "yy-mm-dd",
+    //   changeYear: true,
+    //   changeMonth: true,
+    //   minDate: 0,
+    //   // onClose: function(selectedDate) {
+    //   //   alert('Date:' + selectedDate);
+    //   // }
+    // });
+
+    $('#datetime').datetimepicker({
+      step:5,
+      minDate:0,
+      format:'Y-m-d H:i'
+    });
+  });
+
+  function openModal(nurse, name) {
+    document.getElementById('NurseEmail').value = nurse;
+    document.getElementById('NurseName').value = name;
+    $('#Requested_appointment').modal('toggle');
+  }
 </script>
+
 
 </html>

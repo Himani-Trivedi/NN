@@ -56,12 +56,13 @@ include '../connect.php';
     .card {
       display: flex;
       width: 400px;
-      height: 600px;
+      height: 700px;
       align: center;
       margin-left: 85px;
-      margin-top: 100px;
+      margin-top: 80px;
       box-shadow: 0px 4px 8px black;
       padding: 40px;
+      margin-bottom:80px;
       position: relative;
       background-color: blanchedalmond;
       float: left;
@@ -245,7 +246,7 @@ include '../connect.php';
         (SELECT email FROM `nurse_selected_areas` WHERE Pincode='$pin')";
         $ans = mysqli_query($con, $sql);
 
-        echo "<center> <div class='section' id='data'>
+        echo " <div class='section' id='data'>
           <div class='main1'>";
 
         if (mysqli_num_rows($ans) == 0) {
@@ -285,24 +286,21 @@ include '../connect.php';
                 $status = $row['Approval_status'];
     ?>
 
-                <div class="card" style="height:20%;">
+                <div class="card" >
                   <h3><?php echo $name; ?>
                   </h3>
                   <hr>
-                  <img src="../Nurse/Nurse_signup/<?php echo $profile; ?>" class="rounded-circle mx-auto d-block" alt="Profile Photo" width="150px" style="radius : 100px; padding-bottom : 20px;">
+                  <img src="../Nurse/Nurse_signup/<?php echo $profile; ?>" style="border-radius:100%" class="rounded-circle mx-auto d-block" alt="Profile Photo" width="150px" style="radius : 100px; padding-bottom : 20px;">
                   <h3>
                     <?php
                     if ($gender == 'f') {
-                    ?>
-                      <i class="fas fa-female"></i>
-                    <?php
+                      $g="Female";              
                     } else {
-                    ?>
-                      <i class="fas fa-male"></i>
-                    <?php
+                      $g="Male";
                     }
                     ?>
                   </h3>
+                  <span><b>Gender : </b><?php echo $g; ?></span>
                   <span><b>Service name : </b><?php echo $t; ?></span>
                   <span><b>Location : </b><?php echo $loc; ?></span>
                   <span><b>Service charge : </b>Rs. <?php echo $charge; ?></span>
@@ -327,7 +325,6 @@ include '../connect.php';
         }
         echo "  </div>
   </section>
-  <center>
   ";
       }
     }

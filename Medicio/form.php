@@ -36,7 +36,7 @@ $date = date('Y-m-d H:i:s', $timestamp);
 
 $sql = "INSERT INTO `request_form`(`User_Email`, `service_name`, `Service_Date_Time`, `Address`, `Pincode`,
  `Prescription`, `Created_Req_time`, `nurse_email`, `Landmark`, `Block_Number`, `Status`) 
- VALUES ('$patient','$ser','$date','$address','$pin','$dest2',current_timestamp(),'$nurse',
+ VALUES ('$patient','$ser','$date','$address',$pin,'$dest2',current_timestamp(),'$nurse',
  '$landmark','$floor_no',0)";
 $result = mysqli_query($con, $sql);
 

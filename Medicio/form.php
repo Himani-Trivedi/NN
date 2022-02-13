@@ -40,7 +40,6 @@ if (!$result) {
 	die(mysqli_error($con));
 }
 
-
 $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$nurse';";
 $result_nurse = mysqli_query($con, $sql_nurse);
 
@@ -48,7 +47,7 @@ while ($row = mysqli_fetch_assoc($result_nurse)) {
 	$to_email = $row['email2'];
 }
 
-$accpet_link="<a href='http://localhost/Project/NN/Nurse/system_nurses/accepted_services.php?nurse='.$nurse.'></a>";
+$accpet_link = "<a href='http://localhost/Project/NN/Nurse/system_nurses/accepted_services.php?nurse='.$nurse.'></a>";
 
 $subject = "Neighbouring Nurse";
 $body = "You got request for an Appointment at 

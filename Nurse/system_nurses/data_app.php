@@ -14,20 +14,32 @@ if ($con) {
             $result_nurse = mysqli_query($con, $sql_nurse);
             $row_nurse = mysqli_fetch_assoc($result_nurse);
 
-            $sql_user = "SELECT * FROM `patient` WHERE `Email`='$user'";
-            $result_user = mysqli_query($con, $sql_user);
-            $row_user = mysqli_fetch_assoc($result_user);
+            if(isset($_SESSION['nurse_request_app'])){
+                $sql_user = "SELECT * FROM `requested_nurse` WHERE `email`='$nurse'";
+                $result_user = mysqli_query($con, $sql_user);
+                $row_user = mysqli_fetch_assoc($result_user);
+                $p_name=$row_user['email2'];
+                $p_no=$row_user['ph_no'];
+            }else{
+                $sql_user = "SELECT * FROM `patient` WHERE `Email`='$user'";
+                $result_user = mysqli_query($con, $sql_user);
+                $row_user = mysqli_fetch_assoc($result_user);
+                $p_name=$row_user['email2'];
+                $p_no=$row_user['Ph No'];
+            }
+
+          
 ?>
 
             <h6>
                 <table align="center" cellpadding="10" cellspacing="10" bgcolor="White">
                     <tr>
                         <td><b>User email :</b></td>
-                        <td><input type="email" name="user_mail" value="<?php echo $row_user['email2']; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;" id="NurseName" readonly /></td>
+                        <td><input type="email" name="user_mail" value="<?php echo $p_name; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;" id="NurseName" readonly /></td>
                     </tr>
                     <tr>
                         <td><b>User Phone :</b></td>
-                        <td><input type="email" name="user_ph" value="<?php echo $row_user['Ph No']; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;" id="NurseName" readonly /></td>
+                        <td><input type="email" name="user_ph" value="<?php echo $p_no; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;" id="NurseName" readonly /></td>
                     </tr>
 
                     <tr>
@@ -58,7 +70,7 @@ if ($con) {
                     <tr>
                         <td><b>Address :</b></td>
                         <td>
-                            <textarea style="border-color:lightgrey;padding:5px;border-radius:5px;" name="Address" rows="4" cols="60" readonly>
+                            <textarea style="width:100%;border-color:lightgrey;padding:5px;border-radius:5px;" name="Address" rows="4" cols="60" readonly>
                                  <?php echo $row['Address']; ?>
                             </textarea>
                         </td>
@@ -71,7 +83,7 @@ if ($con) {
                         $row1 = mysqli_fetch_assoc($result1)
                         ?>
 
-                        <td><b>Pincode :</b></td>
+                        <td><b>Area :</b></td>
                         <td><input type="PINCODE" value=" <?php echo $row1['area_name']; ?>" style=" border-color:lightgrey;padding:5px;border-radius:5px;" id="pincode" name="Pincode" placeholder="380007" maxlength="30" readonly />
                         </td>
                     </tr>

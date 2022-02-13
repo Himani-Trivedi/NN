@@ -13,6 +13,7 @@ if ($con) {
         $form = $row['Request_id'];
         $ser = $row['service_name'];
         $loc = $row['Address'];
+        $time=$row['Service_Date_Time'];
 
         $sql_user = "SELECT * FROM `patient` WHERE `Email`='$u_mail'";
         $result_user = mysqli_query($con, $sql_user);
@@ -26,7 +27,7 @@ if ($con) {
         $n_email = $row_nurse['email2'];
 
         $subject = "Neighbouring Nurse";
-        $body = "$n_email has refused for your requested appointment, for $ser at $loc ";
+        $body = "$n_email has refused for your requested appointment, for $ser at $loc @$time";
         $headers = "From: ht1872004@gmail.com";
         $to_email =$n_email;
 

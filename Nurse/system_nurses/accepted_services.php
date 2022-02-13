@@ -185,17 +185,10 @@ if (isset($_SESSION['nurse'])) {
                                                                             <td><button class="btn btn-dark">Expired</button></td>
                                                                         <?php
                                                                         }
-                                                                        if ($status != -1) {
+
+                                                                        if ($status == 1) {
                                                                         ?>
-
-                                                                            <td>
-                                                                                <div class="form-group">
-                                                                                    <div class="col-sm-12 d-flex">
-                                                                                        <a href="a_service.php?id=<?php echo $form; ?>" style="color:rgba(63,187,192,255) ;">&nbsp&nbsp<i class="fa fa-check-circle"></i></a>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
+                                                                            <td>-</td>
                                                                             <td>
                                                                                 <div class="form-group">
                                                                                     <div class="col-sm-12 d-flex">
@@ -203,14 +196,34 @@ if (isset($_SESSION['nurse'])) {
                                                                                     </div>
                                                                                 </div>
                                                                             </td>
-                                                                        <?php
+                                                                            <?php
                                                                         } else {
-                                                                        ?>
-                                                                            <td>-</td>
-                                                                            <td>-</td>
+                                                                            if ($status != -1) {
+                                                                            ?>
+                                                                                <td>
+                                                                                    <div class="form-group">
+                                                                                        <div class="col-sm-12 d-flex">
+                                                                                            <a href="a_service.php?id=<?php echo $form; ?>" style="color:rgba(63,187,192,255) ;">&nbsp&nbsp<i class="fa fa-check-circle"></i></a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="form-group">
+                                                                                        <div class="col-sm-12 d-flex">
+                                                                                            <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            <?php
+                                                                            } else {
+                                                                            ?>
+                                                                                <td>-</td>
+                                                                                <td>-</td>
 
                                                                         <?php
+                                                                            }
                                                                         }
+
                                                                         ?>
                                                                         <td>
                                                                             <div class="form-group">

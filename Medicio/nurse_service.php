@@ -110,6 +110,7 @@ include '../connect.php';
 
             if (isset($_SESSION['nurse'])) {
               $mail = $_SESSION['nurse'];
+              $_SESSION['nurse_request_app'] = 1;
             ?>
               <li><a class="nav-link scrollto" href="../Nurse/system_nurses/profile.php?nurse=<?php echo $mail; ?>">Profile</a></li>
               <li><a class="nav-link scrollto" href="../Nurse/login/logout.php">Logout</a></li>
@@ -250,7 +251,7 @@ include '../connect.php';
           <div class='main1'>";
 
         if (mysqli_num_rows($ans) == 0) {
-          die("<h3>Sorry No Such a Nurse!!</h3>");
+          die("<h3><center> Sorry No Such a Nurse!!</center></h3>");
         }
 
         if (mysqli_num_rows($ans) != 0) {
@@ -310,9 +311,16 @@ include '../connect.php';
                   <div class="d-flex">
                     <a href="../patient/Nurse/profile.php?nurse=<?php echo $m; ?>" target="_blank"><input type="button" value="Show profile" style="background :grey; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" /></a>
                     <!-- <a data-bs-toggle="modal" data-bs-target="#Requested_appointment"> -->
-                    <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
-                      Make An Appointment
-                    </button>
+                    <?php
+                    if ($_SESSION['nurse'] != $m) {
+                    ?>
+                      <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
+                        Make An Appointment
+                      </button>
+                    <?php
+                    } 
+                    ?>
+
                     <!-- </a> -->
                   </div>
                 </div>
@@ -364,7 +372,7 @@ include '../connect.php';
                 </tr>
                 <tr>
                   <td><B>Prescription :</B></TD>
-                  <td><input type="file" accept="application/pdf"  style="border-color:lightgrey;padding:5px;border-radius:5px;" name="pres" id="Prescription" required></td>
+                  <td><input type="file" accept="application/pdf" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="pres" id="Prescription" required></td>
                 </tr>
 
                 <tr>

@@ -11,6 +11,7 @@ if (isset($_SESSION['nurse'])) {
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,38 +39,28 @@ if (isset($_SESSION['nurse'])) {
 
 
 <body>
-
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-
                     <a class="navbar-brand" href="../../Medicio/index.php">
                         <b class="logo-icon text-danger">
                             <img src="../../logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
                             <span style="color:rgba(63,187,192,255); font-size: 16px;">Neighbouring Nurse</span>
                         </b>
                     </a>
-
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                 </div>
 
                 <div class="navbar-collapse collapse" style="background-color:rgba(63,187,192,255) ;" id="navbarSupportedContent" data-navbarbg="skin5">
-
-
                     <ul class="navbar-nav me-auto mt-md-0 ">
-
-
                         <li class="nav-item hidden-sm-down">
                             <!-- <i class="me-3 fa fa-user" aria-hidden="true"></i> -->
                             <span class="hide-menu" style="color:white;font-size: 20px; padding-left: 30px;">Appointments</span></a>
                         </li>
                     </ul>
 
-
                     <ul class="navbar-nav">
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <!-- <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal">1500 Rs.
@@ -100,15 +91,12 @@ if (isset($_SESSION['nurse'])) {
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
                         <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li> -->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
-
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i style="color:rgba(63,187,192,255) ;" class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Appointments</span></a></li>
                         <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> -->
-
                         <li class="text-center p-20 upgrade-btn">
                             <a href="../login/logout.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
                         </li>
                     </ul>
-
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -165,9 +153,11 @@ if (isset($_SESSION['nurse'])) {
 
                                                                     <td><?php echo $row['Service_Date_Time']; ?></td>
                                                                     <?php
+
                                                                     $sname = $row['service_name'];
                                                                     $sql2 = "SELECT * FROM `nurse_selected_services` WHERE `service_name` = '$sname' and `email`='$nurse'";
                                                                     $result2 = mysqli_query($con, $sql2);
+
                                                                     if ($row2 = mysqli_fetch_assoc($result2)) { ?>
                                                                         <td><?php echo $row2['s_charge'];
                                                                         } ?> Rs.</td>
@@ -195,7 +185,7 @@ if (isset($_SESSION['nurse'])) {
                                                                         <td>
                                                                             <div class="form-group">
                                                                                 <div class="col-sm-12 d-flex">
-                                                                                    <a href="" style="color:rgba(63,187,192,255) ;">&nbsp&nbsp<i class="fa fa-check-circle"></i></a>
+                                                                                    <a href="a_service.php?id=<?php echo $form; ?>" style="color:rgba(63,187,192,255) ;">&nbsp&nbsp<i class="fa fa-check-circle"></i></a>
 
                                                                                 </div>
                                                                             </div>
@@ -203,7 +193,7 @@ if (isset($_SESSION['nurse'])) {
                                                                         <td>
                                                                             <div class="form-group">
                                                                                 <div class="col-sm-12 d-flex">
-                                                                                    <a href='' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                                    <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
                                                                                 </div>
                                                                             </div>
                                                                         </td>

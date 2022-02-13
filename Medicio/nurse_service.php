@@ -62,7 +62,7 @@ include '../connect.php';
       margin-top: 80px;
       box-shadow: 0px 4px 8px black;
       padding: 40px;
-      margin-bottom:80px;
+      margin-bottom: 80px;
       position: relative;
       background-color: blanchedalmond;
       float: left;
@@ -138,7 +138,7 @@ include '../connect.php';
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
-        <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
+        <!-- <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a> -->
       </div>
     </header>
 
@@ -263,7 +263,7 @@ include '../connect.php';
               while ($row = mysqli_fetch_assoc($result_nurse)) {
 
                 $charge = '';
-                $sql_charge = "SELECT `s_charge` from `nurse_selected_services` where `service_name`='$t' and `email`='$mail';";
+                $sql_charge = "SELECT `s_charge` from `nurse_selected_services` where `service_name`='$t' and `email`='$email';";
                 $result_charge = mysqli_query($con, $sql_charge);
 
                 if (!$result_charge) {
@@ -286,7 +286,7 @@ include '../connect.php';
                 $status = $row['Approval_status'];
     ?>
 
-                <div class="card" >
+                <div class="card">
                   <h3><?php echo $name; ?>
                   </h3>
                   <hr>
@@ -294,9 +294,9 @@ include '../connect.php';
                   <h3>
                     <?php
                     if ($gender == 'f') {
-                      $g="Female";              
+                      $g = "Female";
                     } else {
-                      $g="Male";
+                      $g = "Male";
                     }
                     ?>
                   </h3>
@@ -328,20 +328,6 @@ include '../connect.php';
   ";
       }
     }
-
-    if (isset($_SESSION['nurse'])) {
-      $mail = $_SESSION['nurse'];
-    } elseif (isset($_SESSION['user'])) {
-      $mail = $_SESSION['user'];
-    } elseif (isset($_SESSION['admin'])) {
-      $mail = $_SESSION['admin'];
-    } else {
-    ?>
-      <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#login">Login</a></li>
-      <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#signup">Sign up</a></li>
-    <?php
-    }
-
     ?>
 
 
@@ -359,11 +345,13 @@ include '../connect.php';
                   <td><b>Nurse :</b></td>
                   <td><input type="email" name="Nursename" value="<?php echo $name; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;" id="NurseName" readonly /></td>
                 </tr>
+
                 <tr>
                   <td><b>Service :</b></td>
-                  <td><input type="text" name="service" value="<?php echo $t;?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;color:black;" placeholder="Vital Checks" id="nurse_email" readonly /></td>
+                  <td><input type="text" name="service" value="<?php echo $t; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;color:black;" placeholder="Vital Checks" id="nurse_email" readonly /></td>
                   </td>
                 </tr>
+
                 <!-- <tr>
                   <td><b>Date :</b></td>
                   <td><input type="text" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="service_date" name="service_date" maxlength="30" required />
@@ -371,7 +359,7 @@ include '../connect.php';
                 </tr> -->
                 <tr>
                   <td><b>Date-Time :</b></td>
-                  <td><input type="text" autocomplete="off" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="datetime" name="date_time"/>
+                  <td><input type="text" autocomplete="off" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="datetime" name="date_time" />
                   </td>
                 </tr>
                 <tr>
@@ -585,24 +573,31 @@ include '../connect.php';
 <script>
   $(document).ready(function() {
 
-    // $('#service_date').datepicker({
-    //   dateFormat: "yy-mm-dd",
-    //   changeYear: true,
-    //   changeMonth: true,
-    //   minDate: 0,
-    //   // onClose: function(selectedDate) {
-    //   //   alert('Date:' + selectedDate);
-    //   // }
-    // });
-
     $('#datetime').datetimepicker({
-      step:5,
-      minDate:0,
-      format:'Y-m-d H:i'
+      step: 5,
+      minDate: 0,
+      format: 'Y-m-d H:i'
     });
   });
 
   function openModal(nurse, name) {
+
+    <?php
+
+    if (isset($_SESSION['nurse'])) {
+      $mail = $_SESSION['nurse'];
+    } elseif (isset($_SESSION['user'])) {
+      $mail = $_SESSION['user'];
+    } elseif (isset($_SESSION['admin'])) {
+      $mail = $_SESSION['admin'];
+    } else {
+    ?>
+      if (confirm("Do Login To Make An Appointment")) {
+        window.location.href = '../patient/login/login.php';
+      }
+    <?php
+    }
+    ?>
     document.getElementById('NurseEmail').value = nurse;
     document.getElementById('NurseName').value = name;
     $('#Requested_appointment').modal('toggle');

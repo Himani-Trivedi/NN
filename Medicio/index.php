@@ -109,7 +109,7 @@ include '../connect.php';
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
-     <a class="appointment-btn scrollto" onclick="isLog()"><span class="d-none d-md-inline" data-bs-toggle="modal" data-bs-target="#appointment">Make an</span> Appointment</a>
+     <!-- <a class="appointment-btn scrollto" onclick="isLog()"><span class="d-none d-md-inline" data-bs-toggle="modal" data-bs-target="#appointment">Make an</span> Appointment</a> -->
       
     </div>
   </header><!-- End Header -->
@@ -227,7 +227,6 @@ include '../connect.php';
       </div>
     </div>
   </div>
-
   </div>
   <!-- Modal -->
 
@@ -361,7 +360,7 @@ include '../connect.php';
       </div>
     </section><!-- End Services Section -->
 
-    <!-- ======= Appointment Section ======= --> -->
+    <!-- ======= Appointment Section ======= --> 
     <!-- <section id="appointment" class="appointment section-bg">
       <div class="container" data-aos="fade-up">
 

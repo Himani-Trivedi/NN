@@ -1,25 +1,30 @@
 <?php
+
 include '../../connect.php';
+
+if (isset($_SESSION['nurse'])) {
+    $nurse = $_SESSION['nurse'];
+} else {
+    header('location:../login/login.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
 
-    <title>Accepted Nurse Services</title>
+    <title>Appointments</title>
     <link href="../../logo.jpeg" rel="icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
     <link href="style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style type="text/css">
         body {
@@ -40,7 +45,7 @@ include '../../connect.php';
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
 
-                <a class="navbar-brand" href="../../Medicio/index.php">
+                    <a class="navbar-brand" href="../../Medicio/index.php">
                         <b class="logo-icon text-danger">
                             <img src="../../logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
                             <span style="color:rgba(63,187,192,255); font-size: 16px;">Neighbouring Nurse</span>
@@ -58,7 +63,7 @@ include '../../connect.php';
 
                         <li class="nav-item hidden-sm-down">
                             <!-- <i class="me-3 fa fa-user" aria-hidden="true"></i> -->
-                            <span class="hide-menu" style="color:white;font-size: 20px; padding-left: 30px;">Accepted Services</span></a>
+                            <span class="hide-menu" style="color:white;font-size: 20px; padding-left: 30px;">Appointments</span></a>
                         </li>
                     </ul>
 
@@ -96,7 +101,7 @@ include '../../connect.php';
                         <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li> -->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i style="color:rgba(63,187,192,255) ;" class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Accepted Services</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i style="color:rgba(63,187,192,255) ;" class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Appointments</span></a></li>
                         <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> -->
 
                         <li class="text-center p-20 upgrade-btn">
@@ -112,28 +117,6 @@ include '../../connect.php';
 
         <div class="page-wrapper">
             <div class="container-fluid" id="box1">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <form class="form-horizontal form-material mx-2">
-                                    <div class="form-group">
-                                        <label class="col-md-12 mb-0">Selecte Service</label>
-                                        <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none border-0 ps-0 form-control-line">
-                                                <option>Dressing</option>
-                                                <option>Catheterization</option>
-                                                <option>Injection</option>
-                                                <option>Wound Care</option>
-                                                <option>Vital Checks</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="row">
                     <div class="col-sm-12">
@@ -142,6 +125,7 @@ include '../../connect.php';
                                 <form class="form-horizontal form-material mx-2">
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Accepted Services</label>
+                                        <hr>
                                         <div class="table-responsive">
                                             <table class="table user-table no-wrap" style="font-size:15px">
                                                 <thead>
@@ -152,135 +136,90 @@ include '../../connect.php';
                                                         <th class="border-top-0">Timing</th>
                                                         <th class="border-top-0">Charge</th>
                                                         <th class="border-top-0">Status</th>
-                                                        <th class="border-top-0"></th>
-                                                        <th class="border-top-0"></th>
+                                                        <th class="border-top-0">Accept</th>
+                                                        <th class="border-top-0">Decline</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Dressing</td>
-                                                        <td>Ambawadi</td>
-                                                        <td>5 December 14:58</td>
-                                                        <td>300 Rs.</td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button class="btn btn-warning mx-auto mx-md-0 text-white" style="border:0px;">Pending
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">open
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button type="button" class="btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop">X
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>                                                      
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Vital Checks</td>
-                                                        <td>Thaltej</td>
-                                                        <td>5 December 14:58</td>
-                                                        <td>200 Rs.</td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button class="btn btn-success mx-auto mx-md-0 text-white" style="border:0px;">Ruuning
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">open
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop">X
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>Dressing</td>
-                                                        <td>Ambawadi</td>
-                                                        <td>5 December 14:58</td>
-                                                        <td>100 Rs.</td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button class="btn btn-success mx-auto mx-md-0 text-white" style="border:0px; ">Ruuning
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">open
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop">X
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>5</td>
-                                                        <td>Dressing</td>
-                                                        <td>Maninagar</td>
-                                                        <td>5 December 14:58</td>
-                                                        <td>150 Rs.</td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button class="btn btn-dark mx-auto mx-md-0 text-white" style="border:0px;">Expired
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">open
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" data-bs-toggle="modal" data-bs-target="#staticBackdrop">X
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    <?php
+                                                    $sql = "SELECT * FROM `request_form` where `nurse_email`='$nurse'";
+                                                    if ($con) {
+                                                        $result = mysqli_query($con, $sql);
+                                                        if ($result) {
+                                                            $serial = 0;
+                                                            while ($row = mysqli_fetch_assoc($result)) {
+
+                                                    ?>
+                                                                <tr>
+                                                                    <td> <?php echo ++$serial; ?> </td>
+                                                                    <td><?php echo $row['service_name']; ?></td>
+                                                                    <?php $pin = $row['Pincode'];
+
+                                                                    $form = $row['Request_id'];
+                                                                    $sql1 = "SELECT * FROM `location` WHERE `Pincode` = $pin";
+                                                                    $result1 = mysqli_query($con, $sql1);
+                                                                    $row1 = mysqli_fetch_assoc($result1)
+                                                                    ?>
+                                                                    <td><?php echo $row1['area_name']; ?>
+                                                                    </td>
+
+                                                                    <td><?php echo $row['Service_Date_Time']; ?></td>
+                                                                    <?php
+                                                                    $sname = $row['service_name'];
+                                                                    $sql2 = "SELECT * FROM `nurse_selected_services` WHERE `service_name` = '$sname' and `email`='$nurse'";
+                                                                    $result2 = mysqli_query($con, $sql2);
+                                                                    if ($row2 = mysqli_fetch_assoc($result2)) { ?>
+                                                                        <td><?php echo $row2['s_charge'];
+                                                                        } ?> Rs.</td>
+                                                                        <?php
+                                                                        $status = $row['Status'];
+
+                                                                        if ($status == 0) {
+                                                                        ?>
+                                                                            <td><button class="btn btn-warning">Pending</button></td>
+                                                                        <?php
+                                                                        } else if ($status == 1) {
+                                                                        ?>
+                                                                            <td><button class="btn btn-secondary">Running</button></td>
+                                                                        <?php
+                                                                        } else if ($status == 2) {
+                                                                        ?>
+                                                                            <td><button class="btn btn-success">Completed</button></td>
+                                                                        <?php
+                                                                        } else {
+                                                                        ?>
+                                                                            <td><button class="btn btn-dark">Expired</button></td>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="col-sm-12 d-flex">
+                                                                                    <a href="" style="color:rgba(63,187,192,255) ;">&nbsp&nbsp<i class="fa fa-check-circle"></i></a>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="col-sm-12 d-flex">
+                                                                                    <a href='' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="col-sm-12 d-flex">
+                                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $form; ?>')">open
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                </tr>
+                                                    <?php }
+                                                        }
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -291,6 +230,23 @@ include '../../connect.php';
                 </div>
             </div>
         </div>
+
+
+        <!-- Requested Apointments -->
+        <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <form action="form.php" method="post" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Appointment </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="data">
+                        </div>
+                </form>
+            </div>
+        </div>
+
 
         <div class="container-fluid" id="box2" style="display: none;">
             <div class="row">
@@ -317,7 +273,7 @@ include '../../connect.php';
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="font-size:17px;">
-                    Are you sure yopu want to remove xyz service from your profile?
+                    Are you sure you want to remove xyz service from your profile?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes</button>
@@ -369,6 +325,23 @@ include '../../connect.php';
     <?php
     }
     ?>
+
+
+    function openModal(form) {
+        $.ajax({
+            url: 'data_app.php',
+            type: 'POST',
+            data: {
+                id: form
+            },
+            success: function(result) {
+                $('#data').html(result);
+            }
+        });
+
+
+        $('#Requested_appointment').modal('toggle');
+    }
 </script>
 
 </html>

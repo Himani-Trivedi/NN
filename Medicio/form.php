@@ -11,10 +11,6 @@ $floor_no = $_REQUEST['floor_no'];
 $landmark = $_REQUEST['Landmark'];
 $pin = $_REQUEST['Pincode'];
 
-
-print_r($_REQUEST);
-print_r($_FILES['pres']);
-
 $fileName2 = $_FILES['pres']['name'];
 $filearr2 = explode('.', $fileName2);
 
@@ -53,15 +49,12 @@ while ($row = mysqli_fetch_assoc($result_nurse)) {
 }
 
 $accpet_link="<a href='http://localhost/Project/NN/Nurse/system_nurses/accepted_services.php?nurse='.$nurse.'></a>";
-$decline_link="<a href='http://localhost/Project/NN/Nurse/system_nurses/decline_req.php?nurse='.$nurse.'></a>";
 
 $subject = "Neighbouring Nurse";
-$body = "You got request for
-an Appointment at $address for $ser
-on $service_time.
+$body = "You got request for an Appointment at 
+$address for $ser on $service_time.
 
-Click Here to Accept:$accpet_link
-Click Here to Decline:$decline_link";
+Check Here : $link";
 $headers = "From: ht1872004@gmail.com";
 
 if (mail($to_email, $subject, $body, $headers)) {

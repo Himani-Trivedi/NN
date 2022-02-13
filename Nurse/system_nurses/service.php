@@ -1,6 +1,11 @@
 <?php
 include '../../connect.php';
-$nurse = $_SESSION['nurse'];
+if (isset($_SESSION['nurse'])) {
+    $nurse = $_SESSION['nurse'];
+} else {
+    header('location:../login/login.php');
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -39,7 +44,7 @@ $nurse = $_SESSION['nurse'];
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
 
-                <a class="navbar-brand" href="../../Medicio/index.php">
+                    <a class="navbar-brand" href="../../Medicio/index.php">
                         <b class="logo-icon text-danger">
                             <img src="../../logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
                             <span style="color:rgba(63,187,192,255); font-size: 16px;">Neighbouring Nurse</span>

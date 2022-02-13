@@ -1,5 +1,11 @@
 <?php 
     include '../../connect.php';
+    if(isset($_SESSION['nurse'])){
+        $nurse = $_SESSION['nurse'];
+    }else{
+        header('location:../login/login.php');
+    }
+    
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">

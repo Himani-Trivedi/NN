@@ -144,6 +144,41 @@ include '../connect.php';
     </header>
 
 
+     <!-- Modal SignUp -->
+     <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">SIGN UP AS...</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-footer">
+            <a href="../patient/signUp/email.php"><button type="button" class="btn btn-secondary" style="background-color: rgba(63,187,192,255) ;" data-bs-dismiss="modal">Sign up as user</button></a>
+            <a href="../Nurse/Nurse_signup/conditions.php"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sign up as nurse</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal Login -->
+    <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">LOGIN AS...</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-footer">
+            <a href="../patient/login/login.php"><button type="button" class="btn btn-secondary" style="background-color: rgba(63,187,192,255) ;" data-bs-dismiss="modal">login as user</button></a>
+            <a href="../Nurse/login/login.php"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">login as nurse</button></a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <!-- ======= Hero Section ======= -->
 
     <section id="services" class="services services">
@@ -212,6 +247,8 @@ include '../connect.php';
           <input type="submit" value="Submit" name="save" style=" margin-left: 47% ; background-color: #3fbbc0; color: #fff; border: #3fbbc0; padding: 10px; padding-left: 20px; padding-right: 20px; border-radius: 4px;" />
         </form>
     </section>
+
+
     <?php
     if (isset($_POST['save'])) {
 
@@ -312,13 +349,15 @@ include '../connect.php';
                     <a href="../patient/Nurse/profile.php?nurse=<?php echo $m; ?>" target="_blank"><input type="button" value="Show profile" style="background :grey; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" /></a>
                     <!-- <a data-bs-toggle="modal" data-bs-target="#Requested_appointment"> -->
                     <?php
-                    if ($_SESSION['nurse'] != $m) {
+
+                    if (isset($_SESSION['nurse_request_app']) && ($_SESSION['nurse'] != $m)) {
                     ?>
                       <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
                         Make An Appointment
                       </button>
                     <?php
                     } 
+
                     ?>
 
                     <!-- </a> -->
@@ -407,42 +446,6 @@ include '../connect.php';
       </div>
     </div>
 
-
-
-    <!-- Modal SignUp -->
-    <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">SIGN UP AS...</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-footer">
-            <a href="../patient/signUp/email.php"><button type="button" class="btn btn-secondary" style="background-color: rgba(63,187,192,255) ;" data-bs-dismiss="modal">Sign up as user</button></a>
-            <a href="../Nurse/Nurse_signup/conditions.php"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sign up as nurse</button></a>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- Modal Login -->
-    <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">LOGIN AS...</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-footer">
-            <a href="../patient/login/login.php"><button type="button" class="btn btn-secondary" style="background-color: rgba(63,187,192,255) ;" data-bs-dismiss="modal">login as user</button></a>
-            <a href="../Nurse/login/login.php"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">login as nurse</button></a>
-
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- <section class="form">
       <div class="main1">

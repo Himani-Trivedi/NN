@@ -72,7 +72,7 @@ if ($con) {
                         ?>
 
                         <td><b>Pincode :</b></td>
-                        <td><input type="PINCODE" value=" <?php echo $row1['area_name'];?>" style=" border-color:lightgrey;padding:5px;border-radius:5px;" id="pincode" name="Pincode" placeholder="380007" maxlength="30" readonly />
+                        <td><input type="PINCODE" value=" <?php echo $row1['area_name']; ?>" style=" border-color:lightgrey;padding:5px;border-radius:5px;" id="pincode" name="Pincode" placeholder="380007" maxlength="30" readonly />
                         </td>
                     </tr>
                 </table>

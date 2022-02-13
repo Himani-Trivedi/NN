@@ -170,33 +170,48 @@ if (isset($_SESSION['nurse'])) {
                                                                         <?php
                                                                         } else if ($status == 1) {
                                                                         ?>
-                                                                            <td><button class="btn btn-secondary">Running</button></td>
+                                                                            <td><button class="btn btn-success">Accepted</button></td>
                                                                         <?php
                                                                         } else if ($status == 2) {
                                                                         ?>
                                                                             <td><button class="btn btn-success">Completed</button></td>
+                                                                        <?php
+                                                                        } else if ($status == -1) {
+                                                                        ?>
+                                                                            <td><button class="btn btn-danger">Cancled</button></td>
                                                                         <?php
                                                                         } else {
                                                                         ?>
                                                                             <td><button class="btn btn-dark">Expired</button></td>
                                                                         <?php
                                                                         }
+                                                                        if ($status != -1) {
                                                                         ?>
-                                                                        <td>
-                                                                            <div class="form-group">
-                                                                                <div class="col-sm-12 d-flex">
-                                                                                    <a href="a_service.php?id=<?php echo $form; ?>" style="color:rgba(63,187,192,255) ;">&nbsp&nbsp<i class="fa fa-check-circle"></i></a>
 
+                                                                            <td>
+                                                                                <div class="form-group">
+                                                                                    <div class="col-sm-12 d-flex">
+                                                                                        <a href="a_service.php?id=<?php echo $form; ?>" style="color:rgba(63,187,192,255) ;">&nbsp&nbsp<i class="fa fa-check-circle"></i></a>
+
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="form-group">
-                                                                                <div class="col-sm-12 d-flex">
-                                                                                    <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="form-group">
+                                                                                    <div class="col-sm-12 d-flex">
+                                                                                        <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </td>
+                                                                            </td>
+                                                                        <?php
+                                                                        } else {
+                                                                        ?>
+                                                                            <td>-</td>
+                                                                            <td>-</td>
+
+                                                                        <?php
+                                                                        }
+                                                                        ?>
                                                                         <td>
                                                                             <div class="form-group">
                                                                                 <div class="col-sm-12 d-flex">

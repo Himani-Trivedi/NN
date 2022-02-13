@@ -336,7 +336,7 @@ include '../connect.php';
         <form action="form.php" method="post" enctype="multipart/form-data">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Requested Appointment </h5>
+              <h5 class="modal-title" id="exampleModalLabel">Requeste Appointment </h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -364,7 +364,7 @@ include '../connect.php';
                 </tr>
                 <tr>
                   <td><B>Prescription :</B></TD>
-                  <td><input type="file" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="pres" id="Prescription" required></td>
+                  <td><input type="file" accept="application/pdf"  style="border-color:lightgrey;padding:5px;border-radius:5px;" name="pres" id="Prescription" required></td>
                 </tr>
 
                 <tr>

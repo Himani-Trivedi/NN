@@ -144,8 +144,8 @@ include '../connect.php';
     </header>
 
 
-     <!-- Modal SignUp -->
-     <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal SignUp -->
+    <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -350,14 +350,21 @@ include '../connect.php';
                     <!-- <a data-bs-toggle="modal" data-bs-target="#Requested_appointment"> -->
                     <?php
 
-                    if (isset($_SESSION['nurse_request_app']) && ($_SESSION['nurse'] != $m)) {
+                    if (isset($_SESSION['nurse'])) {
+                      if ($_SESSION['nurse'] != $m) {
                     ?>
+                        <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
+                          Make An Appointment
+                        </button>
+                    <?php
+                      }
+                    }else{
+                      ?>
                       <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
                         Make An Appointment
                       </button>
-                    <?php
-                    } 
-
+                  <?php
+                    }
                     ?>
 
                     <!-- </a> -->

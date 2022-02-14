@@ -42,14 +42,14 @@
         "currency": "INR",
         "name": "Neighbouring Nurse",
         "description": "Registration Fee",
-        "image": "https://github.com/Himani-Trivedi/NN/blob/main/nurse_logo.png",
+        "image": "https://example.com/nurse_logo_2.png",
         // "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1    
         "handler": function(response) {
             alert(response.razorpay_payment_id);
             // alert(response.razorpay_order_id);
             // alert(response.razorpay_signature)
             console.log(response);
-            window.location.href='success.php?nurse=<?php echo $nurse;?>&payId='+response.razorpay_payment_id;
+            window.location.href='success.php?nurse=<?php echo $nurse;?>&method='+response.method+'&payId='+response.razorpay_payment_id;
         },
         "prefill": {
             "name": "<?php echo $name;?>",

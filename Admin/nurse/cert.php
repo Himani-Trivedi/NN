@@ -78,10 +78,10 @@ include '../../connect.php';
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <?php
-                        if (isset($_SESSION['admin_profile']) && isset($_REQUEST['status'])){
+                        if (isset($_SESSION['admin_profile']) && isset($_REQUEST['status'])) {
                         ?>
-                           <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"  href="profile.php" aria-expanded="false">
-                                    <i class="me-3 fa fa-user" aria-hidden="true" ></i><span class="hide-menu">Profile</span></a>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.php" aria-expanded="false">
+                                    <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
                             </li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cert.php?status=1" aria-expanded="false" style="color:rgba(63,187,192,255) ;"><i style="color:rgba(63,187,192,255) ;" class="me-3 fa fa-certificate" aria-hidden="true"></i><span class="hide-menu">Certificates</span></a>
                             </li>
@@ -90,7 +90,7 @@ include '../../connect.php';
                             <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php?status=1" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
                             <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php?status=1" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li> -->
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php?status=1" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
-<!-- 
+                            <!-- 
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Accepted Services</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> -->
 
@@ -138,11 +138,24 @@ include '../../connect.php';
                         $sql_req = "SELECT * FROM `certificates` WHERE email='$mail';";
                         $result = mysqli_query($con, $sql_req);
 
+                        if (mysqli_num_rows($result) == 0) {
+                    ?>
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2>No Extra Certificates</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+
+
                         if (!$result) {
                             die(mysqli_error($con));
                         }
                         while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
+                        ?>
                             <!-- Column -->
                             <div class="col-sm-6">
                                 <div class="card">
@@ -168,9 +181,6 @@ include '../../connect.php';
                     }
 
                     ?>
-
-
-
                 </div>
             </div>
         </div>
@@ -178,24 +188,6 @@ include '../../connect.php';
     </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="moneyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Earned Money</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="font-size:17px;">
-                    Do you want to withdraw money or delete account?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete</button>
-                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;">Withdraw</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 <script>
     <?php

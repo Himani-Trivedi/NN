@@ -183,7 +183,7 @@ if (isset($_SESSION['nurse'])) {
         </div>
 
         <div class="page-wrapper">
-            <div class="container-fluid" id="box2">
+            <div class="container-fluid" id="box2" style="display: none;">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">

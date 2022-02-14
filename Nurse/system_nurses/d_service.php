@@ -19,7 +19,7 @@ if ($con) {
         $result_user = mysqli_query($con, $sql_user);
         $row_user = mysqli_fetch_assoc($result_user);
 
-        $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$u_mail'";
+        $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$n_mail'";
         $result_nurse = mysqli_query($con, $sql_nurse);
         $row_nurse = mysqli_fetch_assoc($result_nurse);
 

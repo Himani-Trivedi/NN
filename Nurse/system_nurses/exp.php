@@ -52,11 +52,7 @@ if (isset($_SESSION['nurse'])) {
                 </div>
 
                 <div class="navbar-collapse collapse" style="background-color:rgba(63,187,192,255) ;" id="navbarSupportedContent" data-navbarbg="skin5">
-
-
                     <ul class="navbar-nav me-auto mt-md-0 ">
-
-
                         <li class="nav-item hidden-sm-down">
                             <!-- <i class="me-3 fa fa-user" aria-hidden="true"></i> -->
                             <span class="hide-menu" style="color:white;font-size: 20px; padding-left: 30px;">Certificates</span></a>
@@ -65,7 +61,6 @@ if (isset($_SESSION['nurse'])) {
 
 
                     <ul class="navbar-nav">
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <!-- <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal" id="pay_btn">1500 Rs.
@@ -84,51 +79,26 @@ if (isset($_SESSION['nurse'])) {
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <?php
-                        if (isset($_SESSION['admin_profile'])) {
-                        ?>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.php" aria-expanded="false">
-                                    <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
-                            </li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate" aria-hidden="true"></i><span class="hide-menu">Certificates</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Experience</span></a>
-                            </li>
-                            <li class="text-center p-20 upgrade-btn">
-                                <a href="../../Admin/nurse/unset_admin_profile.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Back</a>
-                            </li>
-                        <?php
-                        } else {
-                        ?>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.php" aria-expanded="false">
-                                    <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
-                            </li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate" aria-hidden="true"></i><span class="hide-menu">Certificates</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Experience</span></a>
-                            </li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
-                            <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.php" aria-expanded="false">
+                                <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cert.php" aria-expanded="false"><i class="me-3 fa fa-certificate" aria-hidden="true"></i><span class="hide-menu">Certificates</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="exp.php" aria-expanded="false"><i class="me-3 fa fa-building" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu" style="color:rgba(63,187,192,255) ;">Experience</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="location.php" aria-expanded="false"><i class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
+                        <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns"
                                     aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li> -->
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
-
-
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Appointments</span></a></li>
-
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="booked_app.php" aria-expanded="false"><i class=" me-3  fa fa-check" aria-hidden="true"></i><span class="hide-menu">Booked Appointments</span></a></li>
-
-
-                            <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Appointments</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="booked_app.php" aria-expanded="false"><i class=" me-3  fa fa-check" aria-hidden="true"></i><span class="hide-menu">Booked Appointments</span></a></li>
+                        <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle"
                                     aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> 
   -->
-
-                            <li class="text-center p-20 upgrade-btn">
-                                <a href="../login/logout.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
-                            </li>
-
-                        <?php
-                        }
-                        ?>
+                        <li class="text-center p-20 upgrade-btn">
+                            <a href="../login/logout.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
+                        </li>
                     </ul>
 
                 </nav>
@@ -204,25 +174,6 @@ if (isset($_SESSION['nurse'])) {
         </div>
 
     </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="moneyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Earned Money</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="font-size:17px;">
-                    Do you want to withdraw money or delete account?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete</button>
-                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;">Withdraw</button>
-                </div>
-            </div>
-        </div>
     </div>
 
 </body>

@@ -4,6 +4,7 @@
 
     if($_REQUEST['nurse']){
         $n=$_REQUEST['nurse'];
+        $m=$_REQUEST['method'];
         
         $sql = "UPDATE `requested_nurse` SET `Approval_status`=2 WHERE email='$n';";
         $result = mysqli_query($con, $sql);
@@ -28,6 +29,10 @@
             die(mysqli_error($con) + " So Account Balance not Updated");
         }
         
+        header("location:pay_reciept.php?nurse=$n");
+
         header("location:../system_nurses/profile.php?nurse=$n");
+
+
 
     }

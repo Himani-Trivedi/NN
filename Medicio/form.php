@@ -70,4 +70,10 @@ if (mail($to_email, $subject, $body, $headers)) {
 	echo ");";
 }
 
-header("location:../patient/profile/booked_Appointments.php");
+if(isset($_SESSION['nurse'])){
+	header("location:../Nurse/system_nurses/booked_app.php");
+}else{
+	header("location:../patient/profile/booked_Appointments.php");
+
+}
+

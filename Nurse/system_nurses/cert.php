@@ -1,5 +1,6 @@
 <?php
 include '../../connect.php';
+
 if (isset($_SESSION['nurse'])) {
     $nurse = $_SESSION['nurse'];
 } else {
@@ -39,7 +40,6 @@ if (isset($_SESSION['nurse'])) {
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-
                     <a class="navbar-brand" href="../../Medicio/index.php">
                         <b class="logo-icon text-danger">
                             <img src="../../logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
@@ -51,20 +51,14 @@ if (isset($_SESSION['nurse'])) {
                 </div>
 
                 <div class="navbar-collapse collapse" style="background-color:rgba(63,187,192,255) ;" id="navbarSupportedContent" data-navbarbg="skin5">
-
-
                     <ul class="navbar-nav me-auto mt-md-0 ">
-
-
                         <li class="nav-item hidden-sm-down">
                             <!-- <i class="me-3 fa fa-user" aria-hidden="true"></i> -->
                             <span class="hide-menu" style="color:white;font-size: 20px; padding-left: 30px;">Certificates</span></a>
                         </li>
                     </ul>
 
-
                     <ul class="navbar-nav">
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="profile.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <!-- <a href="completed_services.php" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#moneyModal" id="pay_btn">1500 Rs.
@@ -148,11 +142,24 @@ if (isset($_SESSION['nurse'])) {
                         $sql_req = "SELECT * FROM `certificates` WHERE email='$mail';";
                         $result = mysqli_query($con, $sql_req);
 
+                        if (mysqli_num_rows($result) == 0) {
+                    ?>
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h2>No Extra Certificates</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+
+                        }
+
                         if (!$result) {
                             die(mysqli_error($con));
                         }
                         while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
+                        ?>
                             <!-- Column -->
                             <div class="col-sm-6">
                                 <div class="card">
@@ -178,9 +185,6 @@ if (isset($_SESSION['nurse'])) {
                     }
 
                     ?>
-
-
-
                 </div>
             </div>
         </div>
@@ -188,24 +192,6 @@ if (isset($_SESSION['nurse'])) {
     </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="moneyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Earned Money</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="font-size:17px;">
-                    Do you want to withdraw money or delete account?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete</button>
-                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;">Withdraw</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 <script>
     <?php

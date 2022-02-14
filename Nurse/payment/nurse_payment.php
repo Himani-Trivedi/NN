@@ -1,4 +1,4 @@
-<!-- <button id="rzp-button1">Pay</button> -->
+
 <?php
 
     include '../../connect.php';  
@@ -48,8 +48,8 @@
             alert(response.razorpay_payment_id);
             // alert(response.razorpay_order_id);
             // alert(response.razorpay_signature)
-            console.log(response);
-            window.location.href='success.php?nurse=<?php echo $nurse;?>&method='+response.method+'&payId='+response.razorpay_payment_id;
+            // console.log(response);
+            window.location.href='success.php?nurse=<?php echo $nurse;?>&payId='+response.razorpay_payment_id;
         },
         "prefill": {
             "name": "<?php echo $name;?>",

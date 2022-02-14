@@ -167,9 +167,6 @@ $nurse = $_SESSION['nurse_profile'];
                 </div>
             </div>
         </div>
-
-
-       
     </div>
 
 

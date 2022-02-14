@@ -107,7 +107,6 @@ if (isset($_SESSION['nurse'])) {
 
         <div class="page-wrapper">
             <div class="container-fluid" id="box1">
-
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
@@ -250,30 +249,15 @@ if (isset($_SESSION['nurse'])) {
                 </div>
             </div>
         </div>
+    </div>
 
-
-        <!-- Requested Apointments -->
-        <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <form action="form.php" method="post" enctype="multipart/form-data">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Appointment </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="data">
-                        </div>
-                </form>
-            </div>
-        </div>
-
-
+    <div class="page-wrapper">
         <div class="container-fluid" id="box2" style="display: none;">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <p style="font-size: 25px;" id="do_pay">Please Wait for the Admin approval to Select Location, Services, Timming & to get into Search </p>
+                            <p style="font-size: 25px;" id="do_pay">Please Wait for the Admin approval to Select Location, Services & to get into Search </p>
                             <button id="pay_btn" type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="display:none;background-color:rgba(63,187,192,255) ; border:0px" onclick='window.location.href="../payment/nurse_payment.php"' ;>Pay</button>
                         </div>
                     </div>
@@ -281,7 +265,20 @@ if (isset($_SESSION['nurse'])) {
             </div>
         </div>
     </div>
-    </div>
+
+    <!-- Requested Apointments -->
+    <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form action="form.php" method="post" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Appointment </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="data">
+                    </div>
+            </form>
+        </div>
     </div>
 
     <!-- Remove Modal -->

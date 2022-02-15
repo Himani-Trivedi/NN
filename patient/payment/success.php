@@ -111,7 +111,7 @@ if (!$result_nurse || !$result_n) {
     $pdf->Cell(0, 10, "Thanks for your payment", 1, 0, 'C');
 
     $file = time() . "payment_receipt" . '.pdf';
-    $pdf->output($file, 'D');
+    $pdf->output($file, 'I');
 
     header("location:../profile/App.php");
 

@@ -57,7 +57,6 @@ if (mysqli_num_rows($result) == 1) {
             // alert(response.razorpay_payment_id);
             // console.log(response);
             window.location.href = 'success.php?nurse=<?php echo $nurse; ?>&mon=<?php echo $charge; ?>&form=<?php echo $form; ?>&payId=' + response.razorpay_payment_id;
-            window.location.href = '../profile/App.php';
         },
         "prefill": {
             "name": "<?php echo $name; ?>",

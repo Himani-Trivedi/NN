@@ -73,7 +73,7 @@ if (mail($to_email, $subject, $body, $headers)) {
 if(isset($_SESSION['nurse'])){
 	header("location:../Nurse/system_nurses/booked_app.php");
 }else{
-	header("location:../patient/profile/booked_Appointments.php");
+	header("location:../patient/profile/App.php");
 
 }
 

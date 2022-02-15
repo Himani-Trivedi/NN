@@ -353,17 +353,17 @@ include '../connect.php';
                     if (isset($_SESSION['nurse'])) {
                       if ($_SESSION['nurse'] != $m) {
                     ?>
-                        <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
+                        <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>','<?php echo $charge; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
                           Make An Appointment
                         </button>
-                    <?php
+                      <?php
                       }
-                    }else{
+                    } else {
                       ?>
-                      <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
+                      <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>','<?php echo $charge; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
                         Make An Appointment
                       </button>
-                  <?php
+                    <?php
                     }
                     ?>
 
@@ -405,12 +405,11 @@ include '../connect.php';
                   <td><input type="text" name="service" value="<?php echo $t; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;color:black;" placeholder="Vital Checks" id="nurse_email" readonly /></td>
                   </td>
                 </tr>
-
-                <!-- <tr>
-                  <td><b>Date :</b></td>
-                  <td><input type="text" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="service_date" name="service_date" maxlength="30" required />
+                <tr>
+                  <td><b>Service Charge :</b></td>
+                  <td><input type="text"  value="<?php echo $charge; ?>" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="service_charge" name="service_charge" maxlength="30" required />
                   </td>
-                </tr> -->
+                </tr>
                 <tr>
                   <td><b>Date-Time :</b></td>
                   <td><input type="text" autocomplete="off" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="datetime" name="date_time" />
@@ -453,112 +452,6 @@ include '../connect.php';
       </div>
     </div>
 
-
-    <!-- <section class="form">
-      <div class="main1">
-         
-        <div class="card">
-
-          <h3>Nurse name</h3>
-          <hr>
-          <img src="assets/img/doctors/doctors1.jpg" class="rounded-circle mx-auto d-block" alt="..." width="150px" style="radius : 100px; padding-bottom : 20px;">
-          <span><b>Service name : </b>Vital Checks</span>
-          <span><b>Service charge : </b>Rs. 350</span>
-          <span><b>Experience : </b>September 2008 to March 2012<br>San Jose Hospital Sao Paolo<br> Assisted physicians in taking blood pressure,mesuring heartbeat and recording vitals in physical examination.</span>
-          <br><br>
-          <div class="d-flex">
-            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
-            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
-          </div>
-        </div>
-        
-        <div class="card">
-          <h2>Nurse name</h2>
-          <hr>
-          <img src="assets/img/doctors/doctors-2.jpg" class="rounded-circle mx-auto d-block" alt="..." width="150px" style="radius : 100px; padding-bottom : 20px;">
-
-          <span><b>Service name : </b>Elder Care</span>
-          <span><b>Service charge : </b>Rs. 700</span>
-          <span><b>Experience : </b>Compassionate elder caregiver and CNA with 6+ years experience providing in-home patient care. Have consistently maintained client reviews in excess of 94% positive. </span>
-          <br>
-          <div class="d-flex">
-            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
-            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
-          </div>
-        </div>
-       
-        <div class="card">
-          <h2>Nurse name</h2>
-          <hr>
-          <img src="assets/img/doctors/doctors-3.jpg" class="rounded-circle mx-auto d-block" alt="..." width="150px" style="radius : 100px; padding-bottom : 20px;">
-
-          <span><b>Service name : </b>Wound Care</span>
-          <span><b>Service charge : </b>Rs. 200</span>
-          <span><b>Experience : </b>Wound Care Nurse, August 2005 – Present
-            National Healing Corporation, New York, NY
-            Provided direct patient care and managed care for draining wounds, fistulas, pressure ulcers and skin breakdowns.</span>
-          <br>
-          <div class="d-flex">
-            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
-            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
-          </div>
-        </div>
-      
-        <div class="card">
-          <h2>Nurse name</h2>
-          <hr>
-          <img src="assets/img/doctors/doctors-4.jpg" class="rounded-circle mx-auto d-block" alt="..." width="150px" style="radius : 100px; padding-bottom : 20px;">
-
-          <span><b>Service name : </b>Injections</span>
-          <span><b>Service charge : </b>Rs. 250</span>
-          <span><b>Experience : </b>Bashirian, Walsh and Keeling - South Russellfort, Ohio<br>
-            Maintained the highest level of patient satisfaction,generating referrals to keep the automotive rehabilitation unit productive. Prepared blood,tissue, and other labratory specimens for testing in lab.</span>
-          <br>
-          <div class="d-flex">
-            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
-            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
-          </div>
-        </div>
-       
-        <div class="card">
-          <h2>Nurse name</h2>
-          <hr>
-          <img src="assets/img/doctors/doctors-5.jpg" class="rounded-circle mx-auto d-block" alt="..." width="150px" style="radius : 100px; padding-bottom : 20px;">
-
-          <span><b>Service name : </b>Catheterization</span>
-          <span><b>Service charge : </b>Rs. 550</span>
-          <span><b>Experience : </b>August 2015 to current<br>
-            University of Colorado Hospital,Auraro<br>
-            Provide in-home nursing assessments and treatments visits in the patients home as ordered. Experience with DSL system use with daily skilled nursing documentation.</span>
-          <br><br>
-          <div class="d-flex">
-            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
-            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
-          </div>
-        </div>
-      
-        <div class="card">
-          <h2>Nurse name</h2>
-          <hr>
-          <img src="assets/img/doctors/doctors-6.jpg" class="rounded-circle mx-auto d-block" alt="..." width="150px" style="radius : 100px; padding-bottom : 20px;">
-
-          <span><b>Service name : </b>Intravenous Fluids</span>
-          <span><b>Service charge : </b>Rs. 300</span>
-          <span><b>Experience : </b>January 2009 to present<br>
-            The Mount Sinai Hospital,New York
-            <br>Inserted and replaced IVs according to doctors instruction.
-            Administered pain managment and infection control medication.
-          </span>
-          <br><br>
-          <div class="d-flex">
-            <input type="submit" value="Show profile" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" />
-            <input type="submit" value="Make An Appointment" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;" />
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-
     <div id="preloader"></div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -598,7 +491,7 @@ include '../connect.php';
     });
   });
 
-  function openModal(nurse, name) {
+  function openModal(nurse, name,charge) {
 
     <?php
 
@@ -618,6 +511,8 @@ include '../connect.php';
     ?>
     document.getElementById('NurseEmail').value = nurse;
     document.getElementById('NurseName').value = name;
+    document.getElementById('service_charge').value = charge;
+
     $('#Requested_appointment').modal('toggle');
   }
 </script>

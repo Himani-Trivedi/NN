@@ -25,9 +25,10 @@ if (isset($_SESSION['user'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style type="text/css">
-        a{
-            text-decoration:none;
+        a {
+            text-decoration: none;
         }
+
         body {
             font-family: "Roboto", sans-serif;
             font-size: 13px;
@@ -97,15 +98,15 @@ if (isset($_SESSION['user'])) {
                 </div>
 
                 <div class="navbar-collapse collapse" style="background-color:rgba(63,187,192,255) ;" id="navbarSupportedContent" data-navbarbg="skin5">
-                    <ul class="navbar-nav me-auto mt-md-0 ">              
+                    <ul class="navbar-nav me-auto mt-md-0 ">
                         <li class="nav-item hidden-sm-down">
                             <span class="hide-menu" style="color:white;font-size: 20px; padding-left: 30px;">Booked Appointments</span></a>
                         </li>
                     </ul>
                     </ul>
 
-                
-                    <ul class="navbar-nav">                    
+
+                    <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a href="" style="color:white; padding-right:0px"></i></a>
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -117,7 +118,7 @@ if (isset($_SESSION['user'])) {
                 </div>
             </nav>
         </header>
-   
+
 
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
@@ -232,7 +233,11 @@ if (isset($_SESSION['user'])) {
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td><button class="btn btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Payment</button></td>
+                                                        <td>
+                                                            <a href='../payment/payment.php?id=<?php echo $formId; ?>' style="color:rgba(63,187,192,255) ;">
+                                                                <button class="btn btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Payment</button>
+                                                            </a>
+                                                        </td>
                                                     <?php
                                                     } else if ($status == 2) {
                                                     ?>
@@ -246,14 +251,13 @@ if (isset($_SESSION['user'])) {
                                                         <td style="text-align: center;">-</td>
                                                         <td style="text-align: center;">-</td>
                                                     <?php
-                                                    }else if ($status == -2) {
-                                                        ?>
-                                                            <td><button class="btn btn-danger">You Cancled</button></td>
-                                                            <td style="text-align: center;">-</td>
-                                                            <td style="text-align: center;">-</td>
-                                                        <?php
-                                                        }
-                                                     else {
+                                                    } else if ($status == -2) {
+                                                    ?>
+                                                        <td><button class="btn btn-danger">You Cancled</button></td>
+                                                        <td style="text-align: center;">-</td>
+                                                        <td style="text-align: center;">-</td>
+                                                    <?php
+                                                    } else {
                                                     ?>
                                                         <td><button class="btn btn-dark">Expired</button></td>
                                                         <td style="text-align: center;">-</td>
@@ -263,7 +267,7 @@ if (isset($_SESSION['user'])) {
                                                     ?> <td>
                                                         <div class="form-group">
                                                             <div class="col-sm-12 d-flex">
-                                                                <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $formId; ?>')">open                                                                </button>
+                                                                <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $formId; ?>')">open </button>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -276,29 +280,6 @@ if (isset($_SESSION['user'])) {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--Cancle Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel"> Cancel Appointment </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h6>
-                        Are you sure you want to cacel appointment ?
-                </div>
-                <div class="modal-footer">
-                    <a href='go.php?email=<?php echo $email; ?>&service=<?php echo $name; ?>' style="color:rgba(63,187,192,255) ;">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes</button>
-                    </a>
-                    </h6>
-                    <button type="button" class="btn" style="background-color:rgba(63,187,192,255) ;" data-bs-dismiss="modal">No</button>
                 </div>
             </div>
         </div>
@@ -318,6 +299,7 @@ if (isset($_SESSION['user'])) {
             </form>
         </div>
     </div>
+
 </body>
 <script>
     function openModal(form) {

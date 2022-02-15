@@ -10,6 +10,7 @@ if ($con) {
         while ($row = mysqli_fetch_assoc($result)) {
             $nurse = $row['nurse_email'];
             $user = $row['User_Email'];
+            $service=$row['service_name'];
 
             $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$nurse'";
             $result_nurse = mysqli_query($con, $sql_nurse);
@@ -18,6 +19,12 @@ if ($con) {
             $sql_user = "SELECT * FROM `patient` WHERE `Email`='$user'";
             $result_user = mysqli_query($con, $sql_user);
             $row_user = mysqli_fetch_assoc($result_user);
+
+            $sql_user="SELECT * FROM `nurse_selected_services` WHERE `email`='$nurse' and `service_name`='$service'";
+            $result_charge=mysqli_query($con,$sql_user);
+            $row_charge=mysqli_fetch_assoc($result_charge);
+
+            $charge=$row_charge['s_charge'];
 ?>
 
             <h6>
@@ -29,6 +36,11 @@ if ($con) {
                     <tr>
                         <td><b>Service :</b></td>
                         <td><input type="text" name="service" value="<?php echo $row['service_name']; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;color:black;" readonly /></td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Service Charge:</b></td>
+                        <td><input type="text" name="service_charge" value="<?php echo $charge; ?>"  style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;color:black;" readonly /></td>
                         </td>
                     </tr>
                     <tr>

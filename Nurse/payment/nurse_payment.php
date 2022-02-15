@@ -75,6 +75,7 @@
             // alert(response.error.metadata.payment_id);
             console.log(response);
             alert('Payment Failed!! Try Again');
+            window.location.href='../system_nurses/location.php';
         });
     // document.getElementById('rzp-button1').onclick = function(e) {
     //     rzp1.open();

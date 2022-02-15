@@ -1,5 +1,5 @@
 <?php
-include 'connectuser.php';
+include '../connect.php';
 $id = $_POST['id'];
 $sql = "SELECT * FROM `request_form` where `Request_id`=$id";
 if ($con) {

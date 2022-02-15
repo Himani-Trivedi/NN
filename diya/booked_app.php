@@ -1,5 +1,5 @@
 <?php
-include 'connectuser.php';
+include '../connect.php';
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -17,7 +17,7 @@ include 'connectuser.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link href="style.min.css" rel="stylesheet">
+    <link href="../Admin/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style type="text/css">
@@ -213,7 +213,7 @@ include 'connectuser.php';
                                             $email = "";
 
 
-                                            $mail = "6ea83028fb463deb27e47a4d85e9b025";
+                                            $mail = "c990bbd37fed8a8f30955598f50ca114";
                                             $sql = "select * from `request_form` where `User_Email`='$mail'";
                                             $result = mysqli_query($con, $sql);
 
@@ -231,21 +231,21 @@ include 'connectuser.php';
                                                 $email = $row['nurse_email'];
                                                 $status = $row['Status'];
                                                 $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email'";
-                                                  $result_nurse = mysqli_query($con, $sql_nurse);
-                                                 $row_nurse = mysqli_fetch_assoc($result_nurse);
+                                                $result_nurse = mysqli_query($con, $sql_nurse);
+                                                $row_nurse = mysqli_fetch_assoc($result_nurse);
 
-                                                
-                                             //   while ($ans = mysqli_fetch_assoc($res)) {
-                                                    
-                                                 //   $nam = $ans['email'];
-                                                
-                                            //    }
+
+                                                //   while ($ans = mysqli_fetch_assoc($res)) {
+
+                                                //   $nam = $ans['email'];
+
+                                                //    }
 
                                             ?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
                                                     <td id="Servicename"><?php echo $name; ?></td>
-                                                    <td id="Nurseemail"><?php echo $row_nurse['email2'];?></td> 
+                                                    <td id="Nurseemail"><?php echo $row_nurse['email2']; ?></td>
                                                     <?php
                                                     if ($status == 0) {
                                                         echo "
@@ -264,18 +264,18 @@ include 'connectuser.php';
                                                         <td><button class='button Expire'>Expired</button></td>
                                                         ";
                                                     }
-                                                    
+
                                                     ?>
-                                                
-                                                   <td>
-                                                                            <div class="form-group">
-                                                                                <div class="col-sm-12 d-flex">
-                                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $form; ?>')">open
-                                                                                    </button>
-                                                                                </div>
-                                                                            </div> 
-                                                                           
-                                                                        </td>
+
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12 d-flex">
+                                                                <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $form; ?>')">open
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
                                                     <td>
                                                         <button type="button" class="button button1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                                             Cancel
@@ -284,7 +284,7 @@ include 'connectuser.php';
                                                     <td><button class="button button1">Payment</button></td>
                                                 </tr>
                                             <?php
-                                                  
+
                                             }
                                             ?>
 
@@ -322,100 +322,24 @@ include 'connectuser.php';
         </div>
     </div>
 
-    
+
     <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <form action="form.php" method="post" enctype="multipart/form-data">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Requested Appointment Form</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="data">
-                        </div>
-                </form>
-            </div>
-        </div>
-   
-
-
-
-
-    <!-- open Modal 
-     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Requested Appointment Form</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h6>
-                        <table align="center" cellpadding="10" cellspacing="10" bgcolor="White">
-                            <tr>
-                                <td><b>Service Name:</b></td>
-                                <td><input type="text" style="width:600" value="<?php echo $name; ?>" id="email" name="Email" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Service Time:</b></td>
-                                <td><input type="time" style="width:600" id="time" name="Service_Time" placeholder="11:30" maxlength="30" />
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td><b>Service Date:</b></td>
-                                <td><input type="date" style="width:600" id="Service_Date" name="Last_Name" placeholder="12-10-2022" maxlength="30" />
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td><b>Address:</b><br /><br /><br /></td>
-                                <td><textarea name="Address" rows="2" cols="60" placeholder="A/102 Marvel Acro, Ahmedabad"></textarea></td>
-                            </tr>
-
-
-                            <tr>
-                                <td><b>Pincode:</b></td>
-                                <td><input type="PINCODE" style="width:600" id="pincode" name="Pincode" placeholder="382330" maxlength="30" />
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td><B>Prescription</B></TD>
-                                <TD><input type="file" style="width:600" name="file" id="Prescription" placeholder="Prescription.pdf">
-                            </tr>
-                            <tr>
-                                <td><b>Charges:</b></td>
-                                <td><input type="text" style="width:600" name="Amount" id="Charges" placeholder="350 INR" maxlength="100" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Nurse Name:</b></td>
-                                <td><button type="button" class="button button1"><a href="../Nurse/profile.php" style="color:white;">Nurse Name</a></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Service Status:</b></td>
-                                <TD><button class="button Pending">Pending</button>
-                                    <button class="button Completed">Completed</button>
-                                    <button class="button Running">Running</button>
-                                    <button class="button Expire">Expire</button>
-                                </TD>
-                            </tr>
-                    </h6>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="button button1" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
+            <form action="form.php" method="post" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Requested Appointment Form</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="data">
+                    </div>
+            </form>
         </div>
-    </div> -->
+    </div>
 </body>
 
 
-    <script>
+<script>
     function openModal(form) {
         $.ajax({
             url: 'nurse_app.php',
@@ -429,8 +353,9 @@ include 'connectuser.php';
         });
 
 
-         $('#Requested_appointment').modal('toggle');
+        $('#Requested_appointment').modal('toggle');
     }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </html>

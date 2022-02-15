@@ -1,3 +1,14 @@
+<?php
+include '../../connect.php';
+
+if (isset($_SESSION['nurse'])) {
+    $nurse = $_SESSION['nurse'];
+} else {
+    header('location:../login/login.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -153,7 +164,7 @@
                         <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="time.php" aria-expanded="false"><i class="me-3 fa fa-columns" aria-hidden="true"></i><span class="hide-menu">Timing</span></a></li> -->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="service.php" aria-expanded="false"><i class="me-3 fa fa-info-circle" aria-hidden="true"></i><span class="hide-menu">Services</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="accepted_services.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Appointments</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="booked_app.php" aria-expanded="false"><i style="color:rgba(63,187,192,255) ;" class="me-3  fa fa-check" aria-hidden="true"></i><span style="color:rgba(63,187,192,255) ;" class="hide-menu">Booked Appointments</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="booked_app.php" aria-expanded="false"><i style="color:rgba(63,187,192,255) ;" class="me-3  fa fa-check" aria-hidden="true"></i><span style="color:rgba(63,187,192,255) ;" class="hide-menu">Requested Nurses </span></a></li>
 
                         <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="completed_services.php" aria-expanded="false"><i class="me-3 fa fa-check-circle" aria-hidden="true"></i><span class="hide-menu">Completed Services</span></a></li> -->
                         <li class="text-center p-20 upgrade-btn">
@@ -167,7 +178,6 @@
         </aside>
         <div class="page-wrapper">
             <div class="container-fluid">
-
                 <div class="row">
                     <!-- column -->
                     <div class="col-sm-12">
@@ -192,151 +202,160 @@
                                                     <H6>Service Status</H6>
                                                 </th>
                                                 <th class="border-top-0">
-                                                    <H6>Open</H6>
-                                                </th>
-                                                <th class="border-top-0">
                                                     <H6>Cancel</h6>
                                                 </th>
                                                 <th class="border-top-0">
                                                     <H6>Payment</H6>
                                                 </th>
+                                                <th class="border-top-0">
+                                                    <H6>Open</H6>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Wound Care</td>
-                                                <td>Ms.Alisha</td>
-                                                <td><button class="button Running">Running</button></td>
-                                                <td><button type="button" class="button button1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        Open
-                                                    </button>
+                                            <?php
+                                            $sql = "select * from `request_form` where `User_Email`='$nurse'";
+                                            $result = mysqli_query($con, $sql);
 
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Requested Appointment Form</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            if (!$result) {
+                                                echo "error";
+                                            }
+
+                                            $i = 0;
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                $i++;
+                                                $name = $row['service_name'];
+                                                $form = $row['Request_id'];
+                                                $email = $row['nurse_email'];
+                                                $status = $row['Status'];
+                                                $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email'";
+                                                $result_nurse = mysqli_query($con, $sql_nurse);
+                                                $row_nurse = mysqli_fetch_assoc($result_nurse);
+
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $i; ?></td>
+                                                    <td id="Servicename"><?php echo $name; ?></td>
+                                                    <td id="Nurseemail"><?php echo $row_nurse['email2']; ?></td>
+                                                    <?php
+                                                    if ($status == 0) {
+                                                    ?>
+                                                        <td><button class="btn btn-warning">Pending</button></td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12 d-flex">
+                                                                    <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
                                                                 </div>
-                                                                <div class="modal-body">
-
-                                                                    <table align="center" cellpadding="10" cellspacing="10" bgcolor="White">
-                                                                        <tr>
-                                                                            <td><b>Service Name:</b></td>
-                                                                            <td><input type="text" style="width:600" id="email" name="Email" placeholder="Wound Care" maxlength="255" />
-                                                                            </td>
+                                                            </div>
+                                                        </td>
+                                                        <td>-</td>
+                                                    <?php
+                                                    } else if ($status == 1) {
+                                                    ?>
+                                                        <td><button class="btn btn-success">Accepted</button></td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12 d-flex">
+                                                                    <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
                                                                 </div>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Service Time:</b></td>
-                                                <td><input type="time" style="width:600" id="time" name="Service_Time" placeholder="11:30" maxlength="30" />
-                                                </td>
-                                            </tr>
+                                                            </div>
+                                                        </td>
+                                                        <td><button class="btn btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Payment</button></td>
+                                                    <?php
+                                                    } else if ($status == 2) {
+                                                    ?>
+                                                        <td><button class="btn button1">Completed</button></td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    <?php
+                                                    } else if ($status == -1) {
+                                                    ?>
+                                                        <td><button class="btn btn-danger">Cancled</button></td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <td><button class="btn btn-dark">Expired</button></td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    <?php
+                                                    }
+                                                    ?> <td>
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12 d-flex">
+                                                                <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $form; ?>')">open
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                <?php
+                                            } ?>
 
-                                            <tr>
-                                                <td><b>Service Date:</b></td>
-                                                <td><input type="date" style="width:600" id="Service_Date" name="Last_Name" placeholder="12-10-2022" maxlength="30" />
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><b>Address:</b><br /><br /><br /></td>
-                                                <td><textarea name="Address" rows="2" cols="60" placeholder="A/102 Marvel Acro, Ahmedabad"></textarea></td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td><b>Pincode:</b></td>
-                                                <td><input type="PINCODE" style="width:600" id="pincode" name="Pincode" placeholder="382330" maxlength="30" />
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><B>Prescription</B></TD>
-                                                <TD><input type="file" style="width:600" name="file" id="Prescription" placeholder="Prescription.pdf">
-                                            </tr>
-                                            </td>
-
-                                            <tr>
-                                                <td><b>Charges:</b></td>
-                                                <td><input type="text" style="width:600" name="Amount" id="Charges" placeholder="350 INR" maxlength="100" />
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><b>Nurse Name:</b></td>
-                                                <td><button type="button" class="button button1"><a href="../Nurse/profile.php" style="color:white;">Nurse Name</a></button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><b>Service Status:</b></td>
-                                                <TD><button class="button Pending">Pending</button>
-                                                    <button class="button Completed">Completed</button>
-                                                    <button class="button Running">Running</button>
-                                                    <button class="button Expire">Expire</button>
-                                                </TD>
-                                            </tr>
+                                                </tr>
+                                        </tbody>
                                     </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="button button1" data-bs-dismiss="modal">Close</button>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Modal -->
-                    </td>
-                    <td>
-                        <button type="button" class="button button1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            Cancel
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel"> Cancel Appointment </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to cacel appointment ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="button button1" data-bs-dismiss="modal">No</button>
-                                        <button type="button" class="button button1">Yes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td><button class="button button1">Payment</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Injection</td>
-                        <td>Ms.Kritika</td>
-                        <td><button class="button Pending">Pending</button></td>
-                        <td><button class="button button1">Open</button></td>
-                        <td><button class="button button1">Cancel</button></td>
-                        <td><button class="button button1">Payment</button></td>
-                    </tr>
-
-                    </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Request app modal -->
+    <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form action="form.php" method="post" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Requested Appointment Form</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="data">
+                    </div>
+            </form>
+        </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"> Cancel Appointment </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to cancel appointment ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button button1" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="button button1">Yes</button>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-    </div>
+
 </body>
+<script>
+    function openModal(form) {
+        $.ajax({
+            url: 'nurse_app.php',
+            type: 'POST',
+            data: {
+                id: form
+            },
+            success: function(result) {
+                $('#data').html(result);
+            }
+        });
+
+
+        $('#Requested_appointment').modal('toggle');
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </html>

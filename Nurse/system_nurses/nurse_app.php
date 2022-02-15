@@ -1,9 +1,8 @@
 <?php
-include '../connect.php';
+include '../../connect.php';
 
 
 $id = $_POST['id'];
-$mail = "44da8393548e6ac1fbcd76bb05e83104";
 $sql = "SELECT * FROM `request_form` where `Request_id`=$id";
 if ($con) {
     $result = mysqli_query($con, $sql);
@@ -11,14 +10,9 @@ if ($con) {
         $serial = 0;
         while ($row = mysqli_fetch_assoc($result)) {
             $nurse = $row['nurse_email'];
-            // $reqnurse = $row['$mail'];
             $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$nurse'";
             $result_nurse = mysqli_query($con, $sql_nurse);
             $row_nurse = mysqli_fetch_assoc($result_nurse);
-
-            // $sql_user = "SELECT * FROM `requested_nurse` WHERE `email`='$mail'";
-            // $result_user = mysqli_query($con, $sql_user);
-            // $row_user = mysqli_fetch_assoc($result_user);
 ?>
 
             <h6>

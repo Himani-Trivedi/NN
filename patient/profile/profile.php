@@ -54,10 +54,10 @@ if (mysqli_num_rows($result) == 1) {
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-                <a class="navbar-brand" href="../../Medicio/index.php">
+                    <a class="navbar-brand" href="../../Medicio/index.php">
                         <!-- Logo icon -->
                         <b class="logo-icon">
-                        
+
                             <img src="../../logo.jpeg" width="70" alt="homepage" class="dark-logo rounded-circle d-inline-block" style="border:2px solid rgba(63,187,192,255); ;" />
                             <span style="color:rgba(63,187,192,255); font-size: 16px;">Neighbouring Nurse</span>
 
@@ -71,7 +71,7 @@ if (mysqli_num_rows($result) == 1) {
 
                         </span>
                     </a>
-                
+
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                 </div>
                 <!-- ============================================================== -->
@@ -135,26 +135,12 @@ if (mysqli_num_rows($result) == 1) {
                                 <i class="me-3 fa fa-user" aria-hidden="true" style="color:rgba(63,187,192,255) ;"></i><span class="hide-menu">Profile</span></a>
 
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Req_Appointments.php" aria-expanded="false"><i class="me-3 fas fa-file" aria-hidden="true"></i><span class="hide-menu">Requested Appointments</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="booked_Appointments.php" aria-expanded="false"><i class="me-3 fa fa-font" aria-hidden="true"></i><span class="hide-menu">Booked Appointments</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="App.php" aria-expanded="false"><i class="me-3 fa fa-font" aria-hidden="true"></i><span class="hide-menu">Appointments</span></a></li>
 
                         <li class="text-center p-20 upgrade-btn">
                             <a href="../login/logout.php" class="btn text-white mt-4" style="background-color:rgba(63,187,192,255) ">Log Out</a>
                         </li>
-                        <!--<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="map-google.html" aria-expanded="false"><i class="me-3 fa fa-globe"
-                                    aria-hidden="true"></i><span class="hide-menu">Google Map</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="pages-blank.html" aria-expanded="false"><i class="me-3 fa fa-columns"
-                                    aria-hidden="true"></i><span class="hide-menu">Blank</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="pages-error-404.html" aria-expanded="false"><i class="me-3 fa fa-info-circle"
-                                    aria-hidden="true"></i><span class="hide-menu">Error 404</span></a></li>
-                        <li class="text-center p-20 upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/monsteradmin/"
-                                class="btn btn-danger text-white mt-4" target="_blank">Upgrade to
-                                Pro</a>
-                        </li>-->
+
                     </ul>
 
                 </nav>
@@ -162,62 +148,21 @@ if (mysqli_num_rows($result) == 1) {
             </div>
             <!-- End Sidebar scroll-->
         </aside>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
+
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!--<div class="page-breadcrumb">
-                <div class="row align-items-center">
-                    <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="page-title mb-0 p-0">Profile</h3>
-                        <div class="d-flex align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Profile</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-4 align-self-center">
-                        <div class="text-end upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/monsteradmin/"
-                                class="btn btn-success d-none d-md-inline-block text-white" target="_blank">Upgrade to
-                                Pro</a>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <!-- Row -->
                 <div class="row">
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-body profile-card">
                                 <center class="mt-4"> <img src="../../user.jpg" class="rounded-circle" width="150" />
-                                    <h4 class="card-title mt-2"><?php echo $name; ?></h4>                            
+                                    <h4 class="card-title mt-2"><?php echo $name; ?></h4>
                                 </center>
                             </div>
                         </div>
                     </div>
-                    <!-- Column -->
-                    <!-- Column -->
+                    
                     <div class="col-lg-8 col-xlg-9 col-md-7">
                         <div class="card">
                             <div class="card-body">
@@ -258,67 +203,19 @@ if (mysqli_num_rows($result) == 1) {
                                         </div>
 
                                     </div>
-
-                                    <!--<div class="form-group">
-                                        <div class="col-sm-12 d-flex ">
-                                            <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="enable_data(this);">Update
-                                                Profile</button>
-
-                                           <button type="button" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;" onclick="window.location.href='update_password.php?id=<?php echo $mail; ?>'">Change Password
-                                            </button>
-
-                                            <button formaction="update_user_profile.php" type="submit" id="n_update" name="n_update" class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px; display:none;">Update
-                                            </button>
-                                        </div>
-                                      
-                                    </div>-->
-                                    <!--<div class="form-group">
-                                        <div class="col-sm-12 d-flex">
-                                            <button class="btn btn-success mx-auto mx-md-0 text-white">Update
-                                                Profile</button>
-                                        </div>
-                                    </div>-->
                                 </form>
                             </div>
                         </div>
                     </div>
                     <!-- Column -->
                 </div>
-                <!-- Row -->
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
+             
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== 
-            <footer class="footer text-center">
-                ©  <a href="">NN.com</a>
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
+          
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
+      
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
+
     <script src="../assets/plugins/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

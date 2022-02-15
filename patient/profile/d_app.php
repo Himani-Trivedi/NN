@@ -1,9 +1,7 @@
 <?php
-include '../connect.php';
-
+include '../../connect.php';
 
 $id = $_POST['id'];
-$mail = "44da8393548e6ac1fbcd76bb05e83104";
 $sql = "SELECT * FROM `request_form` where `Request_id`=$id";
 if ($con) {
     $result = mysqli_query($con, $sql);
@@ -11,22 +9,23 @@ if ($con) {
         $serial = 0;
         while ($row = mysqli_fetch_assoc($result)) {
             $nurse = $row['nurse_email'];
-            // $reqnurse = $row['$mail'];
+            $user = $row['User_Email'];
+
             $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$nurse'";
             $result_nurse = mysqli_query($con, $sql_nurse);
             $row_nurse = mysqli_fetch_assoc($result_nurse);
 
-            // $sql_user = "SELECT * FROM `requested_nurse` WHERE `email`='$mail'";
-            // $result_user = mysqli_query($con, $sql_user);
-            // $row_user = mysqli_fetch_assoc($result_user);
+            $sql_user = "SELECT * FROM `patient` WHERE `Email`='$user'";
+            $result_user = mysqli_query($con, $sql_user);
+            $row_user = mysqli_fetch_assoc($result_user);
 ?>
 
             <h6>
                 <table align="center" cellpadding="10" cellspacing="10" bgcolor="White">
                     <tr>
                         <td><b>Nurse email :</b></td>
-                        <td><input type="email" name="user_mail" value="<?php echo  $row_nurse['email2']; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;" id="NurseName" readonly /></td>
-                    </tr>
+                        <td><input type="email" name="user_mail" value="<?php echo $row_nurse['email2']; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;" id="NurseName" readonly /></td>
+                    </tr>              
                     <tr>
                         <td><b>Service :</b></td>
                         <td><input type="text" name="service" value="<?php echo $row['service_name']; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;color:black;" readonly /></td>
@@ -63,9 +62,7 @@ if ($con) {
                     <tr>
                         <?php
                         $pin = $row['Pincode'];
-
                         ?>
-
                         <td><b>Pincode :</b></td>
                         <td><input type="PINCODE" value=" <?php echo $pin; ?>" style=" border-color:lightgrey;padding:5px;border-radius:5px;" id="pincode" name="Pincode" placeholder="380007" maxlength="30" readonly />
                         </td>

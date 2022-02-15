@@ -30,7 +30,6 @@
         }
         
         header("location:pay_reciept.php?nurse=$n");
-
         header("location:../system_nurses/profile.php?nurse=$n");
 
 

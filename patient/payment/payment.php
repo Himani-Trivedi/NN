@@ -54,11 +54,10 @@ if (mysqli_num_rows($result) == 1) {
         "image": "https://example.com/nurse_logo_2.png",
         // "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1    
         "handler": function(response) {
-            alert(response.razorpay_payment_id);
-            // alert(response.razorpay_order_id);
-            // alert(response.razorpay_signature)
-            console.log(response);
+            // alert(response.razorpay_payment_id);
+            // console.log(response);
             window.location.href = 'success.php?nurse=<?php echo $nurse; ?>&mon=<?php echo $charge; ?>&form=<?php echo $form; ?>&payId=' + response.razorpay_payment_id;
+            window.location.href = '../profile/App.php';
         },
         "prefill": {
             "name": "<?php echo $name; ?>",

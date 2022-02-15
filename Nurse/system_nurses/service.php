@@ -236,7 +236,8 @@ if (isset($_SESSION['nurse'])) {
                                 <select class="form-select shadow-none border-0 ps-0 form-control-line" name="serviceeg" id="service">
                                     <option value=""></option>
                                     <?php
-                                    $sql = "SELECT * from `services` GROUP BY `service_name`";
+                                    $sql = "SELECT * from `services` where service_name not in
+                                     (SELECT service_name from nurse_selected_services WHERE email='$nurse');";
                                     if ($con) {
                                         $result = mysqli_query($con, $sql);
 

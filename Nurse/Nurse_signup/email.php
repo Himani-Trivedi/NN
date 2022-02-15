@@ -105,7 +105,8 @@
              $to_email = $_POST['mail'];
              $md_email=md5($to_email);
 
-             $sql="SELECT email FROM `requested_nurse` where email='$md_email'";
+             $sql="(SELECT email2 FROM patient WHERE Email = '$md_email') UNION
+             (SELECT email2 FROM requested_nurse WHERE email = '$md_email')";
             
               if(!$con){
                 die('Server Error Please Try Again');

@@ -58,61 +58,61 @@ if (!$result_nurse || !$result_n) {
     die(mysqli_error($con));
 }
 
-    ob_end_clean();
-    $pdf = new FPDF('p', 'mm', 'A4');
-    $pdf->AddPage();
+ob_end_clean();
+$pdf = new FPDF('p', 'mm', 'A4');
+$pdf->AddPage();
 
-    $pdf->Image('../../logo.jpeg', 35, 6, 30);
+$pdf->Image('../../logo.jpeg', 35, 6, 30, 0, '', 'http://localhost/Project/NN/Medicio/index.php');
 
-    $pdf->SetFont('Arial', 'B', 20);
-    $pdf->SetTextColor(0, 204, 204);
-    $pdf->Cell(0, 30, "Neighbouring Nurse", 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 20);
+$pdf->SetTextColor(0, 204, 204);
+$pdf->Cell(0, 30, "Neighbouring Nurse", 0, 1, 'C');
 
-    $pdf->SetFont('Arial', 'B', 16);
-    $pdf->SetTextColor(0, 0, 0);
-    $pdf->Ln(20);
+$pdf->SetFont('Arial', 'B', 16);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->Ln(20);
 
-    $row = mysqli_fetch_assoc($result_n);
-    $pdf->Cell(0, 10, "Payment Date :", 0, 0, 'L');
-    $pdf->Cell(0, 10, $row['Time'], 0, 1, 'R');
-    $pdf->Cell(0, 10, "Payment Id :", 0, 0, 'L');
-    $pdf->Cell(0, 10, $row['pay_id'], 0, 1, 'R');
-    $pdf->Cell(0, 10, "Pay Amount :", 0, 0, 'L');
-    $pdf->Cell(0, 10, $row['Tran_amount'], 0, 1, 'R');
-    $pdf->Ln(10);
+$row = mysqli_fetch_assoc($result_n);
+$pdf->Cell(0, 10, "Payment Date :", 0, 0, 'L');
+$pdf->Cell(0, 10, $row['Time'], 0, 1, 'R');
+$pdf->Cell(0, 10, "Payment Id :", 0, 0, 'L');
+$pdf->Cell(0, 10, $row['pay_id'], 0, 1, 'R');
+$pdf->Cell(0, 10, "Pay Amount :", 0, 0, 'L');
+$pdf->Cell(0, 10, $row['Tran_amount'], 0, 1, 'R');
+$pdf->Ln(10);
 
-    $sql_u = "select * from `patient` where `Email`='$u'";
-    $result_u = mysqli_query($con, $sql_u);
-    $row_n = mysqli_fetch_assoc($result_u);
-    $u_name = $row_n['Name'];
-    $u_email = $row_n['email2'];
+$sql_u = "select * from `patient` where `Email`='$u'";
+$result_u = mysqli_query($con, $sql_u);
+$row_n = mysqli_fetch_assoc($result_u);
+$u_name = $row_n['Name'];
+$u_email = $row_n['email2'];
 
-    $pdf->Cell(0, 10, "User :", 0, 0, 'L');
-    $pdf->Cell(0, 10, $u_name, 0, 2, 'R');
-    $pdf->Cell(0, 10, $u_email, 0, 1, 'R');
-    $pdf->Ln(10);
+$pdf->Cell(0, 10, "User :", 0, 0, 'L');
+$pdf->Cell(0, 10, $u_name, 0, 2, 'R');
+$pdf->Cell(0, 10, $u_email, 0, 1, 'R');
+$pdf->Ln(10);
 
-    $sql_n = "select * from `requested_nurse` where `email`='$n'";
-    $result_n = mysqli_query($con, $sql_n);
-    $row_n = mysqli_fetch_assoc($result_n);
-    $n_name = $row_n['name'];
-    $n_email = $row_n['email2'];
+$sql_n = "select * from `requested_nurse` where `email`='$n'";
+$result_n = mysqli_query($con, $sql_n);
+$row_n = mysqli_fetch_assoc($result_n);
+$n_name = $row_n['name'];
+$n_email = $row_n['email2'];
 
-    $pdf->Cell(0, 10, "Nurse :", 0, 0, 'L');
-    $pdf->Cell(0, 10, $n_name, 0, 2, 'R');
-    $pdf->Cell(0, 10, $n_email, 0, 1, 'R');
-    $pdf->Ln(10);
+$pdf->Cell(0, 10, "Nurse :", 0, 0, 'L');
+$pdf->Cell(0, 10, $n_name, 0, 2, 'R');
+$pdf->Cell(0, 10, $n_email, 0, 1, 'R');
+$pdf->Ln(10);
 
-    $pdf->Cell(0, 10, "Service :", 0, 0, 'L');
-    $pdf->Cell(0, 10, $service, 0, 2, 'R');
-    $pdf->Cell(0, 10, $charge . " Rs.", 0, 1, 'R');
-    $pdf->Ln(10);
+$pdf->Cell(0, 10, "Service :", 0, 0, 'L');
+$pdf->Cell(0, 10, $service, 0, 2, 'R');
+$pdf->Cell(0, 10, $charge . " Rs.", 0, 1, 'R');
+$pdf->Ln(10);
 
-    $pdf->Cell(0, 10, "Thanks for your payment", 1, 0, 'C');
+$pdf->Cell(0, 10, "Thanks for your payment", 1, 0, 'C');
 
-    $file = time() . "payment_receipt" . '.pdf';
-    $pdf->output($file, 'I');
+$file = time() . "payment_receipt" . '.pdf';
+$pdf->output($file, 'I');
 
-    header("location:../profile/App.php");
+header("location:../profile/App.php");
 
-    ob_end_flush();
+ob_end_flush();

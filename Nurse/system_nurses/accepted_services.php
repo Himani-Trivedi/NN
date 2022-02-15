@@ -145,6 +145,7 @@ if (isset($_SESSION['nurse'])) {
                                                                     <?php $pin = $row['Pincode'];
 
                                                                     $form = $row['Request_id'];
+                                                                                                                                  
                                                                     $sql1 = "SELECT * FROM `location` WHERE `Pincode` = $pin";
                                                                     $result1 = mysqli_query($con, $sql1);
                                                                     $row1 = mysqli_fetch_assoc($result1)
@@ -182,18 +183,35 @@ if (isset($_SESSION['nurse'])) {
                                                                                     </div>
                                                                                 </div>
                                                                             </td>
-                                                                        <?php
+                                                                            <?php
                                                                         } else if ($status == 1) {
-                                                                        ?>
-                                                                            <td><button class="btn btn-success">Accepted</button></td>
-                                                                            <td>-</td>
-                                                                            <td>
-                                                                                <div class="form-group">
-                                                                                    <div class="col-sm-12 d-flex">
-                                                                                        <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+
+                                                                            $time = $row['Service_Date_Time'];
+
+                                                                            $now = new DateTime();
+                                                                            $then = new DateTime($time);
+                                                                            $diff = $now->diff($then);
+
+                                                                            if ($diff) {
+                                                                            ?>
+                                                                                <td><button class="btn btn-info">Expired</button></td>
+                                                                                <td style="text-align: center;">-</td>
+                                                                                <td style="text-align: center;">-</td>
+                                                                            <?php
+                                                                            } else {
+                                                                            ?>
+                                                                                <td><button class="btn btn-success">Accepted</button></td>
+                                                                                <td>-</td>
+                                                                                <td>
+                                                                                    <div class="form-group">
+                                                                                        <div class="col-sm-12 d-flex">
+                                                                                            <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </td>
+                                                                                </td>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
                                                                         <?php
                                                                         } else if ($status == 2) {
                                                                         ?>

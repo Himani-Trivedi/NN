@@ -35,7 +35,7 @@ if (mysqli_num_rows($result) == 1) {
         $sql_user = "SELECT * FROM `nurse_selected_services` WHERE `email`='$nurse' and `service_name`='$service'";
         $result_charge = mysqli_query($con, $sql_user);
         $row_charge = mysqli_fetch_assoc($result_charge);
-        $charge = $row_charge['s_charge'];
+        $charge = $row_charge['s_charge'] * 100;
     }
 } else {
     die(mysqli_error($con));

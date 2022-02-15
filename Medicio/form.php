@@ -53,7 +53,7 @@ $subject = "Neighbouring Nurse";
 $body = "You got request for an Appointment at 
 $address for $ser on $service_time.
 
-Check Here : $link";
+Check Here : $accpet_link";
 $headers = "From: ht1872004@gmail.com";
 
 if (mail($to_email, $subject, $body, $headers)) {

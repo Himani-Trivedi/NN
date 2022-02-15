@@ -203,8 +203,8 @@ if (isset($_SESSION['user'])) {
                                                 $result_nurse = mysqli_query($con, $sql_nurse);
                                                 $row_nurse = mysqli_fetch_assoc($result_nurse);
 
-
                                                 $status = $row['Status'];
+                                                $time = $row['Service_Date_Time'];
                                             ?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
@@ -222,25 +222,41 @@ if (isset($_SESSION['user'])) {
                                                             </div>
                                                         </td>
                                                         <td style="text-align: center;">-</td>
-                                                    <?php
+                                                        <?php
                                                     } else if ($status == 1) {
-                                                    ?>
-                                                        <td><button class="btn btn-success">Accepted</button></td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <a href='d_service.php?id=<?php echo $formId; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+
+                                                        $now = new DateTime();
+                                                        $then = new DateTime($time);
+                                                        $diff = $now->diff($then);
+
+                                                        if ($diff) {
+                                                        ?>
+                                                            <td><button class="btn btn-info">Expired</button></td>
+                                                            <td style="text-align: center;">-</td>
+                                                            <td style="text-align: center;">-</td>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            <td><button class="btn btn-success">Accepted</button></td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 d-flex">
+                                                                        <a href='d_service.php?id=<?php echo $formId; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href='../payment/payment.php?id=<?php echo $formId; ?>' style="color:rgba(63,187,192,255) ;">
-                                                                <button class="btn btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Payment</button>
-                                                            </a>
-                                                        </td>
-                                                    <?php
+                                                            </td>
+                                                            <td>
+                                                                <a href='../payment/payment.php?id=<?php echo $formId; ?>' style="color:rgba(63,187,192,255) ;">
+                                                                    <button class="btn btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Online</button>
+                                                                </a>
+                                                                <a href='status.php?formid=<?php echo $formId; ?>&service=<?php echo $name; ?>' style="color:rgba(63,187,192,255) ;">
+                                                                    <button type="button" class="btn btn-secondary">Offline</button>
+                                                                </a>
+                                                            </td>
+                                                        <?php
+                                                        }
                                                     } else if ($status == 2) {
-                                                    ?>
+                                                        ?>
                                                         <td><button class="btn button1">Completed</button></td>
                                                         <td style="text-align: center;">-</td>
                                                         <td style="text-align: center;">-</td>
@@ -254,12 +270,6 @@ if (isset($_SESSION['user'])) {
                                                     } else if ($status == -2) {
                                                     ?>
                                                         <td><button class="btn btn-danger">You Cancled</button></td>
-                                                        <td style="text-align: center;">-</td>
-                                                        <td style="text-align: center;">-</td>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <td><button class="btn btn-dark">Expired</button></td>
                                                         <td style="text-align: center;">-</td>
                                                         <td style="text-align: center;">-</td>
                                                     <?php

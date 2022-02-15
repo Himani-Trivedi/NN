@@ -236,7 +236,7 @@ if (isset($_SESSION['nurse'])) {
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
                                                     <td id="Servicename"><?php echo $name; ?></td>
-                                                    <td id="Nurseemail"><?php echo $row_nurse['email2']; ?></td>
+                                                    <td id="Nurseemail"><?php echo $row_nurse['name']; ?></td>
                                                     <?php
                                                     if ($status == 0) {
                                                     ?>

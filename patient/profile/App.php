@@ -216,7 +216,7 @@ if (isset($_SESSION['user'])) {
                                                         <td>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12 d-flex">
-                                                                    <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                    <a href='d_service.php?id=<?php echo $formId; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -228,7 +228,7 @@ if (isset($_SESSION['user'])) {
                                                         <td>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12 d-flex">
-                                                                    <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                    <a href='d_service.php?id=<?php echo $formId; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -242,11 +242,18 @@ if (isset($_SESSION['user'])) {
                                                     <?php
                                                     } else if ($status == -1) {
                                                     ?>
-                                                        <td><button class="btn btn-danger">Cancled</button></td>
+                                                        <td><button class="btn btn-danger">Nurse Cancled</button></td>
                                                         <td style="text-align: center;">-</td>
                                                         <td style="text-align: center;">-</td>
                                                     <?php
-                                                    } else {
+                                                    }else if ($status == -2) {
+                                                        ?>
+                                                            <td><button class="btn btn-danger">You Cancled</button></td>
+                                                            <td style="text-align: center;">-</td>
+                                                            <td style="text-align: center;">-</td>
+                                                        <?php
+                                                        }
+                                                     else {
                                                     ?>
                                                         <td><button class="btn btn-dark">Expired</button></td>
                                                         <td style="text-align: center;">-</td>

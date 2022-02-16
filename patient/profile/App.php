@@ -224,14 +224,14 @@ if (isset($_SESSION['user'])) {
                                                         <td style="text-align: center;">-</td>
                                                         <?php
                                                     } else if ($status == 1) {
+                                                        date_default_timezone_set("Asia/Calcutta");
 
-                                                        $now = new DateTime();
+                                                        $now = new DateTime("now");
                                                         $then = new DateTime($time);
-                                                        $diff = $now->diff($then);
 
-                                                        if ($diff) {
+                                                        if ($now > $then) {
                                                         ?>
-                                                            <td><button class="btn btn-info">Expired</button></td>
+                                                            <td><button class="btn btn-dark">Expired</button></td>
                                                             <td style="text-align: center;">-</td>
                                                             <td style="text-align: center;">-</td>
                                                         <?php

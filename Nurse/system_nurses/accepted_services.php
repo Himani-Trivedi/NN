@@ -145,7 +145,7 @@ if (isset($_SESSION['nurse'])) {
                                                                     <?php $pin = $row['Pincode'];
 
                                                                     $form = $row['Request_id'];
-                                                                                                                                  
+
                                                                     $sql1 = "SELECT * FROM `location` WHERE `Pincode` = $pin";
                                                                     $result1 = mysqli_query($con, $sql1);
                                                                     $row1 = mysqli_fetch_assoc($result1)
@@ -188,13 +188,14 @@ if (isset($_SESSION['nurse'])) {
 
                                                                             $time = $row['Service_Date_Time'];
 
-                                                                            $now = new DateTime();
+                                                                            date_default_timezone_set("Asia/Calcutta");
+                                                                            $now = new DateTime("now");
                                                                             $then = new DateTime($time);
-                                                                            $diff = $now->diff($then);
+                                                                            // $diff = $now->diff($then);
 
-                                                                            if ($diff) {
+                                                                            if ($now > $then) {
                                                                             ?>
-                                                                                <td><button class="btn btn-info">Expired</button></td>
+                                                                                <td><button class="btn btn-dark">Expired</button></td>
                                                                                 <td style="text-align: center;">-</td>
                                                                                 <td style="text-align: center;">-</td>
                                                                             <?php

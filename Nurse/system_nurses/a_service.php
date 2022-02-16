@@ -19,7 +19,7 @@ if ($con) {
         $result_user = mysqli_query($con, $sql_user);
         $row_user = mysqli_fetch_assoc($result_user);
 
-        $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$u_mail'";
+        $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$n_mail'";
         $result_nurse = mysqli_query($con, $sql_nurse);
         $row_nurse = mysqli_fetch_assoc($result_nurse);
 
@@ -27,7 +27,7 @@ if ($con) {
         $n_email = $row_nurse['email2'];
 
         $subject = "Neighbouring Nurse";
-        $body = "$n_email has accepted your appointment request, for $ser at $loc @$time";
+        $body = "$n_email ($n_name) has accepted your appointment request, for $ser at $loc @$time";
         $headers = "From: ht1872004@gmail.com";
         $to_email = $row_user['email2'];
 

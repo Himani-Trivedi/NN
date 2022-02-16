@@ -285,7 +285,7 @@ include '../connect.php';
 
         <div class="text-center">
           <h3>In an emergency? Need help now?</h3>
-          <a class="cta-btn scrollto" href="#appointment">Make an Make an Appointment</a>
+          <a class="cta-btn scrollto" href="nurse_service.php">Make an Make an Appointment</a>
         </div>
 
       </div>

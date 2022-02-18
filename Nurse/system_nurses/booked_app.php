@@ -176,7 +176,7 @@ if (isset($_SESSION['nurse'])) {
             </div>
             <!-- End Sidebar scroll-->
         </aside>
-        <div class="page-wrapper">
+        <div class="page-wrapper" id="box1">
             <div class="container-fluid">
                 <div class="row">
                     <!-- column -->
@@ -260,7 +260,11 @@ if (isset($_SESSION['nurse'])) {
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td><button class="btn btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Payment</button></td>
+                                                        <td>
+                                                            <a href='../payment/payment.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">
+                                                                <button class="btn btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Payment</button>
+                                                            </a>
+                                                        </td>
                                                     <?php
                                                     } else if ($status == 2) {
                                                     ?>
@@ -302,7 +306,24 @@ if (isset($_SESSION['nurse'])) {
                 </div>
             </div>
         </div>
+
+        <div class="page-wrapper">
+            <div class="container-fluid" id="box2" style="display: none;">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <p style="font-size: 25px;" id="do_pay">Please Wait for the Admin approval to Select Location, Services & to get into Search </p>
+                                <button id="pay_btn" type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="display:none;background-color:rgba(63,187,192,255) ; border:0px" onclick='window.location.href="../payment/nurse_payment.php"' ;>Pay</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
 
     <!-- Request app modal -->
     <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -355,6 +376,28 @@ if (isset($_SESSION['nurse'])) {
 
         $('#Requested_appointment').modal('toggle');
     }
+
+    <?php
+
+    if ($_SESSION['status'] == 0) {
+    ?>
+        document.getElementById('box1').style.display = "none";
+        document.getElementById('box2').style.display = "block";
+    <?php
+    } else if ($_SESSION['status'] == 1) {
+    ?>
+        document.getElementById('box1').style.display = "none";
+        document.getElementById('pay_btn').style.display = "block";
+        document.getElementById('box2').style.display = "block";
+        document.getElementById('do_pay').innerHTML = "Please Complete Your Payment"
+    <?php
+    } else {
+    ?>
+        document.getElementById('box1').style.display = "block";
+        document.getElementById('box2').style.display = "none";
+    <?php
+    }
+    ?>
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

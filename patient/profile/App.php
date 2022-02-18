@@ -228,6 +228,7 @@ if (isset($_SESSION['user'])) {
 
                                                         $now = new DateTime("now");
                                                         $then = new DateTime($time);
+                                                        $then->add(new DateInterval('PT60M'));
 
                                                         if ($now > $then) {
                                                         ?>

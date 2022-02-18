@@ -10,18 +10,25 @@ if ($con) {
         $row = mysqli_fetch_assoc($result);
         $u_mail = $row['User_Email'];
         $n_mail = $row['nurse_email'];
-        $form=$row['Request_id'];
-        $ser=$row['service_name'];
-        $loc=$row['Address'];
-        $time=$row['Service_Date_Time'];
-
-        $sql_user = "SELECT * FROM `patient` WHERE `Email`='$u_mail'";
-        $result_user = mysqli_query($con, $sql_user);
-        $row_user = mysqli_fetch_assoc($result_user);
+        $form = $row['Request_id'];
+        $ser = $row['service_name'];
+        $loc = $row['Address'];
+        $time = $row['Service_Date_Time'];
+        $is_nurse = $row['is_nurse'];
 
         $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$n_mail'";
         $result_nurse = mysqli_query($con, $sql_nurse);
         $row_nurse = mysqli_fetch_assoc($result_nurse);
+
+        if ($is_nurse == 1) {
+            $sql_user = "SELECT * FROM `requested_nurse` WHERE `email`='$n_mail'";
+            $result_user = mysqli_query($con, $sql_user);
+            $row_user = mysqli_fetch_assoc($result_user);
+        } else {
+            $sql_user = "SELECT * FROM `patient` WHERE `Email`='$u_mail'";
+            $result_user = mysqli_query($con, $sql_user);
+            $row_user = mysqli_fetch_assoc($result_user);
+        }
 
         $n_name = $row_nurse['name'];
         $n_email = $row_nurse['email2'];

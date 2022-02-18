@@ -407,7 +407,7 @@ include '../connect.php';
                 </tr>
                 <tr>
                   <td><b>Service Charge :</b></td>
-                  <td><input type="text"  value="<?php echo $charge; ?>" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="service_charge" name="service_charge" maxlength="30" required />
+                  <td><input type="text" value="<?php echo $charge; ?>" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="service_charge" name="service_charge" maxlength="30" required />
                   </td>
                 </tr>
                 <tr>
@@ -440,6 +440,17 @@ include '../connect.php';
                 </td>
                 <input type="hidden" value="" id="NurseEmail" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="nurse_email" />
                 <input type="hidden" value="<?php echo $mail; ?>" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="patient_email" />
+                <?php
+                if (isset($_SESSION['nurse_request_app'])) {
+                ?>
+                  <input type="hidden" value="1" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="is_nurse" />
+                <?php
+                } else {
+                ?>
+                  <input type="hidden" value="0" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="is_nurse" />
+                <?php
+                }
+                ?>
                 </td>
                 </tr>
               </table>
@@ -491,7 +502,7 @@ include '../connect.php';
     });
   });
 
-  function openModal(nurse, name,charge) {
+  function openModal(nurse, name, charge) {
 
     <?php
 

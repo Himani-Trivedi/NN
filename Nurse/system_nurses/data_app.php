@@ -14,8 +14,8 @@ if ($con) {
             $result_nurse = mysqli_query($con, $sql_nurse);
             $row_nurse = mysqli_fetch_assoc($result_nurse);
 
-            if(isset($_SESSION['nurse_request_app'])){
-                $sql_user = "SELECT * FROM `requested_nurse` WHERE `email`='$nurse'";
+            if($row['is_nurse'] == 1){
+                $sql_user = "SELECT * FROM `requested_nurse` WHERE `email`='$user'";
                 $result_user = mysqli_query($con, $sql_user);
                 $row_user = mysqli_fetch_assoc($result_user);
                 $p_name=$row_user['email2'];
@@ -26,9 +26,7 @@ if ($con) {
                 $row_user = mysqli_fetch_assoc($result_user);
                 $p_name=$row_user['email2'];
                 $p_no=$row_user['Ph No'];
-            }
-
-          
+            }        
 ?>
 
             <h6>

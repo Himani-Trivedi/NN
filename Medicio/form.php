@@ -10,6 +10,8 @@ $address = $_REQUEST['Address'];
 $floor_no = $_REQUEST['floor_no'];
 $landmark = $_REQUEST['Landmark'];
 $pin = $_REQUEST['Pincode'];
+$is_nurse = $_REQUEST['is_nurse'];
+
 
 $fileName2 = $_FILES['pres']['name'];
 $filearr2 = explode('.', $fileName2);
@@ -31,9 +33,9 @@ $timestamp = strtotime($service_time);
 $date = date('Y-m-d H:i:s', $timestamp);
 
 $sql = "INSERT INTO `request_form`(`User_Email`, `service_name`, `Service_Date_Time`, `Address`, `Pincode`,
- `Prescription`, `Created_Req_time`, `nurse_email`, `Landmark`, `Block_Number`, `Status`) 
+ `Prescription`, `Created_Req_time`, `nurse_email`, `Landmark`, `Block_Number`, `Status`,`is_nurse`) 
  VALUES ('$patient','$ser','$date','$address',$pin,'$dest2',current_timestamp(),'$nurse',
- '$landmark','$floor_no',0)";
+ '$landmark','$floor_no',0,$is_nurse)";
 $result = mysqli_query($con, $sql);
 
 if (!$result) {

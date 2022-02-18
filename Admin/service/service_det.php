@@ -19,7 +19,7 @@ if ($con) {
             <div class='form-group'>
                 <label class='col-md-12 mb-0'>Description</label>
                 <div class='col-md-12'>
-                    <textarea rows='5' class='form-control ps-0 form-control-line' style='resize:none;' disabled>
+                    <textarea rows='5' class='form-control ps-0 form-control-line' style='resize:none;' id="des" disabled>
                     <?php echo "{$row['description']}"; ?>
                 </textarea>
                 </div>

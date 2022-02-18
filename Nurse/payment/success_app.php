@@ -81,10 +81,10 @@ $pdf->Cell(0, 10, "Pay Amount :", 0, 0, 'L');
 $pdf->Cell(0, 10, $row['Tran_amount'], 0, 1, 'R');
 $pdf->Ln(10);
 
-$sql_u = "select * from `patient` where `Email`='$u'";
+$sql_u = "select * from `requested_nurse` where `email`='$u'";
 $result_u = mysqli_query($con, $sql_u);
 $row_n = mysqli_fetch_assoc($result_u);
-$u_name = $row_n['Name'];
+$u_name = $row_n['name'];
 $u_email = $row_n['email2'];
 
 $pdf->Cell(0, 10, "User :", 0, 0, 'L');

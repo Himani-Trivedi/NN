@@ -191,6 +191,7 @@ if (isset($_SESSION['nurse'])) {
                                                                             date_default_timezone_set("Asia/Calcutta");
                                                                             $now = new DateTime("now");
                                                                             $then = new DateTime($time);
+                                                                            $then->add(new DateInterval('PT60M'));
                                                                             // $diff = $now->diff($then);
 
                                                                             if ($now > $then) {
@@ -217,20 +218,22 @@ if (isset($_SESSION['nurse'])) {
                                                                         } else if ($status == 2) {
                                                                         ?>
                                                                             <td><button class="btn btn-success" style="background-color:rgba(63,187,192,255) ; border:0px">Completed</button></td>
-                                                                            <td>-</td>
-                                                                            <td>-</td>
+                                                                            <td style="text-align: center;">-</td>
+                                                                            <td style="text-align: center;">-</td>
                                                                         <?php
                                                                         } else if ($status == -1) {
                                                                         ?>
                                                                             <td><button class="btn btn-danger">Cancled</button></td>
-                                                                            <td>-</td>
-                                                                            <td>-</td>
+                                                                            <td style="text-align: center;">-</td>
+                                                                            <td style="text-align: center;">-</td>
+
                                                                         <?php
                                                                         } else {
                                                                         ?>
                                                                             <td><button class="btn btn-dark">Expired</button></td>
-                                                                            <td>-</td>
-                                                                            <td>-</td>
+                                                                            <td style="text-align: center;">-</td>
+                                                                            <td style="text-align: center;">-</td>
+
                                                                         <?php
                                                                         }
                                                                         ?>

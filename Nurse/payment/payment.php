@@ -36,8 +36,8 @@ if (mysqli_num_rows($result) == 1) {
         }
 
         $mail = $row_user['email2'];
-        $name = $row_user['Name'];
-        $ph = $row_user['Ph No'];
+        $name = $row_user['name'];
+        $ph = $row_user['ph_no'];
 
         $sql_user = "SELECT * FROM `nurse_selected_services` WHERE `email`='$nurse' and `service_name`='$service'";
         $result_charge = mysqli_query($con, $sql_user);
@@ -63,7 +63,7 @@ if (mysqli_num_rows($result) == 1) {
         "handler": function(response) {
             // alert(response.razorpay_payment_id);
             // console.log(response);
-            window.location.href = 'success.php?nurse=<?php echo $nurse; ?>&mon=<?php echo $charge; ?>&form=<?php echo $form; ?>&payId=' + response.razorpay_payment_id;
+            window.location.href = 'success_app.php?nurse=<?php echo $nurse; ?>&mon=<?php echo $charge; ?>&form=<?php echo $form; ?>&payId=' + response.razorpay_payment_id;
         },
         "prefill": {
             "name": "<?php echo $name; ?>",

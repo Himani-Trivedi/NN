@@ -228,6 +228,14 @@ if (isset($_SESSION['nurse'])) {
                                                 $form = $row['Request_id'];
                                                 $email = $row['nurse_email'];
                                                 $status = $row['Status'];
+                                                $time = $row['Service_Date_Time'];
+
+                                                date_default_timezone_set("Asia/Calcutta");
+                                                $now = new DateTime("now");
+                                                $then = new DateTime($time);
+                                                $then->add(new DateInterval('PT60M'));
+                                                // $diff = $now->diff($then);
+
                                                 $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email'";
                                                 $result_nurse = mysqli_query($con, $sql_nurse);
                                                 $row_nurse = mysqli_fetch_assoc($result_nurse);
@@ -288,7 +296,7 @@ if (isset($_SESSION['nurse'])) {
                                                     ?> <td>
                                                         <div class="form-group">
                                                             <div class="col-sm-12 d-flex">
-                                                                <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $form; ?>')">open
+                                                                <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $form; ?>','<?php echo $then->format('y-m-d H:i'); ?>')">open
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -361,12 +369,13 @@ if (isset($_SESSION['nurse'])) {
 
 </body>
 <script>
-    function openModal(form) {
+    function openModal(form, time) {
         $.ajax({
             url: 'nurse_app.php',
             type: 'POST',
             data: {
-                id: form
+                id: form,
+                time: time
             },
             success: function(result) {
                 $('#data').html(result);

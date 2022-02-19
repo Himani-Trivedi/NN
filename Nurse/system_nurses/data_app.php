@@ -1,6 +1,7 @@
 <?php
 include '../../connect.php';
 $id = $_POST['id'];
+$t=$_POST['time'];
 $sql = "SELECT * FROM `request_form` where `Request_id`=$id";
 if ($con) {
     $result = mysqli_query($con, $sql);
@@ -14,19 +15,19 @@ if ($con) {
             $result_nurse = mysqli_query($con, $sql_nurse);
             $row_nurse = mysqli_fetch_assoc($result_nurse);
 
-            if($row['is_nurse'] == 1){
+            if ($row['is_nurse'] == 1) {
                 $sql_user = "SELECT * FROM `requested_nurse` WHERE `email`='$user'";
                 $result_user = mysqli_query($con, $sql_user);
                 $row_user = mysqli_fetch_assoc($result_user);
-                $p_name=$row_user['email2'];
-                $p_no=$row_user['ph_no'];
-            }else{
+                $p_name = $row_user['email2'];
+                $p_no = $row_user['ph_no'];
+            } else {
                 $sql_user = "SELECT * FROM `patient` WHERE `Email`='$user'";
                 $result_user = mysqli_query($con, $sql_user);
                 $row_user = mysqli_fetch_assoc($result_user);
-                $p_name=$row_user['email2'];
-                $p_no=$row_user['Ph No'];
-            }        
+                $p_name = $row_user['email2'];
+                $p_no = $row_user['Ph No'];
+            }
 ?>
 
             <h6>
@@ -83,6 +84,11 @@ if ($con) {
 
                         <td><b>Area :</b></td>
                         <td><input type="PINCODE" value=" <?php echo $row1['area_name']; ?>" style=" border-color:lightgrey;padding:5px;border-radius:5px;" id="pincode" name="Pincode" placeholder="380007" maxlength="30" readonly />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Expires at :</b></td>
+                        <td><input type="PINCODE" value="<?php echo $t;?>" style=" border-color:lightgrey;padding:5px;border-radius:5px;" id="pincode" name="Pincode" placeholder="380007" maxlength="30" readonly />
                         </td>
                     </tr>
                 </table>

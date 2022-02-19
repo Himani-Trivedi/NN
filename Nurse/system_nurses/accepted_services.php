@@ -160,6 +160,14 @@ if (isset($_SESSION['nurse'])) {
                                                                     $sql2 = "SELECT * FROM `nurse_selected_services` WHERE `service_name` = '$sname' and `email`='$nurse'";
                                                                     $result2 = mysqli_query($con, $sql2);
 
+                                                                    $time = $row['Service_Date_Time'];
+
+                                                                    date_default_timezone_set("Asia/Calcutta");
+                                                                    $now = new DateTime("now");
+                                                                    $then = new DateTime($time);
+                                                                    $then->add(new DateInterval('PT60M'));
+                                                                    // $diff = $now->diff($then);
+
                                                                     if ($row2 = mysqli_fetch_assoc($result2)) { ?>
                                                                         <td><?php echo $row2['s_charge'];
                                                                         } ?> Rs.</td>
@@ -185,15 +193,7 @@ if (isset($_SESSION['nurse'])) {
                                                                             </td>
                                                                             <?php
                                                                         } else if ($status == 1) {
-
-                                                                            $time = $row['Service_Date_Time'];
-
-                                                                            date_default_timezone_set("Asia/Calcutta");
-                                                                            $now = new DateTime("now");
-                                                                            $then = new DateTime($time);
-                                                                            $then->add(new DateInterval('PT60M'));
-                                                                            // $diff = $now->diff($then);
-
+                                                               
                                                                             if ($now > $then) {
                                                                             ?>
                                                                                 <td><button class="btn btn-dark">Expired</button></td>
@@ -203,7 +203,7 @@ if (isset($_SESSION['nurse'])) {
                                                                             } else {
                                                                             ?>
                                                                                 <td><button class="btn btn-success">Accepted</button></td>
-                                                                                <td>-</td>
+                                                                                <td style="text-align: center;">-</td>
                                                                                 <td>
                                                                                     <div class="form-group">
                                                                                         <div class="col-sm-12 d-flex">
@@ -240,7 +240,7 @@ if (isset($_SESSION['nurse'])) {
                                                                         <td>
                                                                             <div class="form-group">
                                                                                 <div class="col-sm-12 d-flex">
-                                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $form; ?>')">open
+                                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $form; ?>','<?php echo $then->format('y-m-d H:i');?>')">open
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -355,12 +355,13 @@ if (isset($_SESSION['nurse'])) {
     ?>
 
 
-    function openModal(form) {
+    function openModal(form,t) {
         $.ajax({
             url: 'data_app.php',
             type: 'POST',
             data: {
-                id: form
+                id: form,
+                time:t
             },
             success: function(result) {
                 $('#data').html(result);

@@ -516,6 +516,8 @@ include '../connect.php';
     ?>
       if (confirm("Do Login To Make An Appointment")) {
         window.location.href = '../patient/login/login.php';
+      }else{
+        location.reload();
       }
     <?php
     }
@@ -525,6 +527,7 @@ include '../connect.php';
     document.getElementById('service_charge').value = charge;
 
     $('#Requested_appointment').modal('toggle');
+
   }
 </script>
 

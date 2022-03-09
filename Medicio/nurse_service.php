@@ -42,6 +42,11 @@ include '../connect.php';
       box-sizing: border-box;
     }
 
+    #error {
+      color: red;
+      display: none;
+    }
+
     .box {
       width: 100%;
       padding: 20px;
@@ -412,7 +417,8 @@ include '../connect.php';
                 </tr>
                 <tr>
                   <td><b>Date-Time :</b></td>
-                  <td><input type="text" autocomplete="off" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="datetime" name="date_time" />
+                  <td><b><span id="error">Select Correct Time</span></b>
+                    <input type="text" autocomplete="off" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="datetime" name="date_time" />
                   </td>
                 </tr>
                 <tr>
@@ -457,7 +463,7 @@ include '../connect.php';
 
             </div>
             <div class="modal-footer">
-              <button type="submit" name="submit" style="background-color:#3fbbc0;color:white;padding: 10px;border:#3fbbc0;border-radius:5px;" class="button button1">Send Request</button>
+              <button type="submit" id="send" name="submit" style="background-color:#3fbbc0;color:white;padding: 10px;border:#3fbbc0;border-radius:5px;" class="button button1">Send Request</button>
             </div>
         </form>
       </div>
@@ -498,7 +504,20 @@ include '../connect.php';
     $('#datetime').datetimepicker({
       step: 5,
       minDate: 0,
-      format: 'Y-m-d H:i'
+      minTime: '07:00',
+      maxTime: '20:00',
+      format: 'Y-m-d H:i',
+      onChangeDateTime: function(d) {     
+        if (d < new Date()) { 
+          document.getElementById('error').style.display="inline-block";
+          document.getElementById('send').disabled=true;
+          document.getElementById('send').style.background='grey';
+        }else{
+          document.getElementById('error').style.display="none";
+          document.getElementById('send').disabled=false;
+          document.getElementById('send').style.background='#3fbbc0';
+        }
+      }
     });
   });
 
@@ -516,7 +535,7 @@ include '../connect.php';
     ?>
       if (confirm("Do Login To Make An Appointment")) {
         window.location.href = '../patient/login/login.php';
-      }else{
+      } else {
         location.reload();
       }
     <?php

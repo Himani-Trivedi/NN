@@ -160,7 +160,7 @@ if (isset($_SESSION['nurse'])) {
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Charges</label>
                                         <div class="col-md-12">
-                                            <input type="text" class="form-control ps-0 form-control-line" disabled id="charge" value="0">
+                                            <input type="text" class="form-control ps-0 form-control-line" disabled id="charge">
                                         </div>
                                     </div>
 
@@ -261,7 +261,7 @@ if (isset($_SESSION['nurse'])) {
                         <div class="form-group">
                             <label class="col-md-12 mb-0">Charges</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control ps-0 form-control-line" name="charge" required value="0">
+                                <input type="number" min="10" class="form-control ps-0 form-control-line" name="charge" required value="10">
                             </div>
                         </div>
                 </div>

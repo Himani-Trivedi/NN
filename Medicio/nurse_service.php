@@ -211,7 +211,7 @@ include '../connect.php';
                   if ($result) {
                     while ($row = mysqli_fetch_assoc($result)) {
                 ?>
-                      <option><?php echo $row['service_name']; ?></option>
+                      <option value="<?php echo $row['service_name']; ?>"><?php echo $row['service_name']; ?></option>
                 <?php
                     }
                   } else {
@@ -235,7 +235,7 @@ include '../connect.php';
                   if ($result) {
                     while ($row = mysqli_fetch_assoc($result)) {
                 ?>
-                      <option><?php echo $row['area_name']; ?></option>
+                      <option value="<?php echo $row['area_name']; ?>"><?php echo $row['area_name']; ?></option>
                 <?php
                     }
                   } else {

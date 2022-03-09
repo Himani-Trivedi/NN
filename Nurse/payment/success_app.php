@@ -8,7 +8,7 @@ require_once '../../fpdf/fpdf.php';
 if ($_REQUEST['nurse']) {
     $n = $_REQUEST['nurse'];
     $id = $_REQUEST['form'];
-    $mon = $_REQUEST['mon'];
+    $mon = $_REQUEST['mon']/100;
 
     $sql = "UPDATE `request_form` SET `Status`=2 WHERE `Request_id`=$id";
     $result = mysqli_query($con, $sql);
@@ -105,7 +105,7 @@ $pdf->Ln(10);
 
 $pdf->Cell(0, 10, "Service :", 0, 0, 'L');
 $pdf->Cell(0, 10, $service, 0, 2, 'R');
-$pdf->Cell(0, 10, $charge/100 . " Rs.", 0, 1, 'R');
+$pdf->Cell(0, 10, $charge . " Rs.", 0, 1, 'R');
 $pdf->Ln(10);
 
 $pdf->Cell(0, 10, "Thanks for your payment", 1, 0, 'C');
@@ -113,6 +113,18 @@ $pdf->Cell(0, 10, "Thanks for your payment", 1, 0, 'C');
 $file = time() . "payment_receipt" . '.pdf';
 $pdf->output($file, 'I');
 
-header("location:../profile/App.php");
+$file = time() . "payment_receipt" . '.pdf';
+$dest='../../Nurse/Nurse_signup/upload/'.$file;
+
+$sql = "UPDATE `request_form` SET `receipt`='$dest' WHERE `Request_id`=$id";
+$result = mysqli_query($con, $sql);
+
+if (!$result) {
+    die(mysqli_error($con));
+}
+
+$pdf->output($dest, 'F');
+
+header("location:../system_nurses/booked_app.php");
 
 ob_end_flush();

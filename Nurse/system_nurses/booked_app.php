@@ -229,12 +229,14 @@ if (isset($_SESSION['nurse'])) {
                                                 $email = $row['nurse_email'];
                                                 $status = $row['Status'];
                                                 $time = $row['Service_Date_Time'];
+                                                $r = $row['receipt'];
 
                                                 date_default_timezone_set("Asia/Calcutta");
+
                                                 $now = new DateTime("now");
                                                 $then = new DateTime($time);
                                                 $then->add(new DateInterval('PT60M'));
-                                                // $diff = $now->diff($then);
+
 
                                                 $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email'";
                                                 $result_nurse = mysqli_query($con, $sql_nurse);
@@ -246,51 +248,75 @@ if (isset($_SESSION['nurse'])) {
                                                     <td id="Servicename"><?php echo $name; ?></td>
                                                     <td id="Nurseemail"><?php echo $row_nurse['name']; ?></td>
                                                     <?php
+
                                                     if ($status == 0) {
+                                                        if ($now > $then) {
                                                     ?>
-                                                        <td><button class="btn btn-warning">Pending</button></td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                            <td><button class="btn btn-dark">Expired</button></td>
+                                                            <td style="text-align: center;">-</td>
+                                                            <td style="text-align: center;">-</td>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            <td><button class="btn btn-warning">Pending</button></td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 d-flex">
+                                                                        <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>-</td>
-                                                    <?php
+                                                            </td>
+                                                            <td style="text-align: center;">-</td>
+                                                        <?php
+                                                        }
                                                     } else if ($status == 1) {
-                                                    ?>
-                                                        <td><button class="btn btn-success">Accepted</button></td>
+                                                        if ($now > $then) {
+                                                        ?>
+                                                            <td><button class="btn btn-dark">Expired</button></td>
+                                                            <td style="text-align: center;">-</td>
+                                                            <td style="text-align: center;">-</td>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            ?>
+                                                            <td><button class="btn btn-success">Accepted</button></td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 d-flex">
+                                                                        <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href='../payment/payment.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">
+                                                                    <button class="btn btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Payment</button>
+                                                                </a>
+                                                            </td>
+                                                        <?php
+                                                        }
+                                                    } else if ($status == 2) {
+                                                        ?>
+                                                        <td><button class="btn button1">Completed</button></td>
+                                                        <td style="text-align: center;">-</td>
                                                         <td>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12 d-flex">
-                                                                    <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:grey ; border:0px" onclick="window.location.href='<?php echo $r; ?>'">Receipt</button>
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>
-                                                            <a href='../payment/payment.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">
-                                                                <button class="btn btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Payment</button>
-                                                            </a>
-                                                        </td>
-                                                    <?php
-                                                    } else if ($status == 2) {
-                                                    ?>
-                                                        <td><button class="btn button1">Completed</button></td>
-                                                        <td>-</td>
-                                                        <td>-</td>
                                                     <?php
                                                     } else if ($status == -1) {
                                                     ?>
                                                         <td><button class="btn btn-danger">Cancled</button></td>
-                                                        <td>-</td>
-                                                        <td>-</td>
+                                                        <td style="text-align: center;">-</td>
+                                                        <td style="text-align: center;">-</td>
                                                     <?php
                                                     } else {
                                                     ?>
                                                         <td><button class="btn btn-dark">Expired</button></td>
-                                                        <td>-</td>
-                                                        <td>-</td>
+                                                        <td style="text-align: center;">-</td>
+                                                        <td style="text-align: center;">-</td>
                                                     <?php
                                                     }
                                                     ?> <td>
@@ -303,7 +329,6 @@ if (isset($_SESSION['nurse'])) {
                                                     </td>
                                                 <?php
                                             } ?>
-
                                                 </tr>
                                         </tbody>
                                     </table>

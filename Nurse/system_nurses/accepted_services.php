@@ -175,25 +175,33 @@ if (isset($_SESSION['nurse'])) {
                                                                         $status = $row['Status'];
 
                                                                         if ($status == 0) {
+                                                                            if ($now > $then) {
                                                                         ?>
-                                                                            <td><button class="btn btn-warning">Pending</button></td>
-                                                                            <td>
-                                                                                <div class="form-group">
-                                                                                    <div class="col-sm-12 d-flex">
-                                                                                        <a href='a_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-check-circle"></i></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="form-group">
-                                                                                    <div class="col-sm-12 d-flex">
-                                                                                        <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
+                                                                                <td><button class="btn btn-dark">Expired</button></td>
+                                                                                <td style="text-align: center;">-</td>
+                                                                                <td style="text-align: center;">-</td>
                                                                             <?php
+                                                                            } else {
+                                                                            ?>
+                                                                                <td><button class="btn btn-warning">Pending</button></td>
+                                                                                <td>
+                                                                                    <div class="form-group">
+                                                                                        <div class="col-sm-12 d-flex">
+                                                                                            <a href='a_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-check-circle"></i></a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="form-group">
+                                                                                        <div class="col-sm-12 d-flex">
+                                                                                            <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            <?php
+                                                                            }
                                                                         } else if ($status == 1) {
-                                                               
+
                                                                             if ($now > $then) {
                                                                             ?>
                                                                                 <td><button class="btn btn-dark">Expired</button></td>
@@ -240,7 +248,7 @@ if (isset($_SESSION['nurse'])) {
                                                                         <td>
                                                                             <div class="form-group">
                                                                                 <div class="col-sm-12 d-flex">
-                                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $form; ?>','<?php echo $then->format('y-m-d H:i');?>')">open
+                                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $form; ?>','<?php echo $then->format('y-m-d H:i'); ?>')">open
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -355,13 +363,13 @@ if (isset($_SESSION['nurse'])) {
     ?>
 
 
-    function openModal(form,t) {
+    function openModal(form, t) {
         $.ajax({
             url: 'data_app.php',
             type: 'POST',
             data: {
                 id: form,
-                time:t
+                time: t
             },
             success: function(result) {
                 $('#data').html(result);

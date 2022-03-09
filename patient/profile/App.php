@@ -177,16 +177,14 @@ if (isset($_SESSION['user'])) {
                                                 </th>
                                                 <th class="border-top-0">
                                                     <H6>Open</H6>
-                                                </th>
+                                                </th>                                            
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
 
-
                                             $sql = "select * from `request_form` where `User_Email`='$user'";
                                             $result = mysqli_query($con, $sql);
-
 
                                             if (!$result) {
                                                 echo "error";
@@ -198,11 +196,12 @@ if (isset($_SESSION['user'])) {
                                                 $name = $row['service_name'];
                                                 $formId = $row['Request_id'];
                                                 $email = $row['nurse_email'];
+                                                $r=$row['receipt'];
 
                                                 $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email'";
                                                 $result_nurse = mysqli_query($con, $sql_nurse);
                                                 $row_nurse = mysqli_fetch_assoc($result_nurse);
-
+                                            
                                                 $status = $row['Status'];
                                                 $time = $row['Service_Date_Time'];
                                             ?>
@@ -212,6 +211,20 @@ if (isset($_SESSION['user'])) {
                                                     <td id="Nurseemail"><?php echo $row_nurse['name']; ?></td>
                                                     <?php
                                                     if ($status == 0) {
+
+                                                        date_default_timezone_set("Asia/Calcutta");
+
+                                                        $now = new DateTime("now");
+                                                        $then = new DateTime($time);
+                                                        $then->add(new DateInterval('PT60M'));
+
+                                                        if ($now > $then) {
+                                                        ?>
+                                                            <td><button class="btn btn-dark">Expired</button></td>
+                                                            <td style="text-align: center;">-</td>
+                                                            <td style="text-align: center;">-</td>
+                                                        <?php
+                                                        } else {
                                                     ?>
                                                         <td><button class="btn btn-warning">Pending</button></td>
                                                         <td>
@@ -223,6 +236,7 @@ if (isset($_SESSION['user'])) {
                                                         </td>
                                                         <td style="text-align: center;">-</td>
                                                         <?php
+                                                        }
                                                     } else if ($status == 1) {
                                                         date_default_timezone_set("Asia/Calcutta");
 
@@ -260,7 +274,13 @@ if (isset($_SESSION['user'])) {
                                                         ?>
                                                         <td><button class="btn button1">Completed</button></td>
                                                         <td style="text-align: center;">-</td>
-                                                        <td style="text-align: center;">-</td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12 d-flex">
+                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:grey ; border:0px" onclick="window.location.href='<?php echo $r;?>'">Receipt</button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                     <?php
                                                     } else if ($status == -1) {
                                                     ?>

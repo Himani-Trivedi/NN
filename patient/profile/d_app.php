@@ -2,6 +2,7 @@
 include '../../connect.php';
 
 $id = $_POST['id'];
+$t=$_POST['time'];
 $sql = "SELECT * FROM `request_form` where `Request_id`=$id";
 if ($con) {
     $result = mysqli_query($con, $sql);
@@ -77,6 +78,11 @@ if ($con) {
                         ?>
                         <td><b>Pincode :</b></td>
                         <td><input type="PINCODE" value=" <?php echo $pin; ?>" style=" border-color:lightgrey;padding:5px;border-radius:5px;" id="pincode" name="Pincode" placeholder="380007" maxlength="30" readonly />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Expires at :</b></td>
+                        <td><input type="PINCODE" value="<?php echo $t;?>" style=" border-color:lightgrey;padding:5px;border-radius:5px;" id="pincode" name="Pincode" placeholder="380007" maxlength="30" readonly />
                         </td>
                     </tr>
                 </table>

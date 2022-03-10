@@ -52,7 +52,7 @@ include '../connect.php';
         <i class="bi bi-clock"></i> Monday - Sunday, 7AM to 10PM
       </div>
       <div class="d-flex align-items-center">
-        <i class="bi bi-phone"></i> Call us now +1 5589 55488 55
+        <i class="bi bi-phone"></i> Call us now +91 7926301285
       </div>
     </div>
   </div>
@@ -109,8 +109,8 @@ include '../connect.php';
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
-     <!-- <a class="appointment-btn scrollto" onclick="isLog()"><span class="d-none d-md-inline" data-bs-toggle="modal" data-bs-target="#appointment">Make an</span> Appointment</a> -->
-      
+      <!-- <a class="appointment-btn scrollto" onclick="isLog()"><span class="d-none d-md-inline" data-bs-toggle="modal" data-bs-target="#appointment">Make an</span> Appointment</a> -->
+
     </div>
   </header><!-- End Header -->
 
@@ -360,7 +360,7 @@ include '../connect.php';
       </div>
     </section><!-- End Services Section -->
 
-    <!-- ======= Appointment Section ======= --> 
+    <!-- ======= Appointment Section ======= -->
     <!-- <section id="appointment" class="appointment section-bg">
       <div class="container" data-aos="fade-up">
 
@@ -438,21 +438,22 @@ include '../connect.php';
                 <div class="info-box">
                   <i class="bx bx-map"></i>
                   <h3>Our Address</h3>
-                  <p>A108 Adam Street, New York, NY 535022</p>
+                  <p>GOVERNMENT POLYTECHNIC, AHMEDABAD<br>
+                    Ambawadi, Ahmedabad, Pincode: 380015</p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="info-box mt-4">
                   <i class="bx bx-envelope"></i>
                   <h3>Email Us</h3>
-                  <p>info@example.com<br>contact@example.com</p>
+                  <p>principal@gpahmedabad.ac.in<br>ht1872004@gmail.com</p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="info-box mt-4">
                   <i class="bx bx-phone-call"></i>
                   <h3>Call Us</h3>
-                  <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+                  <p>+91 7926301285<br>+91 98797 09675</p>
                 </div>
               </div>
             </div>
@@ -500,15 +501,15 @@ include '../connect.php';
             <div class="footer-info">
               <h3>NEIGHBOURING NURSE</h3>
               <p>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> neighbouringnurse@gmail.com<br>
+                <strong>Phone:</strong> +91 7926301285<br>
+                <strong>Email:</strong>ht1872004@gmail.com <br>
               </p>
               <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                <a href="https://twitter.com/HT18704" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="https://www.facebook.com/himani.trivedi.796" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="https://www.instagram.com/aashi.120_/" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="https://join.skype.com/invite/YzOuB9mokAFu" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="https://www.linkedin.com/in/aashi-shah-7ab11a203" class="linkedin"><i class="bx bxl-linkedin"></i></a>
               </div>
             </div>
           </div>
@@ -520,7 +521,7 @@ include '../connect.php';
               <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li> -->
             </ul>
           </div>
           <div class="col-lg-4 col-md-6 footer-newsletter">

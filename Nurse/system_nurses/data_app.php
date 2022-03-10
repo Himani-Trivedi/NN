@@ -79,7 +79,7 @@ if ($con) {
                         $pin = $row['Pincode'];
                         $sql1 = "SELECT * FROM `location` WHERE `Pincode` = $pin";
                         $result1 = mysqli_query($con, $sql1);
-                        $row1 = mysqli_fetch_assoc($result1)
+                        $row1 = mysqli_fetch_assoc($result1);
                         ?>
 
                         <td><b>Area :</b></td>

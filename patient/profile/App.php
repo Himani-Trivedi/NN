@@ -177,7 +177,7 @@ if (isset($_SESSION['user'])) {
                                                 </th>
                                                 <th class="border-top-0">
                                                     <H6>Open</H6>
-                                                </th>                                            
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -196,14 +196,20 @@ if (isset($_SESSION['user'])) {
                                                 $name = $row['service_name'];
                                                 $formId = $row['Request_id'];
                                                 $email = $row['nurse_email'];
-                                                $r=$row['receipt'];
+                                                $r = $row['receipt'];
 
                                                 $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email'";
                                                 $result_nurse = mysqli_query($con, $sql_nurse);
                                                 $row_nurse = mysqli_fetch_assoc($result_nurse);
-                                            
+
                                                 $status = $row['Status'];
                                                 $time = $row['Service_Date_Time'];
+
+                                                date_default_timezone_set("Asia/Calcutta");
+
+                                                $now = new DateTime("now");
+                                                $then = new DateTime($time);
+                                                $then->add(new DateInterval('PT60M'));
                                             ?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
@@ -216,25 +222,47 @@ if (isset($_SESSION['user'])) {
 
                                                         $now = new DateTime("now");
                                                         $then = new DateTime($time);
-                                                        $then->add(new DateInterval('PT60M'));
 
                                                         if ($now > $then) {
-                                                        ?>
+
+                                                            // Set status=-3 as it is expired
+                                                            $up_status = -3;
+
+                                                            $sql = "UPDATE `request_form` SET `Status`=-3 where `Request_id`=$formId";
+                                                            $result = mysqli_query($con, $sql);
+
+                                                            $sql_u = "select * from `requested_nurse` where `email`='$email'";
+                                                            $result_u = mysqli_query($con, $sql_u);
+                                                            $row_n = mysqli_fetch_assoc($result_u);
+                                                            $nurse_mail = $row_n['email2'];
+                                                            $nname=$row_n['name'];
+                                                            sendMail($nurse_mail, "Your Pending appointement for $name at $time has expired");
+
+
+                                                            $sql_u = "select * from `patient` where `Email`='$user'";
+                                                            $result_u = mysqli_query($con, $sql_u);
+                                                            $row_n = mysqli_fetch_assoc($result_u);
+                                                            $u_name = $row_n['Name'];
+                                                            $u_email = $row_n['email2'];
+
+                                                            sendMail($u_email, "Your Pending appointement request for sname at $time has expired as $nname hasn't accepted the appointment");
+
+                                                    ?>
                                                             <td><button class="btn btn-dark">Expired</button></td>
                                                             <td style="text-align: center;">-</td>
                                                             <td style="text-align: center;">-</td>
                                                         <?php
                                                         } else {
-                                                    ?>
-                                                        <td><button class="btn btn-warning">Pending</button></td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <a href='d_service.php?id=<?php echo $formId; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                        ?>
+                                                            <td><button class="btn btn-warning">Pending</button></td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 d-flex">
+                                                                        <a href='d_service.php?id=<?php echo $formId; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td style="text-align: center;">-</td>
+                                                            </td>
+                                                            <td style="text-align: center;">-</td>
                                                         <?php
                                                         }
                                                     } else if ($status == 1) {
@@ -245,6 +273,30 @@ if (isset($_SESSION['user'])) {
                                                         $then->add(new DateInterval('PT60M'));
 
                                                         if ($now > $then) {
+
+                                                            $sql = "UPDATE `request_form` SET `Status`=-3 where `Request_id`=$formId";
+                                                            $result = mysqli_query($con, $sql);
+
+                                                            $sql_u = "select * from `requested_nurse` where `email`='$email'";
+                                                            $result_u = mysqli_query($con, $sql_u);
+                                                            $row_n = mysqli_fetch_assoc($result_u);
+                                                            $nurse_mail = $row_n['email2'];
+                                                            $nurse_name=$row_n['name'];
+                                                            $bal=$row_n['acc_balance'];
+                                                            sendMail($nurse_mail, "Your appointement for $name at $time has expired so you are charged with 100 Rs. which is deducted from your Neighbouring Nurse account.");
+
+                                                            $new=($bal-100);
+                                                           
+                                                            $sql_u = "update `requested_nurse` set `acc_balance`=$new where `email`='$email'";
+                                                            $result_u = mysqli_query($con, $sql_u);
+
+                                                            $sql_u = "select * from `patient` where `Email`='$user'";
+                                                            $result_u = mysqli_query($con, $sql_u);
+                                                            $row_n = mysqli_fetch_assoc($result_u);
+                                                            $u_name = $row_n['Name'];
+                                                            $u_email = $row_n['email2'];
+                                                            sendMail($u_email, "Sorry for our inconvenience as $nurse_name hasn't come for your $name service. We request you to book another appointment for your service from our website");
+
                                                         ?>
                                                             <td><button class="btn btn-dark">Expired</button></td>
                                                             <td style="text-align: center;">-</td>
@@ -277,7 +329,7 @@ if (isset($_SESSION['user'])) {
                                                         <td>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12 d-flex">
-                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:grey ; border:0px" onclick="window.location.href='<?php echo $r;?>'">Receipt</button>
+                                                                    <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:grey ; border:0px" onclick="window.location.href='<?php echo $r; ?>'">Receipt</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -294,11 +346,17 @@ if (isset($_SESSION['user'])) {
                                                         <td style="text-align: center;">-</td>
                                                         <td style="text-align: center;">-</td>
                                                     <?php
+                                                    } else if ($status == -3) {
+                                                    ?>
+                                                        <td><button class="btn btn-dark">Expired</button></td>
+                                                        <td style="text-align: center;">-</td>
+                                                        <td style="text-align: center;">-</td>
+                                                    <?php
                                                     }
                                                     ?> <td>
                                                         <div class="form-group">
                                                             <div class="col-sm-12 d-flex">
-                                                                <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $formId; ?>')">open </button>
+                                                                <button type="button" class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px" onclick="openModal('<?php echo $formId; ?>','<?php echo $then->format('y-m-d H:i'); ?>')">open </button>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -315,6 +373,20 @@ if (isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
+
+
+    <?php
+
+    function sendMail($nurse_mail, $body)
+    {
+        $subject = "Neighbouring Nurse ";
+        $headers = "From: ht1872004@gmail.com";
+
+        if (mail($nurse_mail, $subject, $body, $headers)) {
+            return true;
+        }
+    }
+    ?>
 
     <!-- Open modal -->
     <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -333,12 +405,13 @@ if (isset($_SESSION['user'])) {
 
 </body>
 <script>
-    function openModal(form) {
+    function openModal(form,t) {
         $.ajax({
             url: 'd_app.php',
             type: 'POST',
             data: {
-                id: form
+                id: form,
+                time:t
             },
             success: function(result) {
                 $('#data').html(result);

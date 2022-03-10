@@ -186,10 +186,6 @@ if (isset($_SESSION['user'])) {
                                             $sql = "select * from `request_form` where `User_Email`='$user'";
                                             $result = mysqli_query($con, $sql);
 
-                                            if (!$result) {
-                                                echo "error";
-                                            }
-
                                             $i = 0;
                                             while ($row = mysqli_fetch_assoc($result)) {
                                                 $i++;
@@ -235,7 +231,7 @@ if (isset($_SESSION['user'])) {
                                                             $result_u = mysqli_query($con, $sql_u);
                                                             $row_n = mysqli_fetch_assoc($result_u);
                                                             $nurse_mail = $row_n['email2'];
-                                                            $nname=$row_n['name'];
+                                                            $nname = $row_n['name'];
                                                             sendMail($nurse_mail, "Your Pending appointement for $name at $time has expired");
 
 
@@ -281,12 +277,12 @@ if (isset($_SESSION['user'])) {
                                                             $result_u = mysqli_query($con, $sql_u);
                                                             $row_n = mysqli_fetch_assoc($result_u);
                                                             $nurse_mail = $row_n['email2'];
-                                                            $nurse_name=$row_n['name'];
-                                                            $bal=$row_n['acc_balance'];
+                                                            $nurse_name = $row_n['name'];
+                                                            $bal = $row_n['acc_balance'];
                                                             sendMail($nurse_mail, "Your appointement for $name at $time has expired so you are charged with 100 Rs. which is deducted from your Neighbouring Nurse account.");
 
-                                                            $new=($bal-100);
-                                                           
+                                                            $new = ($bal - 100);
+
                                                             $sql_u = "update `requested_nurse` set `acc_balance`=$new where `email`='$email'";
                                                             $result_u = mysqli_query($con, $sql_u);
 
@@ -374,20 +370,6 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
-
-    <?php
-
-    function sendMail($nurse_mail, $body)
-    {
-        $subject = "Neighbouring Nurse ";
-        $headers = "From: ht1872004@gmail.com";
-
-        if (mail($nurse_mail, $subject, $body, $headers)) {
-            return true;
-        }
-    }
-    ?>
-
     <!-- Open modal -->
     <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -405,13 +387,13 @@ if (isset($_SESSION['user'])) {
 
 </body>
 <script>
-    function openModal(form,t) {
+    function openModal(form, t) {
         $.ajax({
             url: 'd_app.php',
             type: 'POST',
             data: {
                 id: form,
-                time:t
+                time: t
             },
             success: function(result) {
                 $('#data').html(result);
@@ -419,6 +401,21 @@ if (isset($_SESSION['user'])) {
         });
         $('#Requested_appointment').modal('toggle');
     }
+
+    <?php
+    function sendMail($nurse_mail, $body)
+    {
+        $subject = "Neighbouring Nurse ";
+        $headers = "From: ht1872004@gmail.com";
+
+        if (mail($nurse_mail, $subject, $body, $headers)) {
+           echo "<script>
+            location.reload();
+            </script>
+           ";
+        }
+    }
+    ?>
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </script>

@@ -192,7 +192,7 @@ if (isset($_SESSION['nurse'])) {
                                                                                 $result_u = mysqli_query($con, $sql_u);
                                                                                 $row_n = mysqli_fetch_assoc($result_u);
                                                                                 $nurse_mail = $row_n['email2'];
-                                                                                $nname=$row_n['name'];
+                                                                                $nname = $row_n['name'];
                                                                                 sendMail($nurse_mail, "Your Pending appointement for $sname at $time has expired");
 
                                                                                 $email = $row['Uurse_Email'];
@@ -321,19 +321,6 @@ if (isset($_SESSION['nurse'])) {
             </div>
         </div>
     </div>
-
-    <?php
-
-    function sendMail($nurse_mail, $body)
-    {
-        $subject = "Neighbouring Nurse ";
-        $headers = "From: ht1872004@gmail.com";
-
-        if (mail($nurse_mail, $subject, $body, $headers)) {
-            return true;
-        }
-    }
-    ?>
     <div class="page-wrapper">
         <div class="container-fluid" id="box2" style="display: none;">
             <div class="row">
@@ -427,6 +414,21 @@ if (isset($_SESSION['nurse'])) {
     ?>
 
 
+    <?php
+    function sendMail($nurse_mail, $body)
+    {
+        $subject = "Neighbouring Nurse ";
+        $headers = "From: ht1872004@gmail.com";
+
+        if (mail($nurse_mail, $subject, $body, $headers)) {
+            echo "<script>
+            location.reload();
+            </script>
+           ";
+        }
+    }
+    ?>
+    
     function openModal(form, t) {
         $.ajax({
             url: 'data_app.php',

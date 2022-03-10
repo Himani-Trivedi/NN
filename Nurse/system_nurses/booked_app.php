@@ -388,18 +388,6 @@ if (isset($_SESSION['nurse'])) {
             </div>
         </div>
 
-        <?php
-
-        function sendMail($nurse_mail, $body)
-        {
-            $subject = "Neighbouring Nurse ";
-            $headers = "From: ht1872004@gmail.com";
-
-            if (mail($nurse_mail, $subject, $body, $headers)) {
-                return true;
-            }
-        }
-        ?>
         <div class="page-wrapper">
             <div class="container-fluid" id="box2" style="display: none;">
                 <div class="row">
@@ -470,6 +458,21 @@ if (isset($_SESSION['nurse'])) {
 
         $('#Requested_appointment').modal('toggle');
     }
+
+    <?php
+    function sendMail($nurse_mail, $body)
+    {
+        $subject = "Neighbouring Nurse ";
+        $headers = "From: ht1872004@gmail.com";
+
+        if (mail($nurse_mail, $subject, $body, $headers)) {
+           echo "<script>
+            location.reload();
+            </script>
+           ";
+        }
+    }
+    ?>
 
     <?php
 

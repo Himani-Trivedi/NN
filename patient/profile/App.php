@@ -48,7 +48,7 @@ if (isset($_SESSION['user'])) {
         }
 
         .button1 {
-            background-color: rgba(63, 187, 192, 255)
+            background-color: rgba(63, 187, 192, 255);
         }
 
         .Pending {
@@ -69,8 +69,6 @@ if (isset($_SESSION['user'])) {
         .Expire {
             background-color: Red;
         }
-
-        /* Green */
     </style>
 </head>
 
@@ -318,6 +316,12 @@ if (isset($_SESSION['user'])) {
                                                             </td>
                                                         <?php
                                                         }
+                                                    }else if ($status == 4) {
+                                                        ?>
+                                                        <td><button class="btn btn-warning">Waiting</button></td>
+                                                        <td style="text-align: center;">-</td>
+                                                        <td style="text-align: center;">-</td>
+                                                    <?php
                                                     } else if ($status == 2) {
                                                         ?>
                                                         <td><button class="btn button1">Completed</button></td>

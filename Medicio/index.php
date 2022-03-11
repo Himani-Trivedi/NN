@@ -528,7 +528,7 @@ include '../connect.php';
             <h4>Our Newsletter</h4>
             <p>You can see the furthur updates here.</p>
             <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+              <input type="email" name="email"><input type="submit" name="email_sub" value="Subscribe">
             </form>
           </div>
         </div>
@@ -540,7 +540,7 @@ include '../connect.php';
         &copy; Copyright <strong><span>Neighbouring Nurse</span></strong>. All Rights Reserved
       </div>
       <!-- <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
+         All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/medicio-free-bootstrap-theme/ -->
@@ -583,6 +583,26 @@ include '../connect.php';
 
     ?>
   }
+
+  <?php
+    if (isset($_POST['email_sub'])) {
+
+      $user=$_POST['email'];
+      $subject = "Neighbouring Nurse";
+      $body = "Dear, User 
+      You are successfully subscribed with us so now we will share you all our updates regarding Neighbouring Nurse on this $user";
+      $headers = "From: ht1872004@gmail.com";
+
+      if (mail($user, $subject, $body, $headers)) {
+           echo "alert('You are Subscribed with Us');";  
+           unset($_POST['email_sub']);                     
+      } else {
+          echo "alert('Try Again! Not Subscribed');";
+      }
+
+    }
+
+    ?>
 </script>
 
 </html>

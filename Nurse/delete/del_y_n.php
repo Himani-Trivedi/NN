@@ -47,10 +47,26 @@ if (isset($_REQUEST['email'])) {
 
         <h3>What do you want to do?</h3>
         <br>
-        <a href='../system_nurses/withdraw_del.php' class="btn btn-secondary">Withdraw Amount</a>
-        <a href="del_req_nurse.php?s=2" class="btn btn-secondary" style="background-color:rgba(63,187,192,255) ;">Delete Account
-        </a>
-        <a href='../system_nurses/profile.php' class="btn btn-secondary">Cancel</a>
+
+        <?php
+
+        if ($_REQUEST['s'] == 1) {
+        ?>
+            <a href="del_req_nurse.php?s=2" class="btn btn-secondary" style="background-color:rgba(63,187,192,255) ;">Delete Account
+            </a>
+            <a href='../system_nurses/profile.php' class="btn btn-secondary">Cancle</a>
+        <?php
+        } else {
+        ?>
+            <a href='../system_nurses/withdraw_del.php' class="btn btn-secondary">Withdraw Amount</a>
+            <a href="del_req_nurse.php?s=2" class="btn btn-secondary" style="background-color:rgba(63,187,192,255) ;">Delete Account
+            </a>
+            <a href='../system_nurses/profile.php' class="btn btn-secondary">Cancle</a>
+        <?php
+        }
+
+        ?>
+
     </div>
 </body>
 

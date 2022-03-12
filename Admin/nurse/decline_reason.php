@@ -55,10 +55,10 @@ if (isset($_REQUEST['email'])) {
                 <?php
 
                 if ($status == 0) {
-                    echo "<a href='req_nurses.php' class='btn btn-secondary'>Cancle</a>";
+                    echo "<a href='req_nurses.php' class='btn btn-secondary'>Cancel</a>";
                 } else {
                     echo "
-                         <a href='accepted_nurses.php?re=1' class='btn btn-secondary'>Cancle</a>
+                         <a href='accepted_nurses.php?re=1' class='btn btn-secondary'>Cancel</a>
                         ";
                 }
               ?>

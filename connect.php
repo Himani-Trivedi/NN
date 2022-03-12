@@ -5,5 +5,3 @@
     $password='';
     $con=mysqli_connect($host,$user,$password,'nn_db');
 ?>
-
-<!-- Himani@123456 -->

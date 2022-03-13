@@ -55,7 +55,7 @@ if (isset($_SESSION['nurse'])) {
                     <ul class="navbar-nav me-auto mt-md-0 ">
                         <li class="nav-item hidden-sm-down">
                             <!-- <i class="me-3 fa fa-user" aria-hidden="true"></i> -->
-                            <span class="hide-menu" style="color:white;font-size: 20px; padding-left: 30px;">Certificates</span></a>
+                            <span class="hide-menu" style="color:white;font-size: 20px; padding-left: 30px;">Experiences</span></a>
                         </li>
                     </ul>
 

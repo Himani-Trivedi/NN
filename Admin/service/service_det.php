@@ -36,12 +36,12 @@ if ($con) {
                     <input type='text' class='form-control ps-0 form-control-line' value='<?php echo "{$row['Added_time']}"; ?>' disabled>
                 </div>
             </div>
-            <div class='form-group'>
+            <!-- <div class='form-group'>
                 <label class='col-md-12 mb-0'>Modified By</label>
                 <div class='col-md-12'>
                     <input type='text' class='form-control ps-0 form-control-line' value='<?php echo "{$row['Modified_By']}"; ?>' disabled>
                 </div>
-            </div>
+            </div> -->
             <div class='form-group'>
                 <div class='col-sm-12 d-flex'>
                     <button type='button' class='btn btn-success mx-4 me-md-3 text-white' style='background-color:rgba(63,187,192,255); border:0px' data-bs-toggle='modal' data-bs-target='#exampleModal'>Add</button>

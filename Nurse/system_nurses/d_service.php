@@ -18,6 +18,7 @@ if ($con) {
         $sql_user = "SELECT * FROM `patient` WHERE `Email`='$u_mail'";
         $result_user = mysqli_query($con, $sql_user);
         $row_user = mysqli_fetch_assoc($result_user);
+        $user_mail=$row_user['email2'];
 
         $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$n_mail'";
         $result_nurse = mysqli_query($con, $sql_nurse);
@@ -29,7 +30,7 @@ if ($con) {
         $subject = "Neighbouring Nurse";
         $body = "$n_email has refused for your requested appointment, for $ser at $loc @$time";
         $headers = "From: ht1872004@gmail.com";
-        $to_email =$n_email;
+        $to_email =$user_mail;
 
         if (!mail($to_email, $subject, $body, $headers)) {
             die(mysqli_error($con));

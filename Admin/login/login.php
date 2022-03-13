@@ -90,6 +90,9 @@ if (!isset($_SESSION['access_token'])) {
             text-align: center;
         }
 
+        a{
+            text-decoration: none;
+        }
         body {
             margin: 0;
             overflow: hidden;

@@ -2,7 +2,7 @@
 
 <?php
 
-
+include '../../connect.php';
 include('config.php');
 
 $login_button = '';
@@ -28,8 +28,6 @@ if (isset($_GET["code"])) {
         if (!empty($data['email'])) {
             $u = $data['email'];
             $u = md5($u);
-
-            include '../../connect.php';
 
             if (!$con) {
                 die("Not connected to db");
@@ -64,8 +62,38 @@ if (isset($_GET["code"])) {
     }
 }
 
-if (!isset($_SESSION['access_token'])) {
+if (isset($_POST['sub'])) {
+    $user = md5($_POST['user']);
+    $pass = md5($_POST['pass']);
+    $sql = "select * from patient where Email='$user' and password='$pass' ";
+    $r = mysqli_query($con, $sql);
+    $row = mysqli_num_rows($r);
 
+    if ($row == 1) {
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        $nurse = $user;
+
+        $sql_login = "INSERT INTO `patientlogin`(`Email`, `IP_address`,`Time`) VALUES ('$nurse','$ipaddress',CURRENT_TIMESTAMP())";
+        $result_login = mysqli_query($con, $sql_login);
+
+        if ($result_login) {
+            $_SESSION['user'] = $user;
+            header('location:../profile/profile.php');
+        } else {
+            echo ("<script>alert('Login Failed! Try Again ')</script>");
+        }
+    } else {
+        echo "<script>alert('No Such Account')</script>";
+    }
+}
+
+
+if (!isset($_SESSION['access_token'])) {
+    $login_button = '<a href="' . $google_client->createAuthUrl() . '" role="button" style="text-transform:none" class="btn btn-outline-dark">
+    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+    Login With Google
+    </a>';
+}else{
     $login_button = '<a href="' . $google_client->createAuthUrl() . '" role="button" style="text-transform:none" class="btn btn-outline-dark">
     <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
     Login With Google
@@ -80,7 +108,7 @@ if (!isset($_SESSION['access_token'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-   
+
     </script>
     <style>
         h3 {
@@ -224,12 +252,10 @@ if (!isset($_SESSION['access_token'])) {
     </style>
 </head>
 
-
-
 <body>
     <a href='../../Medicio/index.php' style="decoration:none;"><i style="padding:4px" class="fa fa-arrow-left"></i> Back to home</a>
     <div class="main">
-        <form class="form" method="POST" action="logincheck.php">
+        <form class="form" method="POST">
             <table class="tb1">
                 <tr>
                     <td>

@@ -44,7 +44,6 @@
               <li>At least 2 years of experience</li>
               <li>You have to pay 1000 Rs as deposite to first create account after your profile gets approval.</li></li>
               <li>You have to complete the accepted service otherwise 100 Rs. will be deducted from the account.</li>
-             <li>If you fail to complete more than 2 accepted services then your account will be deleted from the system.</li>
           </p>
           <label><input type="checkbox" required name="terms" value="1"/>I accept the terms & condtions of nieghboring nurse
           </label>

@@ -167,7 +167,10 @@
                     <td><input type="password" placeholder="New Password" class="txt" name="newpass" required min="10"></td>
                 </tr>
 				<tr>
-                    <td><input type="password" placeholder="Verify New Password" class="txt" name="cnewpass" required></td>
+                    <td><input type="password" placeholder="Verify New Password" 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    class="txt" name="cnewpass" required></td>
                 </tr>
 				
 				<tr>

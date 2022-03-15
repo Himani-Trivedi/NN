@@ -303,7 +303,10 @@ function check_nurse($a)
                     <td><input type="mail" placeholder="Email Address" class="txt" name="uname" required></td>
                 </tr>
                 <tr>
-                    <td><input type="password" placeholder="Password" class="txt" name="pass" required></td>
+                    <td><input type="password" placeholder="Password" 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    class="txt" name="pass" required></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>

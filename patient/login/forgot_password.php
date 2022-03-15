@@ -1,19 +1,20 @@
 <?php
-    include '../../connect.php';
+include '../../connect.php';
 
-    if(isset($_REQUEST['email'])){
-        $mail=$_REQUEST['email'];
-    }
+if (isset($_REQUEST['email'])) {
+    $mail = $_REQUEST['email'];
+}
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Forgot Password</title>
     <link href="../../logo.jpeg" rel="icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <style>
         body {
             margin: 0;
@@ -59,13 +60,13 @@
             width: 100%;
             padding: 10px;
             border: none;
-            background-color:#3fbbc0;
+            background-color: #3fbbc0;
             color: white;
             letter-spacing: 1px;
         }
 
         .btn:hover {
-            background-color: rgba(63,187,192,0.7);
+            background-color: rgba(63, 187, 192, 0.7);
         }
 
         h1 {
@@ -163,14 +164,17 @@
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
-				<tr>
-                    <td><input type="password" placeholder="New Password" class="txt" name="newpass" required min="10"></td>
+                <tr>
+                    <td><input type="password" placeholder="New Password" class="txt" 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                     name="newpass" required></td>
                 </tr>
-				<tr>
+                <tr>
                     <td><input type="password" placeholder="Verify New Password" class="txt" name="cnewpass" required></td>
                 </tr>
-				
-				<tr>
+
+                <tr>
                     <td>&nbsp;</td>
                 </tr>
                 <td>
@@ -184,38 +188,39 @@
     </div>
 </body>
 <script>
-     <?php
-        if(isset($_POST['reset_pass'])){
+    <?php
+    if (isset($_POST['reset_pass'])) {
 
-                if($_POST['newpass'] == $_POST['cnewpass']){
-                    $pass=$_POST['newpass'];
-                    $pass=md5($pass);
+        if ($_POST['newpass'] == $_POST['cnewpass']) {
+            $pass = $_POST['newpass'];
+            $pass = md5($pass);
 
-                    if(!$con){
-                        die("Not connected to db");
-                    }
-                    
-                    $sql = "UPDATE `patient2` SET `password`='$pass' WHERE `Email`='$mail';";
-            
-                    $r = mysqli_query($con, $sql);
-                    try {
-                        if ($r) {
-                            ?>
-                    if(confirm("Password Updated")){
-                            window.location.href='login.php';
-                    }
-                <?php
-                          
-                        }else{
-                            die(mysqli_error($con));
-                        }
-                    } catch (Exception $e) {
-                        echo "There is Technical Problem ";
-                    }
-            }else{
-                echo "alert('Both Password must be same');";
+            if (!$con) {
+                die("Not connected to db");
             }
+
+            $sql = "UPDATE `patient` SET `password`='$pass' WHERE `Email`='$mail';";
+
+            $r = mysqli_query($con, $sql);
+            try {
+                if ($r) {
+    ?>
+                    if (confirm("Password Updated")) {
+                        window.location.href = 'login.php';
+                    }
+    <?php
+
+                } else {
+                    die(mysqli_error($con));
+                }
+            } catch (Exception $e) {
+                echo "There is Technical Problem ";
+            }
+        } else {
+            echo "alert('Both Password must be same');";
         }
+    }
     ?>
 </script>
+
 </html>

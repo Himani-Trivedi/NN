@@ -67,7 +67,7 @@ if (!(isset($_SESSION['patient']['email']))) {
           <div class="item">
             <label for="pass">Password<span>*</span></label>
             <label id="error" style="color:red;display:none;">Password Must Be Same</label>
-            <input id="pass" type="password" name="password" required style="color: black;">
+            <input id="pass" type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required style="color: black;">
           </div>
 
           <div class="item">
@@ -97,7 +97,7 @@ if (!(isset($_SESSION['patient']['email']))) {
       if ($_POST['confirm_pass'] == $_POST['password']) {
         $fname = $_REQUEST['fname'];
         $confirm_pass = $_REQUEST['confirm_pass'];
-        $confirm_pass=md5($confirm_pass);
+        $confirm_pass = md5($confirm_pass);
         $phone = $_REQUEST['phone'];
         $email = $_SESSION['patient']['email'];
         $e = md5($email);
@@ -106,8 +106,8 @@ if (!(isset($_SESSION['patient']['email']))) {
         if (mysqli_query($con, $sql)) {
           header('location:../login/login.php');
         }
-      }else{
-        echo"alert('Both Password Must BE Same')";
+      } else {
+        echo "alert('Both Password Must BE Same')";
       }
     }
 

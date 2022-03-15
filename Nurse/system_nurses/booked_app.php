@@ -229,6 +229,7 @@ if (isset($_SESSION['nurse'])) {
                                                 $email = $row['nurse_email'];
                                                 $status = $row['Status'];
                                                 $time = $row['Service_Date_Time'];
+                                                $created_time = $row['Created_Req_time'];
                                                 $r = $row['receipt'];
 
                                                 date_default_timezone_set("Asia/Calcutta");
@@ -237,7 +238,8 @@ if (isset($_SESSION['nurse'])) {
                                                 $then = new DateTime($time);
                                                 $then2 = new DateTime($time);
                                                 $then->add(new DateInterval('PT60M'));
-
+                                                $then_created = new DateTime($created_time);
+                                                $then_created->add(new DateInterval('PT10M'));
 
                                                 $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email'";
                                                 $result_nurse = mysqli_query($con, $sql_nurse);
@@ -257,7 +259,7 @@ if (isset($_SESSION['nurse'])) {
                                                         <?php
 
                                                     } else if ($status == 0) {
-                                                        if ($now > $then2) {
+                                                        if ($now > $then2 || $now > $then_created) {
                                                             $sql = "UPDATE `request_form` SET `Status`=-3 where `Request_id`=$form";
                                                             $result = mysqli_query($con, $sql);
 

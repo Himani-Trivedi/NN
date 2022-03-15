@@ -198,6 +198,7 @@ if (isset($_SESSION['user'])) {
 
                                                 $status = $row['Status'];
                                                 $time = $row['Service_Date_Time'];
+                                                $created_time = $row['Created_Req_time'];
 
                                                 date_default_timezone_set("Asia/Calcutta");
 
@@ -216,8 +217,10 @@ if (isset($_SESSION['user'])) {
 
                                                         $now = new DateTime("now");
                                                         $then = new DateTime($time);
-
-                                                        if ($now > $then) {
+                                                        $then_created = new DateTime($created_time);
+                                                        $then_created->add(new DateInterval('PT10M'));
+                                                       
+                                                        if ($now > $then || $now > $then_created) {
 
                                                             // Set status=-3 as it is expired
                                                             $up_status = -3;

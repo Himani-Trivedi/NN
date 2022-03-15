@@ -161,12 +161,15 @@ if (isset($_SESSION['nurse'])) {
                                                                     $result2 = mysqli_query($con, $sql2);
 
                                                                     $time = $row['Service_Date_Time'];
+                                                                    $created_time = $row['Created_Req_time'];
 
                                                                     date_default_timezone_set("Asia/Calcutta");
                                                                     $now = new DateTime("now");
                                                                     $then = new DateTime($time);
                                                                     $then2 = new DateTime($time);
                                                                     $then->add(new DateInterval('PT60M'));
+                                                                    $then_created = new DateTime($created_time);
+                                                                    $then_created->add(new DateInterval('PT10M'));
                                                                     // $diff = $now->diff($then);
 
                                                                     if ($row2 = mysqli_fetch_assoc($result2)) { ?>
@@ -183,7 +186,7 @@ if (isset($_SESSION['nurse'])) {
                                                                             <?php
 
                                                                         } else if ($status == 0) {
-                                                                            if ($now > $then2) {
+                                                                            if ($now > $then2 ||  $now > $then_created) {
 
                                                                                 $sql = "UPDATE `request_form` SET `Status`=-3 where `Request_id`=$form";
                                                                                 $result = mysqli_query($con, $sql);

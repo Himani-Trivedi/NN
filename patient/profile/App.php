@@ -459,7 +459,7 @@ if (isset($_SESSION['user'])) {
                             <input type="hidden" name="form" id="form_feed">
 
                             <div class="col-4 text-center">
-
+                            <button type="submit" name="s" style="border: 0px;">
                                 <div class="mini-container"><span style="font-size: 40px;">😊</span>
                                     <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
                                 </div>

@@ -20,6 +20,8 @@ if (isset($_SESSION['user'])) {
     <link rel="icon" type="image/png" sizes="16x16" href="../../logo.jpeg">
     <!-- Custom CSS -->
     <link href="../css/style.min.css" rel="stylesheet">
+    <link href="feed.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -52,7 +54,7 @@ if (isset($_SESSION['user'])) {
         }
 
         .Pending {
-            background-color: Gold;
+            background-color: #E56399;
         }
 
         /* Green */
@@ -103,7 +105,6 @@ if (isset($_SESSION['user'])) {
                     </ul>
                     </ul>
 
-
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a href="" style="color:white; padding-right:0px"></i></a>
@@ -116,7 +117,6 @@ if (isset($_SESSION['user'])) {
                 </div>
             </nav>
         </header>
-
 
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
@@ -142,6 +142,7 @@ if (isset($_SESSION['user'])) {
             </div>
             <!-- End Sidebar scroll-->
         </aside>
+
         <div class="page-wrapper">
             <div class="container-fluid">
 
@@ -176,6 +177,9 @@ if (isset($_SESSION['user'])) {
                                                 <th class="border-top-0">
                                                     <H6>Open</H6>
                                                 </th>
+                                                <th class="border-top-0">
+                                                    <H6>Feedback</H6>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -199,6 +203,7 @@ if (isset($_SESSION['user'])) {
                                                 $status = $row['Status'];
                                                 $time = $row['Service_Date_Time'];
                                                 $created_time = $row['Created_Req_time'];
+                                                $f=$row['feed'];
 
                                                 date_default_timezone_set("Asia/Calcutta");
 
@@ -219,7 +224,7 @@ if (isset($_SESSION['user'])) {
                                                         $then = new DateTime($time);
                                                         $then_created = new DateTime($created_time);
                                                         $then_created->add(new DateInterval('PT10M'));
-                                                       
+
                                                         if ($now > $then || $now > $then_created) {
 
                                                             // Set status=-3 as it is expired
@@ -319,14 +324,14 @@ if (isset($_SESSION['user'])) {
                                                             </td>
                                                         <?php
                                                         }
-                                                    }else if ($status == 4) {
+                                                    } else if ($status == 4) {
                                                         ?>
                                                         <td><button class="btn btn-warning">Waiting</button></td>
                                                         <td style="text-align: center;">-</td>
                                                         <td style="text-align: center;">-</td>
                                                     <?php
                                                     } else if ($status == 2) {
-                                                        ?>
+                                                    ?>
                                                         <td><button class="btn button1">Completed</button></td>
                                                         <td style="text-align: center;">-</td>
                                                         <td>
@@ -336,6 +341,7 @@ if (isset($_SESSION['user'])) {
                                                                 </div>
                                                             </div>
                                                         </td>
+
                                                     <?php
                                                     } else if ($status == -1) {
                                                     ?>
@@ -363,6 +369,20 @@ if (isset($_SESSION['user'])) {
                                                             </div>
                                                         </div>
                                                     </td>
+
+                                                    <?php
+                                                    if ($status == 2) {
+                                                    ?>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12 d-flex">
+                                                                    <button type="button" class="danger btn btn-success mx-auto mx-md-0 text-white" style=" border:0px" id="feed_btn" data-target="#feed" onclick="openModalFeed('<?php echo $formId; ?>','<?php echo $then->format('y-m-d H:i'); ?>')">Feedback</button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    <?php
+                                                    } ?>
+
                                                 <?php
                                             } ?>
                                                 </tr>
@@ -391,6 +411,91 @@ if (isset($_SESSION['user'])) {
             </form>
         </div>
     </div>
+    </div>
+
+    <!-- Feed modal -->
+    <!-- <div class="modal fade" id="feed" tabindex="-1" aria-labelledby="feed" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form method="post">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">
+                            X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center mt-3 mb-5" style="font-size:27px;"><small><strong>How satisfied are you with our nurse service<br />
+                                support Performance ?</strong></small></p>
+                    <div class="row">
+                        <input type="text" name="form" id="form_feed">
+                        <div class="col-4 text-center">
+                            <button type="submit" name="s" style="border: 0px;">
+                                <div class="mini-container"><span style="font-size: 40px;">😊</span>
+                                    <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-4 text-center">
+                            <button type="submit" name="n" style="border: 0px;">
+                                <div class="mini-container"> <span style="font-size: 40px;">😐</span>
+                                    <p class="text-center" style="font-size: 18px;"><small><strong>Neutral</strong></small></p>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-4 text-center">
+                            <button type="submit" name="u" style="border: 0px;">
+                                <div class="mini-container"><span style="font-size: 40px;">😣</span>
+                                    <p class="text-center" style="font-size: 18px;"><small><strong>Unhappy</strong></small></p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <input type="button" name="data" value="data" onclick="window.location.href='feed_data.php'">
+            </form>
+        </div>
+    </div> -->
+
+
+    <div class="modal fade" id="feed" tabindex="-1" aria-labelledby="feed" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form action="feed_data.php" method="post">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p class="text-center mt-3 mb-5" style="font-size:27px;"><small><strong>How satisfied are you with our nurse service<br />
+                                    support Performance ?</strong></small></p>
+                        <div class="row">
+
+                            <input type="hidden" name="form" id="form_feed">
+
+                            <div class="col-4 text-center">
+                                <button type="submit" name="s" style="border: 0px;">
+                                    <div class="mini-container"><span style="font-size: 40px;">😊</span>
+                                        <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-4 text-center">
+                                <button type="submit" name="n" style="border: 0px;">
+                                    <div class="mini-container"> <span style="font-size: 40px;">😐</span>
+                                        <p class="text-center" style="font-size: 18px;"><small><strong>Neutral</strong></small></p>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-4 text-center">
+                                <button type="submit" name="u" style="border: 0px;">
+                                    <div class="mini-container"><span style="font-size: 40px;">😣</span>
+                                        <p class="text-center" style="font-size: 18px;"><small><strong>Unhappy</strong></small></p>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+            </form>
+        </div>
+    </div>
 
 </body>
 <script>
@@ -409,6 +514,13 @@ if (isset($_SESSION['user'])) {
         $('#Requested_appointment').modal('toggle');
     }
 
+    function openModalFeed(form, t) {
+        document.getElementById('form_feed').value = form;
+        $('#feed').modal('toggle');
+    }
+
+
+
     <?php
     function sendMail($nurse_mail, $body)
     {
@@ -416,7 +528,7 @@ if (isset($_SESSION['user'])) {
         $headers = "From: ht1872004@gmail.com";
 
         if (mail($nurse_mail, $subject, $body, $headers)) {
-           echo "<script>
+            echo "<script>
             location.reload();
             </script>
            ";

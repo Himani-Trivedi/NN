@@ -31,7 +31,7 @@ if ($con) {
             <h6>
                 <table align="center" cellpadding="10" cellspacing="10" bgcolor="White">
                     <tr>
-                        <td><b>Nurse email :</b></td>
+                        <td><b>Nurse email:</b></td>
                         <td><input type="email" name="user_mail" value="<?php echo $row_nurse['email2']; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;" id="NurseName" readonly /></td>
                     </tr>              
                     <tr>
@@ -50,7 +50,7 @@ if ($con) {
                         </td>
                     </tr>
                     <tr>
-                        <td><B>Prescription :</B></TD>
+                        <td><B>Prescription:</B></TD>
                         <td>
                             <a href="../<?php echo $row['Prescription']; ?>" target="_blank">Check Here</a>
                         </td>

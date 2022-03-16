@@ -327,6 +327,11 @@ include '../connect.php';
                 $yrs_exp = $row['total_exp'];
                 $profile = $row['profile_pic'];
                 $status = $row['Approval_status'];
+
+                $s_f = $row['Satisfied'];
+                $u_f = $row['Neutral'];
+                $n_f = $row['Unhappy'];
+
     ?>
 
                 <div class="card">
@@ -334,6 +339,24 @@ include '../connect.php';
                   </h3>
                   <hr>
                   <img src="../Nurse/Nurse_signup/<?php echo $profile; ?>" style="border-radius:100%" class="rounded-circle mx-auto d-block" alt="Profile Photo" width="150px" style="radius : 100px; padding-bottom : 20px;">
+                  <br>
+                  <div class="row">
+                    <div class="col-4 text-center">
+                      <div class="mini-container"><span style="font-size: 20px;">😊</span>
+                        <p class="text-center" style="font-size: 18px;"><small><strong><?php echo $s_f; ?> Satisfied</strong></small></p>
+                      </div>
+                    </div>
+                    <div class="col-4 text-center">
+                      <div class="mini-container"> <span style="font-size: 20px;">😐</span>
+                        <p class="text-center" style="font-size: 18px;"><small><strong><?php echo $n_f; ?> Neutral</strong></small></p>
+                      </div>
+                    </div>
+                    <div class="col-4 text-center">
+                      <div class="mini-container"><span style="font-size: 20px;">😣</span>
+                        <p class="text-center" style="font-size: 18px;"><small><strong><?php echo $u_f; ?> Unhappy</strong></small></p>
+                      </div>
+                    </div>
+                  </div>
                   <h3>
                     <?php
                     if ($gender == 'f') {
@@ -507,15 +530,15 @@ include '../connect.php';
       minTime: '07:00',
       maxTime: '20:00',
       format: 'Y-m-d H:i',
-      onChangeDateTime: function(d) {     
-        if (d < new Date()) { 
-          document.getElementById('error').style.display="inline-block";
-          document.getElementById('send').disabled=true;
-          document.getElementById('send').style.background='grey';
-        }else{
-          document.getElementById('error').style.display="none";
-          document.getElementById('send').disabled=false;
-          document.getElementById('send').style.background='#3fbbc0';
+      onChangeDateTime: function(d) {
+        if (d < new Date()) {
+          document.getElementById('error').style.display = "inline-block";
+          document.getElementById('send').disabled = true;
+          document.getElementById('send').style.background = 'grey';
+        } else {
+          document.getElementById('error').style.display = "none";
+          document.getElementById('send').disabled = false;
+          document.getElementById('send').style.background = '#3fbbc0';
         }
       }
     });

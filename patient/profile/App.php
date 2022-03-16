@@ -203,7 +203,7 @@ if (isset($_SESSION['user'])) {
                                                 $status = $row['Status'];
                                                 $time = $row['Service_Date_Time'];
                                                 $created_time = $row['Created_Req_time'];
-                                                $f=$row['feed'];
+                                                $f = $row['feed'];
 
                                                 date_default_timezone_set("Asia/Calcutta");
 
@@ -372,16 +372,29 @@ if (isset($_SESSION['user'])) {
 
                                                     <?php
                                                     if ($status == 2) {
+                                                        if ($f != 0) {
                                                     ?>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12 d-flex">
-                                                                    <button type="button" class="danger btn btn-success mx-auto mx-md-0 text-white" style=" border:0px" id="feed_btn" data-target="#feed" onclick="openModalFeed('<?php echo $formId; ?>','<?php echo $then->format('y-m-d H:i'); ?>')">Feedback</button>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 d-flex">
+                                                                        <button type="button" class=" btn btn-warning mx-auto mx-md-0 text-white" style=" border:0px" data-bs-target="#feed_modal" onclick="openSubModal('<?php echo $formId; ?>','<?php echo $f ?>')">Submitted</button>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
+                                                            </td>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 d-flex">
+                                                                        <button type="button" class="danger btn btn-success mx-auto mx-md-0 text-white" style=" border:0px" id="feed_btn" data-target="#feed" onclick="openModalFeed('<?php echo $formId; ?>','<?php echo $then->format('y-m-d H:i'); ?>')">Feedback</button>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                     <?php
-                                                    } ?>
+                                                        }
+                                                    }
+                                                    ?>
 
                                                 <?php
                                             } ?>
@@ -414,51 +427,26 @@ if (isset($_SESSION['user'])) {
     </div>
 
     <!-- Feed modal -->
-    <!-- <div class="modal fade" id="feed" tabindex="-1" aria-labelledby="feed" aria-hidden="true">
+    <div class="modal fade" id="feed_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <form method="post">
-                <div class="modal-header border-none">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">
-                            X</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-center mt-3 mb-5" style="font-size:27px;"><small><strong>How satisfied are you with our nurse service<br />
-                                support Performance ?</strong></small></p>
-                    <div class="row">
-                        <input type="text" name="form" id="form_feed">
-                        <div class="col-4 text-center">
-                            <button type="submit" name="s" style="border: 0px;">
-                                <div class="mini-container"><span style="font-size: 40px;">😊</span>
-                                    <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="col-4 text-center">
-                            <button type="submit" name="n" style="border: 0px;">
-                                <div class="mini-container"> <span style="font-size: 40px;">😐</span>
-                                    <p class="text-center" style="font-size: 18px;"><small><strong>Neutral</strong></small></p>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="col-4 text-center">
-                            <button type="submit" name="u" style="border: 0px;">
-                                <div class="mini-container"><span style="font-size: 40px;">😣</span>
-                                    <p class="text-center" style="font-size: 18px;"><small><strong>Unhappy</strong></small></p>
-                                </div>
-                            </button>
+            <form action="form.php" method="post" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Submitted Feedback</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" id="sub_feed">
                         </div>
                     </div>
-                    <input type="button" name="data" value="data" onclick="window.location.href='feed_data.php'">
             </form>
         </div>
-    </div> -->
-
+    </div>
+    </div>
 
     <div class="modal fade" id="feed" tabindex="-1" aria-labelledby="feed" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <form action="feed_data.php" method="post">
-
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -468,14 +456,13 @@ if (isset($_SESSION['user'])) {
                         <p class="text-center mt-3 mb-5" style="font-size:27px;"><small><strong>How satisfied are you with our nurse service<br />
                                     support Performance ?</strong></small></p>
                         <div class="row">
-
                             <input type="hidden" name="form" id="form_feed">
 
                             <div class="col-4 text-center">
-                                <button type="submit" name="s" style="border: 0px;">
-                                    <div class="mini-container"><span style="font-size: 40px;">😊</span>
-                                        <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
-                                    </div>
+
+                                <div class="mini-container"><span style="font-size: 40px;">😊</span>
+                                    <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
+                                </div>
                                 </button>
                             </div>
                             <div class="col-4 text-center">
@@ -513,6 +500,33 @@ if (isset($_SESSION['user'])) {
         });
         $('#Requested_appointment').modal('toggle');
     }
+
+    function openSubModal(form, t) {
+        if (t == '1') {
+            $('#sub_feed').html(`
+                         <div class=" text-center">
+                                <div class="mini-container"><span style="font-size: 40px;">😊</span>
+                                    <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
+                                </div>
+                            </div>`);
+        } else if (t == '2') {
+            $('#sub_feed').html(`
+            <div class="text-center">
+                                <div class="mini-container"> <span style="font-size: 40px;">😐</span>
+                                    <p class="text-center" style="font-size: 18px;"><small><strong>Neutral</strong></small></p>
+                                </div>
+                            </div>`);
+        } else {
+            $('#sub_feed').html(`
+            <div class="text-center">
+                                <div class="mini-container"><span style="font-size: 40px;">😣</span>
+                                    <p class="text-center" style="font-size: 18px;"><small><strong>Unhappy</strong></small></p>
+                                </div>
+                            </div>`);
+        }
+        $('#feed_modal').modal('toggle');
+    }
+
 
     function openModalFeed(form, t) {
         document.getElementById('form_feed').value = form;

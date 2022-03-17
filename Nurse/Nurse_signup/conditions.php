@@ -41,9 +41,11 @@
       <div class="checkbox">
           <p>
               <li>You Must have Registered Nurse (RN) Certificate</li>
-              <li>At least 2 years of experience</li>
+              <li>You Must have at least 2 years of experience</li>
               <li>You have to pay 1000 Rs as deposite to first create account after your profile gets approval.</li></li>
+              <li>You have to accept the service within 20mins otherwise service request will be expired.</li>
               <li>You have to complete the accepted service otherwise 100 Rs. will be deducted from the account.</li>
+              <li>You must have basic Equipments for providing defined services.</li>
           </p>
           <label><input type="checkbox" required name="terms" value="1"/>I accept the terms & condtions of nieghboring nurse
           </label>

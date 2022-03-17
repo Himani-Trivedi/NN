@@ -33,7 +33,7 @@ if ($con) {
             <h6>
                 <table align="center" cellpadding="10" cellspacing="10" bgcolor="White">
                     <tr>
-                        <td><b>User email :</b></td>
+                        <td><b>User email:</b></td>
                         <td><input type="email" name="user_mail" value="<?php echo $p_name; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;" id="NurseName" readonly /></td>
                     </tr>
                     <tr>
@@ -42,17 +42,17 @@ if ($con) {
                     </tr>
 
                     <tr>
-                        <td><b>Service :</b></td>
+                        <td><b>Service:</b></td>
                         <td><input type="text" name="service" value="<?php echo $row['service_name']; ?>" style="width:600px;border-color:lightgrey;padding:5px;border-radius:5px;color:black;" readonly /></td>
                         </td>
                     </tr>
                     <tr>
-                        <td><b>Date-Time :</b></td>
+                        <td><b>Date-Time:</b></td>
                         <td><input type="text" value="<?php echo $row['Service_Date_Time']; ?>" autocomplete="off" style="border-color:lightgrey;padding:5px;border-radius:5px;" id="datetime" name="date_time" readonly />
                         </td>
                     </tr>
                     <tr>
-                        <td><B>Prescription :</B></TD>
+                        <td><B>Prescription:</B></TD>
                         <td>
                             <a href="../<?php echo $row['Prescription']; ?>" target="_blank">Check Here</a>
                         </td>

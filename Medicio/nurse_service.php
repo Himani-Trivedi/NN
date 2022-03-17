@@ -61,7 +61,7 @@ include '../connect.php';
     .card {
       display: flex;
       width: 400px;
-      height: 700px;
+      height: 770px;
       align: center;
       margin-left: 85px;
       margin-top: 80px;
@@ -309,6 +309,12 @@ include '../connect.php';
                 $sql_charge = "SELECT `s_charge` from `nurse_selected_services` where `service_name`='$t' and `email`='$email';";
                 $result_charge = mysqli_query($con, $sql_charge);
 
+
+                $sql = "select * from `request_form` where `nurse_email`='$email' and `Status`=2";
+                $result = mysqli_query($con, $sql);
+
+                $c_nurse = mysqli_num_rows($result);
+
                 if (!$result_charge) {
                   die(mysqli_error($con));
                 }
@@ -340,6 +346,15 @@ include '../connect.php';
                   <hr>
                   <img src="../Nurse/Nurse_signup/<?php echo $profile; ?>" style="border-radius:100%" class="rounded-circle mx-auto d-block" alt="Profile Photo" width="150px" style="radius : 100px; padding-bottom : 20px;">
                   <br>
+
+                  <div class="row">
+                    <div class="col-12 text-center">
+                      <p class="text-center" style="font-size: 22px;"><small><strong>
+                            <?php echo $c_nurse . " Completed Services"; ?>
+                          </strong></small></p>
+                    </div>
+                  </div>
+
                   <div class="row">
                     <div class="col-4 text-center">
                       <div class="mini-container"><span style="font-size: 20px;">😊</span>
@@ -394,7 +409,6 @@ include '../connect.php';
                     <?php
                     }
                     ?>
-
                     <!-- </a> -->
                   </div>
                 </div>

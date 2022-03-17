@@ -20,6 +20,7 @@ if (isset($_SESSION['nurse'])) {
     <title>Neighbouring Nurse</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../logo.jpeg">
+    <link rel="stylesheet" href="feed.css">
     <!-- Custom CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -210,6 +211,9 @@ if (isset($_SESSION['nurse'])) {
                                                 <th class="border-top-0">
                                                     <H6>Open</H6>
                                                 </th>
+                                                <th class="border-top-0">
+                                                    <H6>Feedback</H6>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -231,6 +235,7 @@ if (isset($_SESSION['nurse'])) {
                                                 $time = $row['Service_Date_Time'];
                                                 $created_time = $row['Created_Req_time'];
                                                 $r = $row['receipt'];
+                                                $f = $row['feed'];
 
                                                 date_default_timezone_set("Asia/Calcutta");
 
@@ -268,7 +273,7 @@ if (isset($_SESSION['nurse'])) {
                                                             $row_n = mysqli_fetch_assoc($result_u);
                                                             $nurse_mail = $row_n['email2'];
                                                             $nname = $row_n['name'];
-                                                            sendMail($u_email,"Your Pending appointement for $name at $time has expired");
+                                                            sendMail($u_email, "Your Pending appointement for $name at $time has expired");
 
                                                             $email = $row['User_Email'];
                                                             $sql_u = "select * from `requested_nurse` where `email`='$nurse'";
@@ -301,7 +306,7 @@ if (isset($_SESSION['nurse'])) {
                                                             $sql = "UPDATE `request_form` SET `Status`=-3 where `Request_id`=$form";
                                                             $result = mysqli_query($con, $sql);
 
-                                                            
+
                                                             $sql_u = "select * from `requested_nurse` where `email`='$email'";
                                                             $result_u = mysqli_query($con, $sql_u);
                                                             $row_n = mysqli_fetch_assoc($result_u);
@@ -313,7 +318,7 @@ if (isset($_SESSION['nurse'])) {
                                                             $new = $bal - 100;
                                                             $sql_u = "update `requested_nurse` set `acc_balance`=$new where `email`='$email'";
                                                             $result_u = mysqli_query($con, $sql_u);
-                          
+
                                                             $email = $row['User_Email'];
                                                             $sql_u = "select * from `requested_nurse` where `email`='$nurse'";
                                                             $result_u = mysqli_query($con, $sql_u);
@@ -327,8 +332,7 @@ if (isset($_SESSION['nurse'])) {
                                                             <td style="text-align: center;">-</td>
                                                         <?php
                                                         } else {
-                                                        ?>
-                                                            ?>
+                                                        ?>                                                   
                                                             <td><button class="btn btn-success">Accepted</button></td>
                                                             <td>
                                                                 <div class="form-group">
@@ -377,8 +381,32 @@ if (isset($_SESSION['nurse'])) {
                                                             </div>
                                                         </div>
                                                     </td>
+                                                    <?php
+
+                                                    if ($status == 2) {
+                                                        if ($f != 0) {
+                                                    ?>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 d-flex">
+                                                                        <button type="button" class=" btn btn-warning mx-auto mx-md-0 text-white" style=" border:0px" data-bs-target="#feed_modal" onclick="openSubModal('<?php echo $form; ?>','<?php echo $f ?>')">Submitted</button>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 d-flex">
+                                                                        <button type="button" class="danger btn btn-success mx-auto mx-md-0 text-white" style=" border:0px" id="feed_btn" data-target="#feed" onclick="openModalFeed('<?php echo $form; ?>','<?php echo $then->format('y-m-d H:i'); ?>')">Feedback</button>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                 <?php
-                                            } ?>
+                                                        }
+                                                    }
+                                                } ?>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -407,18 +435,77 @@ if (isset($_SESSION['nurse'])) {
     </div>
 
 
-
     <!-- Request app modal -->
     <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <form action="form.php" method="post" enctype="multipart/form-data">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Requested Appointment Form</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Requested Appointment</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="data">
                     </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <!-- submitted Feed modal -->
+    <div class="modal fade" id="feed_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form action="form.php" method="post" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Submitted Feedback</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" id="sub_feed">
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <!-- Feedback modal -->
+    <div class="modal fade" id="feed" tabindex="-1" aria-labelledby="feed" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form action="feed_data.php" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p class="text-center mt-3 mb-5" style="font-size:27px;"><small><strong>How satisfied are you with our nurse service<br />
+                                    support Performance ?</strong></small></p>
+                        <div class="row">
+                            <input type="hidden" name="form" id="form_feed">
+
+                            <div class="col-4 text-center">
+                                <button type="submit" name="s" style="border: 0px;">
+                                    <div class="mini-container"><span style="font-size: 40px;">😊</span>
+                                        <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-4 text-center">
+                                <button type="submit" name="n" style="border: 0px;">
+                                    <div class="mini-container"> <span style="font-size: 40px;">😐</span>
+                                        <p class="text-center" style="font-size: 18px;"><small><strong>Neutral</strong></small></p>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-4 text-center">
+                                <button type="submit" name="u" style="border: 0px;">
+                                    <div class="mini-container"><span style="font-size: 40px;">😣</span>
+                                        <p class="text-center" style="font-size: 18px;"><small><strong>Unhappy</strong></small></p>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
             </form>
         </div>
     </div>
@@ -428,11 +515,11 @@ if (isset($_SESSION['nurse'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel"> Cancel Appointment </h5>
+                    <h5 class="modal-title" id="staticBackdropLabel"> Cancle Appointment </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to cancel appointment ?
+                    Are you sure you want to cancle appointment ?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="button button1" data-bs-dismiss="modal">No</button>
@@ -468,7 +555,7 @@ if (isset($_SESSION['nurse'])) {
         $headers = "From: ht1872004@gmail.com";
 
         if (mail($nurse_mail, $subject, $body, $headers)) {
-           echo "<script>
+            echo "<script>
             location.reload();
             </script>
            ";
@@ -497,6 +584,39 @@ if (isset($_SESSION['nurse'])) {
     <?php
     }
     ?>
+
+
+    function openSubModal(form, t) {
+        if (t == '1') {
+            $('#sub_feed').html(`
+                         <div class=" text-center">
+                                <div class="mini-container"><span style="font-size: 40px;">😊</span>
+                                    <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
+                                </div>
+                            </div>`);
+        } else if (t == '2') {
+            $('#sub_feed').html(`
+            <div class="text-center">
+                                <div class="mini-container"> <span style="font-size: 40px;">😐</span>
+                                    <p class="text-center" style="font-size: 18px;"><small><strong>Neutral</strong></small></p>
+                                </div>
+                            </div>`);
+        } else {
+            $('#sub_feed').html(`
+            <div class="text-center">
+                                <div class="mini-container"><span style="font-size: 40px;">😣</span>
+                                    <p class="text-center" style="font-size: 18px;"><small><strong>Unhappy</strong></small></p>
+                                </div>
+                            </div>`);
+        }
+        $('#feed_modal').modal('toggle');
+    }
+
+
+    function openModalFeed(form, t) {
+        document.getElementById('form_feed').value = form;
+        $('#feed').modal('toggle');
+    }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

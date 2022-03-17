@@ -111,9 +111,6 @@ $pdf->Ln(10);
 $pdf->Cell(0, 10, "Thanks for your payment", 1, 0, 'C');
 
 $file = time() . "payment_receipt" . '.pdf';
-$pdf->output($file, 'I');
-
-$file = time() . "payment_receipt" . '.pdf';
 $dest='../../Nurse/Nurse_signup/upload/'.$file;
 
 $sql = "UPDATE `request_form` SET `receipt`='$dest' WHERE `Request_id`=$id";

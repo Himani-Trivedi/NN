@@ -244,7 +244,7 @@ if (isset($_SESSION['nurse'])) {
                                                 $then2 = new DateTime($time);
                                                 $then->add(new DateInterval('PT60M'));
                                                 $then_created = new DateTime($created_time);
-                                                $then_created->add(new DateInterval('PT10M'));
+                                                $then_created->add(new DateInterval('PT20M'));
 
                                                 $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email'";
                                                 $result_nurse = mysqli_query($con, $sql_nurse);

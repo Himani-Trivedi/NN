@@ -223,7 +223,7 @@ if (isset($_SESSION['user'])) {
                                                         $now = new DateTime("now");
                                                         $then = new DateTime($time);
                                                         $then_created = new DateTime($created_time);
-                                                        $then_created->add(new DateInterval('PT10M'));
+                                                        $then_created->add(new DateInterval('PT20M'));
 
                                                         if ($now > $then || $now > $then_created) {
 

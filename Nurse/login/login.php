@@ -41,8 +41,9 @@ if (isset($_GET["code"])) {
                 $sql = "select * from `requested_nurse` where email='$u'";
 
                 $r = mysqli_query($con, $sql);
+                $c=mysqli_num_rows($r);
                 try {
-                    if ($r) {
+                    if ($c > 0) {
                         $a = mysqli_fetch_assoc($r);
 
                         if (!$a) {
@@ -62,7 +63,7 @@ if (isset($_GET["code"])) {
                             echo("<script>alert('Login Failed! Try Again ')</script>");
                         }
                     } else {
-                        die(mysqli_error($con));
+                        echo("<script>alert('Login Failed! Try Again ')</script>");
                     }
                 } catch (Exception $e) {
                     echo "There is Technical Problem ";

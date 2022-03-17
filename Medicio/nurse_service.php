@@ -335,8 +335,8 @@ include '../connect.php';
                 $status = $row['Approval_status'];
 
                 $s_f = $row['Satisfied'];
-                $u_f = $row['Neutral'];
-                $n_f = $row['Unhappy'];
+                $n_f = $row['Neutral'];
+                $u_f = $row['Unhappy'];
 
     ?>
 

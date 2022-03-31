@@ -329,9 +329,41 @@ if (isset($_SESSION['user'])) {
                                                         <td><button class="btn btn-warning">Waiting</button></td>
                                                         <td style="text-align: center;">-</td>
                                                         <td style="text-align: center;">-</td>
-                                                    <?php
+                                                        <?php
+
+                                                        date_default_timezone_set("Asia/Calcutta");
+
+                                                        $now = new DateTime("now");
+                                                        $then = new DateTime($time);
+                                                        $then->add(new DateInterval('PT60M'));
+
+                                                        if ($now > $then) {
+
+                                                            $sql = "UPDATE `request_form` SET `Status`=-3 where `Request_id`=$formId";
+                                                            $result = mysqli_query($con, $sql);
+
+                                                            $sql_u = "select * from `requested_nurse` where `email`='$email'";
+                                                            $result_u = mysqli_query($con, $sql_u);
+                                                            $row_n = mysqli_fetch_assoc($result_u);
+                                                            $nurse_mail = $row_n['email2'];
+                                                            $nurse_name = $row_n['name'];
+                                                            $bal = $row_n['acc_balance'];
+                                                            sendMail($nurse_mail, "Your appointement for $name at $time has expired so you are charged with 100 Rs. which is deducted from your Neighbouring Nurse account.");
+
+                                                            $new = ($bal - 100);
+
+                                                            $sql_u = "update `requested_nurse` set `acc_balance`=$new where `email`='$email'";
+                                                            $result_u = mysqli_query($con, $sql_u);
+
+                                                            $sql_u = "select * from `patient` where `Email`='$user'";
+                                                            $result_u = mysqli_query($con, $sql_u);
+                                                            $row_n = mysqli_fetch_assoc($result_u);
+                                                            $u_name = $row_n['Name'];
+                                                            $u_email = $row_n['email2'];
+                                                            sendMail($u_email, "Sorry for our inconvenience as $nurse_name hasn't come for your $name service. We request you to book another appointment for your service from our website");
+                                                        }
                                                     } else if ($status == 2) {
-                                                    ?>
+                                                        ?>
                                                         <td><button class="btn button1">Completed</button></td>
                                                         <td style="text-align: center;">-</td>
                                                         <td>
@@ -459,10 +491,10 @@ if (isset($_SESSION['user'])) {
                             <input type="hidden" name="form" id="form_feed">
 
                             <div class="col-4 text-center">
-                            <button type="submit" name="s" style="border: 0px;">
-                                <div class="mini-container"><span style="font-size: 40px;">😊</span>
-                                    <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
-                                </div>
+                                <button type="submit" name="s" style="border: 0px;">
+                                    <div class="mini-container"><span style="font-size: 40px;">😊</span>
+                                        <p class="text-center" style="font-size: 18px;"><small><strong>Satisfied</strong></small></p>
+                                    </div>
                                 </button>
                             </div>
                             <div class="col-4 text-center">

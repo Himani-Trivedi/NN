@@ -315,7 +315,7 @@ include '../connect.php';
               <li><i class="bi bi-check-circle"></i> Save Time; Save Money: Say Bye Bye to waiting lines, long travel hours and traffic struggles. Book an appointment at your convenience.</li>
               <li><i class="bi bi-check-circle"></i> Trained nurses: We hire only board certified & experienced nurses to ensure quality care at home.</li>
               <li><i class="bi bi-check-circle"></i> Quality Assurance: We conduct regular training sessions for all our nurses and ensure that they are updated with the new processes and methodologies.</li>
-              <li><i class="bi bi-check-circle"></i> Packaged & Sterilized Kits: We use packaged and sterilized kits for all our procedures ensuring we follow Universal Precautions and Sterilization Techniques.</li>
+              <!-- <li><i class="bi bi-check-circle"></i> Packaged & Sterilized Kits: We use packaged and sterilized kits for all our procedures ensuring we follow Universal Precautions and Sterilization Techniques.</li> -->
             </ul>
           </div>
         </div>

@@ -106,10 +106,10 @@ include '../connect.php';
 
         <nav id="navbar" class="navbar order-last order-lg-0">
           <ul>
-            <li><a class="nav-link scrollto " href="index.php#hero">Home</a></li>
+            <li><a class="nav-link scrollto" href="index.php#hero">Home</a></li>
             <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
             <li><a class="nav-link scrollto" href="index.php#services">Services</a></li>
-            <li><a class="nav-link scrollto" href="nurse_service.php">Search</a></li>
+            <li><a class="nav-link scrollto" href="nurse_service.php#search">Search</a></li>
             <li><a class="nav-link scrollto" href="index.php#contact">Contact Us</a></li>
             <?php
 
@@ -186,7 +186,7 @@ include '../connect.php';
 
     <!-- ======= Hero Section ======= -->
 
-    <section id="services" class="services services">
+    <section id="search" class="services services">
       <div class="container">
 
         <div class="section-title" style="visibility: hidden;">

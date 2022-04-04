@@ -3,6 +3,8 @@
 <?php
 
 include('config.php');
+include '../../connect.php';
+
 
 $login_button = '';
 
@@ -29,14 +31,12 @@ if (isset($_GET["code"])) {
             $u = $data['email'];
             $u = md5($u);
 
-            include '../../connect.php';
-
             if (!$con) {
                 die("Not connected to db");
             }
 
             if ($con) {
-                $sql = "select * from `admin` where Admin_email='$u'";
+                $sql = "select * from `admin` where `Admin_email`='$u'";
 
                 $r = mysqli_query($con, $sql);
                 try {
@@ -68,7 +68,13 @@ if (!isset($_SESSION['access_token'])) {
     <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
     Login With Google
     </a>';
+}else{
+    $login_button = '<a href="' . $google_client->createAuthUrl() . '" role="button" style="text-transform:none" class="btn btn-outline-dark">
+    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+    Login With Google
+    </a>';
 }
+
 
 ?>
 
@@ -79,7 +85,7 @@ if (!isset($_SESSION['access_token'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -90,9 +96,10 @@ if (!isset($_SESSION['access_token'])) {
             text-align: center;
         }
 
-        a{
+        a {
             text-decoration: none;
         }
+
         body {
             margin: 0;
             overflow: hidden;
@@ -233,7 +240,7 @@ if (!isset($_SESSION['access_token'])) {
 <body>
     <a href='../../Medicio/index.php' style="decoration:none;"><i style="padding:4px" class="fa fa-arrow-left"></i> Back to home</a>
     <div class="main">
-        <form class="form" method="POST" action="logincheck.php">
+        <form class="form" method="POST">
             <table class="tb1">
                 <tr>
                     <td>
@@ -248,10 +255,7 @@ if (!isset($_SESSION['access_token'])) {
                     <td><input type="mail" placeholder="Email Address" class="txt" name="user" required></td>
                 </tr>
                 <tr>
-                    <td><input type="password" placeholder="Password" 
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                    class="txt" name="pass" required></td>
+                    <td><input type="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="txt" name="pass" required></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -292,5 +296,34 @@ if (!isset($_SESSION['access_token'])) {
         </form>
     </div>
 </body>
+<?php
+if (isset($_POST['sub'])) {
+    $user = md5($_POST['user']);
+    $pass = md5($_POST['pass']);
+    $sql = "select * from admin where Admin_email='$user' and Password='$pass' ";
+
+    $r = mysqli_query($con, $sql);
+
+    $row = mysqli_num_rows($r);
+
+    if ($row == 1) {
+        echo "login successful";
+
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+
+        $sql_login = "INSERT INTO `adminlogin`(`Email`, `IP_address`,`Time`) VALUES ('$user','$ipaddress',CURRENT_TIMESTAMP())";
+        $result_login = mysqli_query($con, $sql_login);
+
+        if ($result_login) {
+            $_SESSION['admin'] = $user;
+            header('location:../profile/Admin-Profile.php');
+        } else {
+            echo ("<script>alert('Login Failed! Try Again ')</script>");
+        }
+    } else {
+        echo ("<script>confirm('No Such Admin')</script>");
+    }
+}
+?>
 
 </html>

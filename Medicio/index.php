@@ -258,7 +258,7 @@ include '../connect.php';
         <!-- Slide 3 -->
         <div class="carousel-item" style="background-image: url(assets/img/slide/nurse2.jpg)">
           <div class="container">
-            <p>Get commpassionate, personalized clinical nursing services from india's pioneer in home healthcare.</p>
+            <p>Get commpassionate, personalized clinical nursing services at home.</p>
             <a href="#about" class="btn-get-started scrollto">Read More</a>
           </div>
         </div>

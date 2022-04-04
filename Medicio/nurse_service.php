@@ -85,7 +85,7 @@ include '../connect.php';
         <i class="bi bi-clock"></i> Monday - Sunday, 7AM to 10PM
       </div>
       <div class="d-flex align-items-center">
-        <i class="bi bi-phone"></i> Call us now +1 5589 55488 55
+        <i class="bi bi-phone"></i> Call us now +91 7926301285
       </div>
     </div>
   </div>
@@ -539,10 +539,10 @@ include '../connect.php';
   $(document).ready(function() {
 
     $('#datetime').datetimepicker({
-      step: 5,
+      step: 10,
       minDate: 0,
       minTime: '07:00',
-      maxTime: '20:00',
+      maxTime: '21:00',
       format: 'Y-m-d H:i',
       onChangeDateTime: function(d) {
         if (d < new Date()) {

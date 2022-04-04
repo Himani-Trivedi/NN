@@ -233,7 +233,8 @@ if (isset($_SESSION['nurse'])) {
                         <div class="form-group">
                             <label class="col-md-12 mb-0">Selecte Service</label>
                             <div class="col-sm-12 border-bottom">
-                                <select class="form-select shadow-none border-0 ps-0 form-control-line" name="serviceeg" id="service">
+                                <select class="form-select shadow-none border-0 ps-0 form-control-line" name="serviceeg"
+                                 id="service" onchange="showCharge(this.value)">
                                     <option value=""></option>
                                     <?php
                                     $sql = "SELECT * from `services` where service_name not in
@@ -261,7 +262,8 @@ if (isset($_SESSION['nurse'])) {
                         <div class="form-group">
                             <label class="col-md-12 mb-0">Charges</label>
                             <div class="col-md-12">
-                                <input type="number" min="10" class="form-control ps-0 form-control-line" name="charge" required value="10">
+                                <input type="number" class="form-control ps-0 form-control-line"
+                                 name="charge" required id="add_charge">
                             </div>
                         </div>
                 </div>
@@ -297,7 +299,7 @@ if (isset($_SESSION['nurse'])) {
                                 <div class="form-group">
                                     <label class="col-md-12 mb-0">Charges</label>
                                     <div class="col-md-12">
-                                        <input type="text" name="charge" id="charge_update" class="form-control ps-0 form-control-line">
+                                        <input type="number" name="charge" id="charge_update" class="form-control ps-0 form-control-line">
                                     </div>
                                 </div>
                             </div>
@@ -388,6 +390,21 @@ if (isset($_SESSION['nurse'])) {
         }
     }
 
+    function showCharge(ser_name) {
+        // alert(ser_name);
+        console.log(ser_name);
+        $.ajax({
+            url: 'ser_charge.php',
+            type: 'POST',
+            data: {
+                service: ser_name
+            },
+            success: function(result) {
+                $('#add_charge').val(parseInt(result));
+            }
+        });
+    }
+
     function dataSelectedUpdate() {
         if (document.getElementById('charge').value == 0) {
             alert("First Select the Service");
@@ -395,7 +412,7 @@ if (isset($_SESSION['nurse'])) {
         } else {
             $('#updateModal').modal('toggle');
             document.getElementById('service_update').value = document.getElementById('service').value;
-            document.getElementById('charge_update').value = document.getElementById('charge').value;
+            document.getElementById('charge_update').value =parseInt(document.getElementById('charge').value);
 
         }
     }

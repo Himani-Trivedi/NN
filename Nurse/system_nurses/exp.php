@@ -136,10 +136,10 @@ if (isset($_SESSION['nurse'])) {
                                         <form class="form-horizontal form-material mx-2">
                                             <label class="card-title">Experience <?php echo $i; ?></label>
                                             <div class="form-group">
-                                                <input type="text" placeholder="Hospital name" value="<?php echo $row['hospital_name']; ?>" class="form-control ps-0 form-control-line" disabled>
+                                                <input type="text" placeholder="Hospital name" value="Hospital: <?php echo $row['hospital_name']; ?>" class="form-control ps-0 form-control-line" disabled>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" placeholder="Job Title" value="<?php echo $row['designation']; ?>" class="form-control ps-0 form-control-line" disabled>
+                                                <input type="text" placeholder="Job Title" value="Designation: <?php echo $row['designation']; ?>" class="form-control ps-0 form-control-line" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" placeholder="from date" value="From: <?php echo $row['from_date']; ?>" class="form-control ps-0 form-control-line" disabled>
@@ -149,7 +149,7 @@ if (isset($_SESSION['nurse'])) {
                                             </div>
                                             <div class="form-group">
                                                 <textarea id="donation" rows="3" style="resize: none;" name="add[]" class="form-control ps-0 form-control-line" id="" disabled placeholder="Hospital address">
-                                        <?php echo $row['hos_address']; ?>
+                                                Address: <?php echo $row['hos_address']; ?>
                                 </textarea>
                                             </div>
                                             <a href="../Nurse_signup/<?php echo $row['Exp_letter']; ?>" target="_blank" class="link">

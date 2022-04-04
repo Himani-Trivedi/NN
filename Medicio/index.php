@@ -420,7 +420,6 @@ include '../connect.php';
       </div>
     </section>End Appointment Section -->
 
-
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
@@ -491,6 +490,63 @@ include '../connect.php';
     </section><!-- End Contact Section -->
   </main><!-- End of main-->
 
+  <!-- ======= Pricing Section ======= -->
+  <section id="pricing" class="pricing">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>System Terms</h2>
+        <p>
+        </p>
+      </div>
+
+      <div class="row">
+
+        <!-- <div class="col-lg-6 col-md-6">
+            <div class="box" data-aos="fade-up" data-aos-delay="100">
+              <h3>Patient</h3>
+              <h4><sup>$</sup>0<span> / month</span></h4> -->
+        <!-- <ul>
+                <li>Aida dere</li>
+                <li>Nec feugiat nisl</li>
+                <li>Nulla at volutpat dola</li>
+                <li class="na">Pharetra massa</li>
+                <li class="na">Massa ultricies mi</li>
+              </ul> -->
+        <!-- <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div> -->
+        <!-- </div> -->
+        <!-- </div> -->
+
+        <div class="col-lg-12 col-md-6 mt-4 mt-md-0">
+          <div class="box featured" data-aos="fade-up" data-aos-delay="200">
+            <h3></h3>
+            <!-- <h4><sup>$</sup>19<span> / month</span></h4> -->
+            <ul style="text-align: left;">
+              <li> <i class="bi bi-check-circle"></i>Service time will be only for an hour.</li>
+              <li><i class="bi bi-check-circle"></i>Once patient request for an appoitnment nurse will have to respond within 20mins.</li>
+              <li> <i class="bi bi-check-circle"></i>Patient/nurse can't decline the appointment before an hour of service time, after that the cancel option will be disabled</li>
+              <li> <i class="bi bi-check-circle"></i>Patient has to do payment (online/offline) within service time otherwise service will be expired and reciept will not be generated.</li>
+              <li> <i class="bi bi-check-circle"></i>Nurse will have to ask user to choose for payment option within service time.</li>
+              <li> <i class="bi bi-check-circle"></i>All online payment received by nurse will be stored in Neighbouring Nurse bank account.</li>
+              <li> <i class="bi bi-check-circle"></i> Nurse can book another nurse for an service but can only pay online for that service.</li>
+              <li> <i class="bi bi-check-circle"></i>Nurse has to provide the confirmation of offline payment done by user by clicking the link provided in mail, then only user will get its receipt</li>
+              <li> <i class="bi bi-check-circle"></i>Nurse can't withdraw money with minimum 1000Rs. balance </li>
+              <li> <i class="bi bi-check-circle"></i>100Rs. will be deducted from nurse account if she doesn't provide the service after accepting the one.</li>
+              <li> <i class="bi bi-check-circle"></i>Admin will delete the nurse profile if nurse has more than 3 expired services.</li>
+            </ul>
+            <!-- <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="footer-top">
@@ -520,7 +576,7 @@ include '../connect.php';
               <li><i class="bx bx-chevron-right"></i> <a href="#hero">Home</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
-              <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li> -->
+              <li><i class="bx bx-chevron-right"></i> <a href="#pricing">Terms of service</a></li>
               <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li> -->
             </ul>
           </div>
@@ -585,24 +641,23 @@ include '../connect.php';
   }
 
   <?php
-    if (isset($_POST['email_sub'])) {
+  if (isset($_POST['email_sub'])) {
 
-      $user=$_POST['email'];
-      $subject = "Neighbouring Nurse";
-      $body = "Dear, User 
+    $user = $_POST['email'];
+    $subject = "Neighbouring Nurse";
+    $body = "Dear, User 
       You are successfully subscribed with us so now we will share you all our updates regarding Neighbouring Nurse on this $user";
-      $headers = "From: ht1872004@gmail.com";
+    $headers = "From: ht1872004@gmail.com";
 
-      if (mail($user, $subject, $body, $headers)) {
-           echo "alert('You are Subscribed with Us');";  
-           unset($_POST['email_sub']);                     
-      } else {
-          echo "alert('Try Again! Not Subscribed');";
-      }
-
+    if (mail($user, $subject, $body, $headers)) {
+      echo "alert('You are Subscribed with Us');";
+      unset($_POST['email_sub']);
+    } else {
+      echo "alert('Try Again! Not Subscribed');";
     }
+  }
 
-    ?>
+  ?>
 </script>
 
 </html>

@@ -179,14 +179,12 @@ if (isset($_SESSION['nurse'])) {
                                                                         $status = $row['Status'];
 
                                                                         if ($status == -4) {
-                                                                            ?>
-                                                                                <td><button class="btn btn-dark">Not Accepted</button></td>
-                                                                                <td style="text-align: center;">-</td>
-                                                                                <td style="text-align: center;">-</td>
-                                                                            <?php
-                                                                            }
-
-                                                                        else if ($status == -3) {
+                                                                        ?>
+                                                                            <td><button class="btn btn-dark">Not Accepted</button></td>
+                                                                            <td style="text-align: center;">-</td>
+                                                                            <td style="text-align: center;">-</td>
+                                                                        <?php
+                                                                        } else if ($status == -3) {
                                                                         ?>
                                                                             <td><button class="btn btn-dark">Expired</button></td>
                                                                             <td style="text-align: center;">-</td>
@@ -439,7 +437,7 @@ if (isset($_SESSION['nurse'])) {
         }
     }
     ?>
-    
+
     function openModal(form, t) {
         $.ajax({
             url: 'data_app.php',

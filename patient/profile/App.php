@@ -225,9 +225,9 @@ if (isset($_SESSION['user'])) {
                                                         $then_created = new DateTime($created_time);
                                                         $then_created->add(new DateInterval('PT20M'));
 
-                                                        if ($now > $then || $now > $then_created) {
+                                                        if ($now > $then_created) {
 
-                                                            // Set status=-3 as it is expired
+                                                            // Set status=-3 as it is not accepted
                                                             $up_status = -4;
 
                                                             $sql = "UPDATE `request_form` SET `Status`=-4 where `Request_id`=$formId";
@@ -250,7 +250,7 @@ if (isset($_SESSION['user'])) {
                                                             sendMail($u_email, "Your Pending appointement request for sname at $time has expired as $nname hasn't accepted the appointment");
 
                                                     ?>
-                                                            <td><button class="btn btn-dark">Expired</button></td>
+                                                            <td><button class="btn btn-dark">Not Accepted</button></td>
                                                             <td style="text-align: center;">-</td>
                                                             <td style="text-align: center;">-</td>
                                                         <?php
@@ -272,7 +272,7 @@ if (isset($_SESSION['user'])) {
 
                                                         $now = new DateTime("now");
                                                         $then = new DateTime($time);
-                                                        $then->add(new DateInterval('PT60M'));
+                                                        $then->add(new DateInterval('PT70M'));
 
                                                         if ($now > $then) {
 
@@ -300,13 +300,13 @@ if (isset($_SESSION['user'])) {
                                                             sendMail($u_email, "Sorry for our inconvenience as $nurse_name hasn't come for your $name service. We request you to book another appointment for your service from our website");
 
                                                         ?>
-                                                            <td><button class="btn btn-dark">Not Accepted</button></td>
+                                                            <td><button class="btn btn-dark">Expired</button></td>
                                                             <td style="text-align: center;">-</td>
                                                             <td style="text-align: center;">-</td>
                                                         <?php
                                                         } else {
                                                         ?>
-                                                            <td><button class="btn btn-success">Accepted</button></td>
+                                                            <td><button class="btn btn-success">Accepted</button></td>                             
                                                             <td>
                                                                 <div class="form-group">
                                                                     <div class="col-sm-12 d-flex">

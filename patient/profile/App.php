@@ -306,7 +306,23 @@ if (isset($_SESSION['user'])) {
                                                         <?php
                                                         } else {
                                                         ?>
-                                                            <td><button class="btn btn-success">Accepted</button></td>                             
+                                                            <td><button class="btn btn-success">Accepted</button></td>
+                                                            <?php
+
+                                                            date_default_timezone_set("Asia/Calcutta");
+
+                                                            $now = new DateTime("now");
+                                                            $then = new DateTime($time);
+                                                            $then->sub(new DateInterval('PT60M'));
+
+                                                            if ($now > $then) {
+                                                            ?>
+                                                                <td style="text-align: center;">
+                                                                    -
+                                                                </td>
+                                                            <?php
+                                                            }else{
+                                                            ?>
                                                             <td>
                                                                 <div class="form-group">
                                                                     <div class="col-sm-12 d-flex">
@@ -314,6 +330,9 @@ if (isset($_SESSION['user'])) {
                                                                     </div>
                                                                 </div>
                                                             </td>
+                                                            <?php
+                                                            }
+                                                            ?>
                                                             <td>
                                                                 <a href='../payment/payment.php?id=<?php echo $formId; ?>' style="color:rgba(63,187,192,255) ;">
                                                                     <button class="btn btn mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">Online</button>

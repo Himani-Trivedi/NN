@@ -273,13 +273,32 @@ if (isset($_SESSION['nurse'])) {
                                                                             ?>
                                                                                 <td><button class="btn btn-success">Accepted</button></td>
                                                                                 <td style="text-align: center;">-</td>
-                                                                                <td>
-                                                                                    <div class="form-group">
-                                                                                        <div class="col-sm-12 d-flex">
-                                                                                            <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+
+
+                                                                                <?php
+
+                                                                                date_default_timezone_set("Asia/Calcutta");
+                                                                                $now = new DateTime("now");
+                                                                                $then = new DateTime($time);
+                                                                                $then->sub(new DateInterval('PT60M'));
+
+                                                                                if ($now > $then) {
+                                                                                ?>
+                                                                                    <td style="text-align: center;">
+                                                                                        -
+                                                                                    </td>
+                                                                                <?php
+                                                                                } else {
+                                                                                ?>
+                                                                                    <td>
+                                                                                        <div class="form-group">
+                                                                                            <div class="col-sm-12 d-flex">
+                                                                                                <a href='d_service.php?id=<?php echo $form; ?>' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="fa fa-times-circle"></i></a>
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </td>
+                                                                                    </td>
+                                                                                <?php
+                                                                                } ?>
                                                                             <?php
                                                                             }
                                                                             ?>

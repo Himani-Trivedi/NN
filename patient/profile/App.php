@@ -228,9 +228,9 @@ if (isset($_SESSION['user'])) {
                                                         if ($now > $then || $now > $then_created) {
 
                                                             // Set status=-3 as it is expired
-                                                            $up_status = -3;
+                                                            $up_status = -4;
 
-                                                            $sql = "UPDATE `request_form` SET `Status`=-3 where `Request_id`=$formId";
+                                                            $sql = "UPDATE `request_form` SET `Status`=-4 where `Request_id`=$formId";
                                                             $result = mysqli_query($con, $sql);
 
                                                             $sql_u = "select * from `requested_nurse` where `email`='$email'";
@@ -300,7 +300,7 @@ if (isset($_SESSION['user'])) {
                                                             sendMail($u_email, "Sorry for our inconvenience as $nurse_name hasn't come for your $name service. We request you to book another appointment for your service from our website");
 
                                                         ?>
-                                                            <td><button class="btn btn-dark">Expired</button></td>
+                                                            <td><button class="btn btn-dark">Not Accepted</button></td>
                                                             <td style="text-align: center;">-</td>
                                                             <td style="text-align: center;">-</td>
                                                         <?php
@@ -390,6 +390,12 @@ if (isset($_SESSION['user'])) {
                                                     } else if ($status == -3) {
                                                     ?>
                                                         <td><button class="btn btn-dark">Expired</button></td>
+                                                        <td style="text-align: center;">-</td>
+                                                        <td style="text-align: center;">-</td>
+                                                    <?php
+                                                    } else if ($status == -4) {
+                                                    ?>
+                                                        <td><button class="btn btn-dark">Not Accepted</button></td>
                                                         <td style="text-align: center;">-</td>
                                                         <td style="text-align: center;">-</td>
                                                     <?php

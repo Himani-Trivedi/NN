@@ -178,7 +178,15 @@ if (isset($_SESSION['nurse'])) {
                                                                         <?php
                                                                         $status = $row['Status'];
 
-                                                                        if ($status == -3) {
+                                                                        if ($status == -4) {
+                                                                            ?>
+                                                                                <td><button class="btn btn-dark">Not Accepted</button></td>
+                                                                                <td style="text-align: center;">-</td>
+                                                                                <td style="text-align: center;">-</td>
+                                                                            <?php
+                                                                            }
+
+                                                                        else if ($status == -3) {
                                                                         ?>
                                                                             <td><button class="btn btn-dark">Expired</button></td>
                                                                             <td style="text-align: center;">-</td>
@@ -188,7 +196,7 @@ if (isset($_SESSION['nurse'])) {
                                                                         } else if ($status == 0) {
                                                                             if ($now > $then2 ||  $now > $then_created) {
 
-                                                                                $sql = "UPDATE `request_form` SET `Status`=-3 where `Request_id`=$form";
+                                                                                $sql = "UPDATE `request_form` SET `Status`=-4 where `Request_id`=$form";
                                                                                 $result = mysqli_query($con, $sql);
 
                                                                                 $sql_u = "select * from `requested_nurse` where `email`='$nurse'";
@@ -209,7 +217,7 @@ if (isset($_SESSION['nurse'])) {
 
 
                                                                             ?>
-                                                                                <td><button class="btn btn-dark">Expired</button></td>
+                                                                                <td><button class="btn btn-dark">Not Accepted</button></td>
                                                                                 <td style="text-align: center;">-</td>
                                                                                 <td style="text-align: center;">-</td>
                                                                             <?php

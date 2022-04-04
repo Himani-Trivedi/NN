@@ -49,6 +49,11 @@ if (mysqli_num_rows($result) == 1) {
 }
 
 ?>
+
+<body>
+    <a href="../system_nurses/booked_app.php">Back to Appointments</a>
+</body>
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

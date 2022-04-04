@@ -131,6 +131,8 @@ include '../../connect.php';
                                                 <th class="border-top-0">Sr. No</th>
                                                 <th class="border-top-0">Name</th>
                                                 <th class="border-top-0">Gender</th>
+                                                <th class="border-top-0">Expired Services</th>
+                                                <th class="border-top-0">Completed Services</th>
                                                 <th class="border-top-0">Status</th>
                                                 <th></th>
                                                 <th></th>
@@ -162,12 +164,22 @@ include '../../connect.php';
                                                 } else {
                                                     $gender = 'Male';
                                                 }
+
+                                                $sql_exp="SELECT * FROM `request_form` WHERE `nurse_email`='$email' and Status=-3";
+                                                $result_exp=mysqli_query($con,$sql_exp); 
+                                                
+                                                $sql_exp_2="SELECT * FROM `request_form` WHERE `nurse_email`='$email' and Status=2";
+                                                $result_exp_2=mysqli_query($con,$sql_exp_2); 
+
                                             ?>
 
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
                                                     <td><?php echo $name; ?></td>
                                                     <td><?php echo $gender; ?></td>
+                                                    <td style="text-align: center;"><?php echo mysqli_num_rows($result_exp); ?></td>
+                                                    <td style="text-align: center;"><?php echo mysqli_num_rows($result_exp_2); ?></td>
+
                                                     <td><?php 
 
                                                         if($status == 1){
@@ -185,6 +197,7 @@ include '../../connect.php';
 
                                                     ?>
                                                     </td>
+
                                                     <td>
                                                         <a href='decline_reason.php?email=<?php echo $email; ?>&re=1' style="color:rgba(63,187,192,255) ;">&nbsp&nbsp&nbsp
                                                             <button class="btn btn-success mx-auto mx-md-0 text-white" style="background-color:rgba(63,187,192,255) ; border:0px">

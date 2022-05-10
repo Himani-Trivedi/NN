@@ -185,7 +185,7 @@ if (isset($_SESSION['user'])) {
                                         <tbody>
                                             <?php
 
-                                            $sql = "select * from `request_form` where `User_Email`='$user'";
+                                            $sql = "select * from `request_form` where `User_Email`='$user' order by `Created_Req_time` desc";
                                             $result = mysqli_query($con, $sql);
 
                                             $i = 0;

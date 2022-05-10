@@ -218,7 +218,7 @@ if (isset($_SESSION['nurse'])) {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $sql = "select * from `request_form` where `User_Email`='$nurse'";
+                                            $sql = "select * from `request_form` where `User_Email`='$nurse' order by `Created_Req_time` desc";
                                             $result = mysqli_query($con, $sql);
 
                                             if (!$result) {

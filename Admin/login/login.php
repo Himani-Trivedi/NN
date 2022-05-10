@@ -307,8 +307,6 @@ if (isset($_POST['sub'])) {
     $row = mysqli_num_rows($r);
 
     if ($row == 1) {
-        echo "login successful";
-
         $ipaddress = $_SERVER['REMOTE_ADDR'];
 
         $sql_login = "INSERT INTO `adminlogin`(`Email`, `IP_address`,`Time`) VALUES ('$user','$ipaddress',CURRENT_TIMESTAMP())";
@@ -316,7 +314,7 @@ if (isset($_POST['sub'])) {
 
         if ($result_login) {
             $_SESSION['admin'] = $user;
-            header('location:../profile/Admin-Profile.php');
+            echo("<script>window.location.href='../profile/Admin-Profile.php'</script>");
         } else {
             echo ("<script>alert('Login Failed! Try Again ')</script>");
         }

@@ -313,9 +313,10 @@ if (isset($_SESSION['user'])) {
 
                                                             $now = new DateTime("now");
                                                             $then = new DateTime($time);
-                                                            $then->sub(new DateInterval('PT60M'));
+                                                            $then2= new DateTime($time);
+                                                            $then2->sub(new DateInterval('PT60M'));
 
-                                                            if ($now > $then) {
+                                                            if ($now > $then2) {
                                                             ?>
                                                                 <td style="text-align: center;">
                                                                     -

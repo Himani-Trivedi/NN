@@ -97,3 +97,9 @@ font-family: "Roboto", sans-serif;
 
 <!-- SELECT * from `location` where Pincode 
     not in (SELECT Pincode from nurse_selected_areas WHERE email='089dce42accf7f97c328399910ddabe8') -->
+
+    
+<!-- Password by google / Gmail password -->
+<!-- lcjunhcjiryossps -->
+
+<!-- Password for nidhi account :=> Himani@123 -->

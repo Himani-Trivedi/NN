@@ -8,6 +8,7 @@ include('config.php');
 $login_button = '';
 
 if (isset($_GET["code"])) {
+    // login button code
 
     $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
 
@@ -27,6 +28,7 @@ if (isset($_GET["code"])) {
 
         if (!empty($data['email'])) {
             $u = $data['email'];
+            $email=$u;
             $u = md5($u);
 
             if (!$con) {
@@ -49,7 +51,7 @@ if (isset($_GET["code"])) {
                             $_SESSION['user'] = $u;
                             header('location:../profile/profile.php');
                         } else {
-                            echo ("<script>alert('Login Failed! Try Again ')</script>");
+                            echo ("<script>alert('$email not registered account.Try again')</script>");
                         }
                     } else {
                         die(mysqli_error($con));

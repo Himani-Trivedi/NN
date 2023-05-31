@@ -116,8 +116,9 @@
                 echo "console.log('result error')";
 
               }
-            
-              if(mysqli_num_rows($result) != 0){
+            $user_count=mysqli_num_rows($result);
+              // echo $user_count;
+              if($user_count != 0){
                 echo "document.getElementById('error').innerText='This MailId Already exists'";
               }else{
                     $subject = "Neighbouring Nurse";

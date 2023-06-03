@@ -58,7 +58,7 @@ if (!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['email']))
           </div>
           <div class="item">
             <label for="lname">Registered ID<span>*</span></label>
-            <input id="reg_id" type="text" name="reg_id" required  type="number"/>
+            <input id="reg_id" type="text" name="reg_id" required  type="number" pattern="[0-9]+"/>
           </div>
 
           <div class="item">
@@ -74,7 +74,7 @@ if (!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['email']))
 
           <div class="item">
             <label for="phone">Phone Number<span>*</span></label>
-            <input id="phone" type="tel" name="phone" required minlength=10 type="number"/>
+            <input id="phone" type="tel" pattern="[0-9]+" name="phone" required minlength=10 maxlength=10 type="number" placeholder="9999999999"/>
           </div>
 
           <div class="item">
@@ -106,23 +106,6 @@ if (!(isset($_SESSION['user']['terms'])) && !(isset($_SESSION['user']['email']))
 
         header('location:show.php');
 
-
-        if ($_FILES['photo']['error'] == 0) {
-
-          $fileName = $_FILES['photo']['name'];
-          $n = rand(1000, 9999);
-          $dest = 'upload/' . $n . $fileName;
-
-          $_SESSION['user']['nurse_re_1']['profile_pic'] = $_FILES['photo'];
-          $_SESSION['user']['nurse_re_1']['profile_pic']['dest'] = $dest;
-
-          move_uploaded_file($_SESSION['user']['nurse_re_1']['profile_pic']['tmp_name'], $_SESSION['user']['nurse_re_1']['profile_pic']['dest']);
-          header('location:certificates.php');
-        } else {
-    ?>
-          document.getElementById('error').style.display = "inline";
-    <?php
-        }
       } else {
         echo "
                     $('#pass').focus();

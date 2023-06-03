@@ -40,8 +40,8 @@
       <br/>
       <div class="checkbox">
           <p>
-              <li>Hospital Must be Registered and contain Register ID</li>
-              <li>One Hospital email id & phone no will be required to create an account.</li>
+              <li>Hospital Must be Registered and have Register ID.</li>
+              <li>One Hospital email id & phone number will be required to create an account.</li>
           </p>
           <label><input type="checkbox" required name="terms" value="1"/>We accept the terms & condtions of Neighboring Nurse
           </label>

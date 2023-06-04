@@ -74,9 +74,9 @@ include '../connect.php';
         <ul>
           <li><a class="nav-link scrollto " href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link scrollto" href="#services">Services</a></li> 
           <li><a class="nav-link scrollto" href="nurse_service.php">Search</a></li>
-          <li><a class="nav-link scrollto" href="job_posts.php">Job Posts</a></li>
+          <li><a class="nav-link scrollto" href="postJob.php">Jobseekers</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact Us</a></li>
           <?php
 

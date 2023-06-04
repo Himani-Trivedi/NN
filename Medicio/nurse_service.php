@@ -72,7 +72,20 @@ include '../connect.php';
       background-color: blanchedalmond;
       float: left;
     }
+     .nurse_name{
+    color: #3fbbc0;
+    text-decoration: none;
+}
+
+a:hover {
+    color:grey;
+    text-decoration:none;
+    cursor:pointer;
+}
   </style>
+
+<link href="cssFile.css" rel="stylesheet">
+
 </head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -110,36 +123,37 @@ include '../connect.php';
             <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
             <li><a class="nav-link scrollto" href="index.php#services">Services</a></li>
             <li><a class="nav-link scrollto" href="nurse_service.php#search">Search</a></li>
+          <li><a class="nav-link scrollto" href="postJob.php">Jobseekers</a></li>
             <li><a class="nav-link scrollto" href="index.php#contact">Contact Us</a></li>
             <?php
 
-            if (isset($_SESSION['nurse'])) {
-              $mail = $_SESSION['nurse'];
-              $_SESSION['nurse_request_app'] = 1;
-            ?>
+if (isset($_SESSION['nurse'])) {
+    $mail = $_SESSION['nurse'];
+    $_SESSION['nurse_request_app'] = 1;
+    ?>
               <li><a class="nav-link scrollto" href="../Nurse/system_nurses/profile.php?nurse=<?php echo $mail; ?>">Profile</a></li>
               <li><a class="nav-link scrollto" href="../Nurse/login/logout.php">Logout</a></li>
             <?php
 
-            } elseif (isset($_SESSION['user'])) {
-              $mail = $_SESSION['user'];
-            ?>
+} elseif (isset($_SESSION['user'])) {
+    $mail = $_SESSION['user'];
+    ?>
               <li><a class="nav-link scrollto" href="../patient/profile/profile.php?<?php echo $mail; ?>">Profile</a></li>
               <li><a class="nav-link scrollto" href="../patient/login/logout.php">Logout</a></li>
             <?php
-            } elseif (isset($_SESSION['admin'])) {
-              $mail = $_SESSION['admin'];
-            ?>
+} elseif (isset($_SESSION['admin'])) {
+    $mail = $_SESSION['admin'];
+    ?>
               <li><a class="nav-link scrollto" href="../Admin/profile/Admin-Profile.php?admin=<?php echo $mail; ?>">Profile</a></li>
               <li><a class="nav-link scrollto" href="../Admin/login/logout.php">Logout</a></li>
             <?php
-            } else {
-            ?>
+} else {
+    ?>
               <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#login">Login</a></li>
               <li><a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#signup">Sign up</a></li>
             <?php
-            }
-            ?>
+}
+?>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
@@ -205,22 +219,22 @@ include '../connect.php';
               <select id="inputService" class="form-control" name="service" required>
                 <option selected value="0">Choose</option>
                 <?php
-                $sql = "SELECT `service_name` from `services`";
-                if ($con) {
-                  $result = mysqli_query($con, $sql);
-                  if ($result) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                ?>
+$sql = "SELECT `service_name` from `services`";
+if ($con) {
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            ?>
                       <option value="<?php echo $row['service_name']; ?>"><?php echo $row['service_name']; ?></option>
                 <?php
-                    }
-                  } else {
-                    die('Oops !something went wrong.');
-                  }
-                } else {
-                  die('Database issue.');
-                }
-                ?>
+}
+    } else {
+        die('Oops !something went wrong.');
+    }
+} else {
+    die('Database issue.');
+}
+?>
               </select>
             </div>
             <div class="form-group col-md-4 required">
@@ -228,23 +242,23 @@ include '../connect.php';
               <select id="inputLocation" class="form-control" name="location" required>
                 <option selected value="0">Choose</option>
                 <?php
-                include '../connect.php';
-                $sql = "SELECT `area_name` FROM `location` order by `area_name`";
-                if ($con) {
-                  $result = mysqli_query($con, $sql);
-                  if ($result) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                ?>
+include '../connect.php';
+$sql = "SELECT `area_name` FROM `location` order by `area_name`";
+if ($con) {
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            ?>
                       <option value="<?php echo $row['area_name']; ?>"><?php echo $row['area_name']; ?></option>
                 <?php
-                    }
-                  } else {
-                    die('Oops !something went wrong.');
-                  }
-                } else {
-                  die('Database issue.');
-                }
-                ?>
+}
+    } else {
+        die('Oops !something went wrong.');
+    }
+} else {
+    die('Database issue.');
+}
+?>
               </select>
             </div>
           </div>
@@ -255,21 +269,21 @@ include '../connect.php';
 
 
     <?php
-    if (isset($_POST['save'])) {
+if (isset($_POST['save'])) {
 
-      if ($_POST['service'] == 0) {
+    if ($_POST['service'] == 0) {
         die("
           <script>
               alert('Select Both Location & Service');
           </script>
         ");
-      } elseif ($_POST['location'] == 0) {
+    } elseif ($_POST['location'] == 0) {
         die("
         <script>
             alert('Select Both Location & Service');
         </script>
       ");
-      } else {
+    } else {
         $t = $_POST['service'];
         $loc = $_POST['location'];
         $pin = '';
@@ -279,10 +293,10 @@ include '../connect.php';
         $result = mysqli_query($con, $query);
 
         if (mysqli_num_rows($result)) {
-          while ($row = mysqli_fetch_assoc($result)) {
-            $pin = $row['Pincode'];
-            // echo $pin . "<br>";
-          }
+            while ($row = mysqli_fetch_assoc($result)) {
+                $pin = $row['Pincode'];
+                // echo $pin . "<br>";
+            }
         }
 
         $sql = "SELECT * from nurse_selected_services where service_name='$t' and email IN
@@ -293,55 +307,57 @@ include '../connect.php';
           <div class='main1'>";
 
         if (mysqli_num_rows($ans) == 0) {
-          die("<h3><center> Sorry No Such a Nurse!!</center></h3>");
+            die("<h3><center> Sorry No Such a Nurse!!</center></h3>");
         }
 
         if (mysqli_num_rows($ans) != 0) {
-          while ($ro = mysqli_fetch_assoc($ans)) {
-            $email = $ro['email'];
-            $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email';";
-            $result_nurse = mysqli_query($con, $sql_nurse);
+            while ($ro = mysqli_fetch_assoc($ans)) {
+                $email = $ro['email'];
+                $sql_nurse = "SELECT * FROM `requested_nurse` WHERE `email`='$email';";
+                $result_nurse = mysqli_query($con, $sql_nurse);
 
-            if (mysqli_num_rows($result_nurse)) {
-              while ($row = mysqli_fetch_assoc($result_nurse)) {
+                if (mysqli_num_rows($result_nurse)) {
+                    while ($row = mysqli_fetch_assoc($result_nurse)) {
 
-                $charge = '';
-                $sql_charge = "SELECT `s_charge` from `nurse_selected_services` where `service_name`='$t' and `email`='$email';";
-                $result_charge = mysqli_query($con, $sql_charge);
+                        $charge = '';
+                        $sql_charge = "SELECT `s_charge` from `nurse_selected_services` where `service_name`='$t' and `email`='$email';";
+                        $result_charge = mysqli_query($con, $sql_charge);
 
+                        $sql = "select * from `request_form` where `nurse_email`='$email' and `Status`=2";
+                        $result = mysqli_query($con, $sql);
 
-                $sql = "select * from `request_form` where `nurse_email`='$email' and `Status`=2";
-                $result = mysqli_query($con, $sql);
+                        $c_nurse = mysqli_num_rows($result);
 
-                $c_nurse = mysqli_num_rows($result);
+                        if (!$result_charge) {
+                            die(mysqli_error($con));
+                        }
 
-                if (!$result_charge) {
-                  die(mysqli_error($con));
-                }
+                        while ($row2 = mysqli_fetch_assoc($result_charge)) {
+                            $charge = $row2['s_charge'];
+                        }
 
-                while ($row2 = mysqli_fetch_assoc($result_charge)) {
-                  $charge = $row2['s_charge'];
-                }
+                        $name = $row['name'];
+                        $m = $row['email'];
+                        $email = $row['email2'];
+                        $ph = $row['ph_no'];
+                        $bio = $row['bio'];
+                        $gender = $row['gender'];
+                        $rn = $row['rn_cert'];
+                        $yrs_exp = $row['total_exp'];
+                        $profile = $row['profile_pic'];
+                        $status = $row['Approval_status'];
 
-                $name = $row['name'];
-                $m = $row['email'];
-                $email = $row['email2'];
-                $ph = $row['ph_no'];
-                $bio = $row['bio'];
-                $gender = $row['gender'];
-                $rn = $row['rn_cert'];
-                $yrs_exp = $row['total_exp'];
-                $profile = $row['profile_pic'];
-                $status = $row['Approval_status'];
+                        $s_f = $row['Satisfied'];
+                        $n_f = $row['Neutral'];
+                        $u_f = $row['Unhappy'];
 
-                $s_f = $row['Satisfied'];
-                $n_f = $row['Neutral'];
-                $u_f = $row['Unhappy'];
-
-    ?>
+                        ?>
 
                 <div class="card">
-                  <h3><?php echo $name; ?>
+                  <h3>
+                  <a href="../patient/Nurse/profile.php?nurse=<?php echo $m; ?>" class="nurse_name"  target="_blank">
+                    <?php echo $name; ?>
+                    </a>
                   </h3>
                   <hr>
                   <img src="../Nurse/Nurse_signup/<?php echo $profile; ?>" style="border-radius:100%" class="rounded-circle mx-auto d-block" alt="Profile Photo" width="150px" style="radius : 100px; padding-bottom : 20px;">
@@ -374,12 +390,12 @@ include '../connect.php';
                   </div>
                   <h3>
                     <?php
-                    if ($gender == 'f') {
-                      $g = "Female";
-                    } else {
-                      $g = "Male";
-                    }
-                    ?>
+if ($gender == 'f') {
+                            $g = "Female";
+                        } else {
+                            $g = "Male";
+                        }
+                        ?>
                   </h3>
                   <span><b>Gender : </b><?php echo $g; ?></span>
                   <span><b>Service name : </b><?php echo $t; ?></span>
@@ -389,42 +405,114 @@ include '../connect.php';
                   <span><b>Bio : </b><?php echo $bio; ?></span>
                   <br><br>
                   <div class="d-flex">
-                    <a href="../patient/Nurse/profile.php?nurse=<?php echo $m; ?>" target="_blank"><input type="button" value="Show profile" style="background :grey; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;" /></a>
+                    <button type="button" data-toggle="modal" data-target="#reviewModal" style="background :grey; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px;">
+                    Reviews
+                  </button>
                     <!-- <a data-bs-toggle="modal" data-bs-target="#Requested_appointment"> -->
                     <?php
 
-                    if (isset($_SESSION['nurse'])) {
-                      if ($_SESSION['nurse'] != $m) {
-                    ?>
+                        if (isset($_SESSION['nurse'])) {
+                            if ($_SESSION['nurse'] != $m) {
+                                ?>
                         <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>','<?php echo $charge; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
                           Make An Appointment
                         </button>
                       <?php
-                      }
-                    } else {
-                      ?>
+}
+                        } else {
+                            ?>
                       <button type="button" onclick="openModal('<?php echo $m; ?>','<?php echo $name; ?>','<?php echo $charge; ?>')" style="background : #3fbbc0; color : white; border :#3fbbc0; padding : 10px; border-radius : 05px; margin-left:20px;">
                         Make An Appointment
                       </button>
                     <?php
-                    }
-                    ?>
+}
+                        ?>
                     <!-- </a> -->
                   </div>
                 </div>
     <?php
 
-                $i--;
-              }
+                        $i--;
+                    }
+                }
             }
-          }
         }
         echo "  </div>
   </section>
   ";
-      }
     }
-    ?>
+}
+?>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reviews </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="jobs-list-container">
+          <div class="container">
+            <div class="job ">
+              <a href="#"><h4 class="job-title">John Deo<p><h6>Memnagar, Ahmedabad</h6></p></h4></a>
+
+              <div class="details">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.m quam iure facere? Praesentium nobis inventore dignissimos aliquid placeat debitis, animi consectetur eligendi sint, itaque neque, nostrum minima explicabo.
+
+              </div>
+              <br>
+              <h5 class=""> 3.5 Rating</h5>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="job ">
+              <a href="#"><h4 class="job-title">John Deo<p><h6>Memnagar, Ahmedabad</h6></p></h4></a>
+
+              <div class="details">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.m quam iure facere? Praesentium nobis inventore dignissimos aliquid placeat debitis, animi consectetur eligendi sint, itaque neque, nostrum minima explicabo.
+
+              </div>
+              <br>
+              <h5 class=""> 3.5 Rating</h5>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="job ">
+              <a href="#"><h4 class="job-title">John Deo<p><h6>Memnagar, Ahmedabad</h6></p></h4></a>
+
+              <div class="details">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.m quam iure facere? Praesentium nobis inventore dignissimos aliquid placeat debitis, animi consectetur eligendi sint, itaque neque, nostrum minima explicabo.
+
+              </div>
+              <br>
+              <h5 class=""> 3.5 Rating</h5>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="job ">
+              <a href="#"><h4 class="job-title">John Deo<p><h6>Memnagar, Ahmedabad</h6></p></h4></a>
+
+              <div class="details">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.m quam iure facere? Praesentium nobis inventore dignissimos aliquid placeat debitis, animi consectetur eligendi sint, itaque neque, nostrum minima explicabo.
+
+              </div>
+              <br>
+              <h5 class=""> 3.5 Rating</h5>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#3fbbc0;color:white;padding: 10px;border:#3fbbc0;border-radius:5px;">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
     <div class="modal fade" id="Requested_appointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -484,16 +572,16 @@ include '../connect.php';
                 <input type="hidden" value="" id="NurseEmail" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="nurse_email" />
                 <input type="hidden" value="<?php echo $mail; ?>" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="patient_email" />
                 <?php
-                if (isset($_SESSION['nurse_request_app'])) {
-                ?>
+if (isset($_SESSION['nurse_request_app'])) {
+    ?>
                   <input type="hidden" value="1" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="is_nurse" />
                 <?php
-                } else {
-                ?>
+} else {
+    ?>
                   <input type="hidden" value="0" style="border-color:lightgrey;padding:5px;border-radius:5px;" name="is_nurse" />
                 <?php
-                }
-                ?>
+}
+?>
                 </td>
                 </tr>
               </table>
@@ -562,13 +650,13 @@ include '../connect.php';
 
     <?php
 
-    if (isset($_SESSION['nurse'])) {
-      $mail = $_SESSION['nurse'];
-    } elseif (isset($_SESSION['user'])) {
-      $mail = $_SESSION['user'];
-    } elseif (isset($_SESSION['admin'])) {
-      $mail = $_SESSION['admin'];
-    } else {
+if (isset($_SESSION['nurse'])) {
+    $mail = $_SESSION['nurse'];
+} elseif (isset($_SESSION['user'])) {
+    $mail = $_SESSION['user'];
+} elseif (isset($_SESSION['admin'])) {
+    $mail = $_SESSION['admin'];
+} else {
     ?>
       if (confirm("Do Login To Make An Appointment")) {
         window.location.href = '../patient/login/login.php';
@@ -576,8 +664,8 @@ include '../connect.php';
         location.reload();
       }
     <?php
-    }
-    ?>
+}
+?>
     document.getElementById('NurseEmail').value = nurse;
     document.getElementById('NurseName').value = name;
     document.getElementById('service_charge').value = charge;

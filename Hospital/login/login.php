@@ -244,37 +244,35 @@ function check_nurse($a)
 {
     include '../../connect.php';
 
-    $user = $a['uname'] . trim(" ");
+    $u = $a['uname'] . trim(" ");
     $p = $a['pass'];
-    $p = md5($p);
-    $u = md5($user);
 
     if (!$con) {
         die("Not connected to db");
     }
 
     if ($con) {
-        $sql = "select * from `requested_nurse` where email='$u' and password='$p'";
+        $sql = "select * from `hospital` where hos_email ='$u' and hos_password='$p'";
 
         $r = mysqli_query($con, $sql);
         try {
             if (mysqli_num_rows($r) == 1) {
                 $a = mysqli_fetch_assoc($r);
 
-                $ipaddress = $_SERVER['REMOTE_ADDR'];
-                $nurse = $a['email'];
+                // $ipaddress = $_SERVER['REMOTE_ADDR'];
+                // $nurse = $a['email'];
 
-                $sql_login = "INSERT INTO `nurselogin`(`Email`, `IP_address`,`in_out`) VALUES ('$nurse','$ipaddress','i')";
-                $result_login = mysqli_query($con, $sql_login);
+                // $sql_login = "INSERT INTO `nurselogin`(`Email`, `IP_address`,`in_out`) VALUES ('$nurse','$ipaddress','i')";
+                // $result_login = mysqli_query($con, $sql_login);
 
-                if ($result_login) {
-                    $_SESSION['nurse'] = $u;
-                    header('location:../system_nurses/profile.php');
-                } else {
+                // if ($result_login) {
+                    $_SESSION['hospital'] = $u;
+                    header('location:../profile/profile.php');
+                // } else {
                     echo("<script>alert('Login Failed! Try Again ')</script>");
-                }
+                // }
             } else {
-                echo("<script>alert('No Such Nusre')</script>");              
+                echo("<script>alert('No Such Account')</script>");              
             }
         } catch (Exception $e) {
             echo "There is Technical Problem ";
@@ -294,7 +292,7 @@ function check_nurse($a)
                 <tr>
                     <td>
                         <h1>LOGIN</h1>
-                        <h3>As Nurse</h3>
+                        <h3></h3>
                     </td>
                 </tr>
                 <tr>
@@ -342,7 +340,7 @@ function check_nurse($a)
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td>Don't have an account ?&nbsp;<a href="../Nurse_signup/conditions.php">Sign Up</a></td>
+                    <td>Don't have an account ?&nbsp;<a href="../signup/conditions.php">Sign Up</a></td>
                 </tr>
             </table>
         </form>

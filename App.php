@@ -19,7 +19,7 @@ include '../../connect.php';
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../logo.jpeg">
     <!-- Custom CSS -->
-    <link href="../../Admin/css/style.min.css" rel="stylesheet">
+    <link href="../css/style.min.css" rel="stylesheet">
     <link href="feed.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -128,8 +128,7 @@ include '../../connect.php';
                         <li class="sidebar-item"> <a class="btn sidebar-link waves-effect waves-dark sidebar-link" href="profile.php" aria-expanded="false">
                                 <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
                         </li>
-                        <li class="sidebar-item"> <a style="color:rgba(63,187,192,255) ;"  class="sidebar-link waves-effect waves-dark sidebar-link" href="App.php" aria-expanded="false">
-                            <i class="me-3 fa fa-check" style="color:rgba(63,187,192,255) ;" aria-hidden="true"></i><span  class="hide-menu">Post</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="App.php" aria-expanded="false"><i class="me-3 fa fa-check" aria-hidden="true"></i><span class="hide-menu">Post</span></a></li>
 
                        
 						
@@ -183,7 +182,7 @@ include '../../connect.php';
                                                     <td>1</td>
                                                     <td id="Servicename">Nursing Assistant</td>
                                                     <td id="Nurseemail">2</td>
-                                           <td><button class="btn btn-danger">X</button></td>
+                                           <td><button class="btn btn-danger">----</button></td>
 										   <td><button class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;" onclick="window.location.href='update_password.php'">Open
                                             </button></td>
 										   </tr>
@@ -199,7 +198,7 @@ include '../../connect.php';
                                                     <td>3</td>
                                                     <td id="Servicename">Dialysis Nurse</td>
                                                     <td id="Nurseemail">4</td>
-                                           <td><button class="btn btn-danger">X</button></td>
+                                           <td><button class="btn btn-danger">----</button></td>
 										   <td><button class="btn btn-success mx-3 text-white" style="background-color:rgba(63,187,192,255) ; border:0px;" onclick="window.location.href='update_password.php'">Open
                                             </button></td>
 										   </tr>

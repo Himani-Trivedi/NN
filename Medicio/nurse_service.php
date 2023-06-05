@@ -82,6 +82,11 @@ a:hover {
     text-decoration:none;
     cursor:pointer;
 }
+
+.modal-body{
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
   </style>
 
 <link href="cssFile.css" rel="stylesheet">
@@ -480,6 +485,9 @@ if ($gender == 'f') {
               <h5 class=""> 3.5 Rating</h5>
             </div>
           </div>
+
+
+         
 
           <div class="container">
             <div class="job ">

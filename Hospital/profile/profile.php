@@ -213,20 +213,22 @@ $ph = "";
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Hospital Name</label>
                                         <div class="col-md-12">
-                                            <input type="text" id="n_name" name="n_name" class="form-control ps-0 form-control-line" disabled value=""> 
+                                            <input type="text" id="n_name" name="n_name" class="form-control ps-0 form-control-line" disabled 
+                                            value="Care and Cure"> 
                                             
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
-                                            <input type="email" id="n_mail" class="form-control ps-0 form-control-line" name="n_mail" value="" id="example-email" disabled>
+                                            <input type="email" id="n_mail" class="form-control ps-0 form-control-line" name="n_mail" 
+                                            value="careNDcure@gmail.com" id="example-email" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12 mb-0">Phone No</label>
                                         <div class="col-md-12">
-                                            <input type="text" id="n_ph" name="n_ph" class="form-control ps-0 form-control-line" disabled value="">
+                                            <input type="text" id="n_ph" name="n_ph" class="form-control ps-0 form-control-line" disabled value="9567430000">
                                         </div>
 
                                         <?php
